@@ -1,6 +1,6 @@
 modded class SCR_EditorAttributeStruct: JsonApiStruct
 {
-	protected string s1;
+	protected string s1; // Use vanilla methoad and add this to every attribute
 	override static void SerializeAttributes(out notnull array<ref SCR_EditorAttributeStruct> outEntries, SCR_EditorAttributeList attributeList = null, Managed item = null)
 	{
 		outEntries.Clear();
@@ -24,18 +24,13 @@ modded class SCR_EditorAttributeStruct: JsonApiStruct
 			entry.v0 = var.GetVector()[0];
 			entry.v1 = var.GetVector()[1];
 			entry.v2 = var.GetVector()[2];
-			
-			PS_StringEditorAttributeVar strVar = PS_StringEditorAttributeVar.Cast(var);
-			if (!strVar)
-				continue;
-			
-			entry.s1 = strVar.GetString();
+			entry.s1 = var.GetString();
 		}
 	}
 	override static void DeserializeAttributes(notnull array<ref SCR_EditorAttributeStruct> entries, SCR_EditorAttributeList attributeList = null, Managed item = null)
 	{
 		SCR_BaseEditorAttribute attribute;
-		PS_StringEditorAttributeVar var;
+		SCR_BaseEditorAttributeVar var;
 		
 		foreach (SCR_EditorAttributeStruct entry: entries)
 		{
@@ -43,7 +38,7 @@ modded class SCR_EditorAttributeStruct: JsonApiStruct
 			if (!attribute.IsSerializable())
 				continue;
 			
-			var = new PS_StringEditorAttributeVar();
+			var = new SCR_BaseEditorAttributeVar();
 			var.SetVector(Vector(entry.v0, entry.v1, entry.v2));
 			var.SetString(entry.s1);
 			
@@ -59,38 +54,75 @@ modded class SCR_EditorAttributeStruct: JsonApiStruct
 
 modded class SCR_BaseEditorAttributeVar
 {	
+	string m_vString;
+	
+	static SCR_BaseEditorAttributeVar CreateString(string value)
+	{
+		SCR_BaseEditorAttributeVar var = new SCR_BaseEditorAttributeVar();
+		var.SetString(value);
+		return var;
+	}
+	
+	void SetString(string value)
+	{
+		m_vString = value;
+	}
+	string GetString()
+	{
+		return m_vString;
+	}
+	
 	override static void Encode(SSnapSerializerBase snapshot, ScriptCtx hint, ScriptBitSerializer packet) 
 	{
-		snapshot.Serialize(packet, packet.Tell()/8 + 1);
+		vector v;
+		string s;
+		snapshot.SerializeVector(v);
+		snapshot.SerializeString(s);
+		packet.SerializeVector(v);
+		packet.SerializeString(s);
 	}
 	override static bool Decode(ScriptBitSerializer packet, ScriptCtx hint, SSnapSerializerBase snapshot) 
 	{
-		return snapshot.Serialize(packet, packet.Tell()/8 + 1);
+		vector v;
+		string s;
+		packet.SerializeVector(v);
+		packet.SerializeString(s);
+		snapshot.SerializeVector(v);
+		snapshot.SerializeString(s);
+		return true;
 	}
+	
 	override static bool SnapCompare(SSnapSerializerBase lhs, SSnapSerializerBase rhs, ScriptCtx hint) 
 	{
-		return lhs.CompareSnapshots(rhs, rhs.Tell());
+		vector v1, v2;
+		string s1, s2;
+		lhs.SerializeVector(v1);
+		lhs.SerializeString(s1);
+		rhs.SerializeVector(v1);
+		rhs.SerializeString(s2);
+		return v1 == v2 && s1 == s2;
 	}
 	override static bool PropCompare(SCR_BaseEditorAttributeVar prop, SSnapSerializerBase snapshot, ScriptCtx hint) 
 	{
-		PS_StringEditorAttributeVar strVar = PS_StringEditorAttributeVar.Cast(prop);
-		if (strVar)
-			snapshot.CompareString(strVar.GetString());
-		return snapshot.Compare(prop.m_vValue, SNAPSHOT_SIZE_VALUE);
+		vector v;
+		string s;
+		snapshot.SerializeVector(v);
+		snapshot.SerializeString(s);
+		return prop.m_vValue == v && prop.m_vString == s;
 	}
 	override static bool Extract(SCR_BaseEditorAttributeVar prop, ScriptCtx hint, SSnapSerializerBase snapshot) 
 	{
-		PS_StringEditorAttributeVar strVar = PS_StringEditorAttributeVar.Cast(prop);
-		if (strVar)
-		{
-			snapshot.SerializeString(strVar.m_vString);
-			return true;
-		}
 		snapshot.SerializeBytes(prop.m_vValue, SNAPSHOT_SIZE_VALUE);
+		snapshot.SerializeString(prop.m_vString);
 		return true;
 	}
 	override static bool Inject(SSnapSerializerBase snapshot, ScriptCtx hint, SCR_BaseEditorAttributeVar prop) 
 	{
 		return Extract(prop, hint, snapshot);
 	}
+	
+	
+	
+	
+	
 }

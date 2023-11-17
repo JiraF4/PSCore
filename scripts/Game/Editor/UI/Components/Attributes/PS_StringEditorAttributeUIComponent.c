@@ -31,11 +31,7 @@ class PS_StringEditorAttributeUIComponent: SCR_BaseEditorAttributeUIComponent
 		if (!var)
 			return;
 		
-		PS_StringEditorAttributeVar strVar = PS_StringEditorAttributeVar.Cast(var);
-		if (!strVar)
-			return;
-		
-		w_hEditBox.SetValue(strVar.GetString());
+		w_hEditBox.SetValue(var.GetString());
 	}
 	
 	protected void OnChangeCheckbox(SCR_SelectionWidgetComponent selectionBox, bool value)
@@ -48,12 +44,10 @@ class PS_StringEditorAttributeUIComponent: SCR_BaseEditorAttributeUIComponent
 		SCR_BaseEditorAttribute attribute = GetAttribute();
 		if (!attribute) return false;
 
-		PS_StringEditorAttributeVar strVar = PS_StringEditorAttributeVar.Cast(attribute.GetVariable(true));
-		if (!strVar)
+		SCR_BaseEditorAttributeVar var = attribute.GetVariable(true);
+		if (!var)
 			return false;
-		
-		
-		strVar.SetString(w_hEditBox.GetValue());
+		var.SetString(w_hEditBox.GetValue());
 		
 		super.OnChange(w, x, y, finished);
 		return false;

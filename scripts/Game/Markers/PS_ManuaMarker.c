@@ -88,9 +88,22 @@ class PS_ManualMarker : GenericEntity
 		ClearEventMask(EntityEvent.POSTFRAME);
 	}
 	
-	//
 	void PS_ManualMarker(IEntitySource src, IEntity parent)
 	{
 		SetEventMask(EntityEvent.INIT);
+	}
+	
+	override bool RplSave(ScriptBitWriter writer)
+	{
+		writer.WriteString(m_sDescription);
+		
+		return true;
+	}
+	override bool RplLoad(ScriptBitReader reader)
+	{
+		reader.ReadString(m_sDescription);
+		
+		
+		return true;
 	}
 }

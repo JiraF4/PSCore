@@ -7,12 +7,12 @@ class PS_MarkerEditorAttribute: SCR_BaseEditorAttribute
 	[Attribute(uiwidget: UIWidgets.LocaleEditBox)]
 	protected LocalizedString m_sLocationNamePlaceholder;
 	
-	override PS_StringEditorAttributeVar ReadVariable(Managed item, SCR_AttributesManagerEditorComponent manager)
+	override SCR_BaseEditorAttributeVar ReadVariable(Managed item, SCR_AttributesManagerEditorComponent manager)
 	{
 		PS_EditableMarkerComponent marker = PS_EditableMarkerComponent.Cast(item);
 		if (!marker)
 			return null;
-		return PS_StringEditorAttributeVar.CreateString(marker.GetMarkerDescription()); // ВОТ ЗДЕСЬ ЭТА ХУЙНЯ
+		return SCR_BaseEditorAttributeVar.CreateString(marker.GetMarkerDescription()); // ВОТ ЗДЕСЬ ЭТА ХУЙНЯ
 	}
 	override void WriteVariable(Managed item, SCR_BaseEditorAttributeVar var, SCR_AttributesManagerEditorComponent manager, int playerID)
 	{
@@ -20,11 +20,7 @@ class PS_MarkerEditorAttribute: SCR_BaseEditorAttribute
 		if (!marker)
 			return;
 		
-		PS_StringEditorAttributeVar strVar = PS_StringEditorAttributeVar.Cast(var);
-		if (!strVar)
-			return;
-		
-		marker.SetMarkerDescription(strVar.GetString())
+		marker.SetMarkerDescription(var.GetString())
 	}
 	override int GetEntries(notnull array<ref SCR_BaseEditorAttributeEntry> outEntries)
 	{
