@@ -1,0 +1,17 @@
+SCR_GameModeEditor : "{D2DE7F43D48A3667}Prefabs/MP/Modes/Editor/GameMode_Editor.et" {
+ ID "56B2B479C6B96951"
+ components {
+  SCR_SaveLoadComponent "{58FA739CBE3E9FC5}" {
+   m_Struct SCR_MissionStruct "{590C7884C526BCDD}" {
+    m_Struct0 SCR_EditorStruct "{590C7881BB954DA4}" {
+     m_AttributeList SCR_EditorAttributeList "{590C7881C296FA7D}" {
+      m_aAttributes {
+       PS_MarkerEditorAttribute "{5EE10E612119DDA5}" {
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

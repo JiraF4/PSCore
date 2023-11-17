@@ -1,0 +1,8 @@
+GameProject {
+ ID "MissionMakerForDummies"
+ GUID "5EDF4804D92E373B"
+ TITLE "MissionMakerForDummies"
+ Dependencies {
+  "58D0FB3206B6F859"
+ }
+}

@@ -1,0 +1,33 @@
+SCR_EditorModeEntity : "{E56F54E533ACE527}Prefabs/Editor/Modes/EditorModeBase.et" {
+ ID "54F0A77282A3AA3B"
+ components {
+  SCR_AttributesManagerEditorComponent "{54C8DACDCD4AE14E}" {
+   m_AttributeLists {
+    SCR_EditorAttributeList "{5606E7C45FE427EF}" {
+     m_aAttributes {
+      PS_MarkerEditorAttribute "{5EE10E46090841B6}" {
+       m_UIInfo SCR_EditorAttributeUIInfo "{5EE10E5B0C9FB8FB}" {
+        Name "#AR-Editor_Attribute_MoveTaskName_Name"
+        Description "#AR-Editor_Attribute_TaskTextMove_Description"
+       }
+       m_CategoryConfig "{5C953F249F73FE1F}Configs/Editor/AttributeCategories/Tasks.conf"
+       m_Layout "{D4A940A6000FB291}UI/layouts/Editor/Attributes/AttributePrefabs/AttributePrefab_String.layout"
+       m_TextType MOVE
+      }
+     }
+    }
+   }
+  }
+  SCR_PlacingEditorComponent "{5145484399BAA2E7}" {
+   m_Registries {
+    SCR_PlaceableEntitiesRegistry "{525043CE36CC51BE}" {
+    }
+    SCR_PlaceableEntitiesRegistry "{52E65E9551790427}" {
+     m_Prefabs + {
+      "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker.et"
+     }
+    }
+   }
+  }
+ }
+}

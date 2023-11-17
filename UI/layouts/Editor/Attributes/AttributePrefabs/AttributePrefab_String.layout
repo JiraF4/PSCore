@@ -1,0 +1,47 @@
+FrameWidgetClass {
+ Name "Attribute_Checkbox"
+ components {
+  PS_StringEditorAttributeUIComponent "{5EE10E572DCAEE47}" {
+   m_sUiComponentName "EditBoxRoot"
+  }
+ }
+ {
+  FrameWidgetClass "{5EE10E5A446EA294}" : "{D0CFC9245F8ADE64}UI/layouts/Editor/Attributes/Base/Attributes.layout" {
+   Name "AttributeBase0"
+   Slot FrameWidgetSlot "{55667D23ADAF9314}" {
+    SizeX 800
+    OffsetRight -800
+    SizeY 0
+    OffsetBottom 0
+    SizeToContent 1
+   }
+   {
+    SizeLayoutWidgetClass "{55A2D6D3563F2862}" {
+     Prefab "{55A2D6D3563F2862}"
+     {
+      HorizontalLayoutWidgetClass "{55A272E10C6C6415}" {
+       Prefab "{55A272E10C6C6415}"
+       {
+        FrameWidgetClass "{55ACAB41AC4B7EFA}" {
+         Prefab "{55ACAB41AC4B7EFA}"
+         {
+          SizeLayoutWidgetClass "{55A272E1277CE21D}" {
+           Prefab "{55A272E1277CE21D}"
+           {
+            ButtonWidgetClass "{5EE10E51D4DD9B94}" : "{0022F0B45ADBC5AC}UI/layouts/WidgetLibrary/EditBox/WLib_EditBox.layout" {
+             Name "EditBoxRoot"
+             Slot AlignableSlot "{5538C206F1963489}" {
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

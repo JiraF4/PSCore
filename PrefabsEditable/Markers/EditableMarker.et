@@ -1,0 +1,35 @@
+PS_ManualMarker {
+ ID "5EDF4803173675DF"
+ components {
+  PS_EditableMarkerComponent "{5EDF4803CD048668}" {
+   m_EntityType SYSTEM
+   m_UIInfo SCR_EditableDescriptorUIInfo "{5EDF4803E71335A1}" {
+    Name "#AR-EditableEntity_ManurePile_01_Name"
+    Icon "{5E7A3FF224D598E3}UI/Textures/FieldManual/Gameplay/Navigation/Tiles/protractor-icon-brown_ui.edds"
+    m_Image "{F8E95157DCEDECBF}UI/Textures/EditorPreviews/Auto/Structures/Agriculture/Manure/E_ManurePile_01.edds"
+    m_aAuthoredLabels {
+     1
+    }
+    m_aAutoLabels {
+     100 1 122
+    }
+    m_sNameFormat "Marker"
+   }
+   m_bAutoRegister ALWAYS
+   m_bStatic 1
+   m_Flags 71
+  }
+  SCR_EditableEntityVisibilityChildComponent "{5EDF48006635F3CA}" {
+   m_State 96
+  }
+  RplComponent "{5EDF48006635FC82}" {
+   Streamable Disabled
+  }
+  Hierarchy "{5EDF48006635FC42}" {
+  }
+ }
+ coords 1060.328 39.01 2682.178
+ m_sQuadName "battleye_enabled"
+ m_fWorldSizeWidth 6
+ m_fWorldSizeHeight 6
+}
