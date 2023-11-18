@@ -49,6 +49,17 @@ SCR_EditorModeEntity : "{E56F54E533ACE527}Prefabs/Editor/Modes/EditorModeBase.et
        m_CategoryConfig "{416C6E9ECC3D231D}Configs/Editor/AttributeCategories/Entity.conf"
        m_Layout "{D0F3CE0C63A5AEBB}UI/layouts/Editor/Attributes/AttributePrefabs/AttributePrefab_Checkbox.layout"
       }
+      PS_MarkerFactionEditorAttribute "{5EE400D67970AE97}" {
+       m_UIInfo SCR_EditorAttributeUIInfo "{5EE400D606D86F47}" {
+        Name "Factions"
+        Description "Factions"
+       }
+       m_CategoryConfig "{416C6E9ECC3D231D}Configs/Editor/AttributeCategories/Entity.conf"
+       m_Layout "{6E34D64D72CAB7DC}UI/layouts/Editor/Attributes/AttributePrefabs/AttributePrefab_ButtonBox_MultiSelection.layout"
+       m_iButtonsOnRow 5
+       m_sButtonDescription "Factions"
+       m_fButtonHeight 90
+      }
      }
     }
    }

@@ -33,8 +33,6 @@ class PS_IconEditorAttributeUIComponent: SCR_BaseEditorAttributeUIComponent
 			return;
 		
 		SetSelectedImage(var.GetString());
-		
-		// Reverse icon select
 	}
 	
 	

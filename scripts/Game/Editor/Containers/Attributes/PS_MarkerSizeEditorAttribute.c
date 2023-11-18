@@ -6,6 +6,7 @@ class PS_MarkerSizeEditorAttribute: SCR_BaseValueListEditorAttribute
 		PS_EditableMarkerComponent marker = PS_EditableMarkerComponent.Cast(item);
 		if (!marker)
 			return null;
+		
 		return SCR_BaseEditorAttributeVar.CreateFloat(marker.GetMarkerSize());
 	}
 	override void WriteVariable(Managed item, SCR_BaseEditorAttributeVar var, SCR_AttributesManagerEditorComponent manager, int playerID)

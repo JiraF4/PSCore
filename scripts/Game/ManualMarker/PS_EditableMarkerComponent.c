@@ -63,4 +63,13 @@ class PS_EditableMarkerComponent: SCR_EditableSystemComponent
 	{
 		m_eManualMarker.SetUseWorldScale(worldScale);
 	}
+	
+	bool GetMarkerVisibleForFaction(Faction faction)
+	{
+		return m_eManualMarker.GetVisibleForFaction(faction);
+	}
+	void SetMarkerVisibleForFaction(Faction faction, bool visible)
+	{
+		m_eManualMarker.SetVisibleForFaction(faction, visible);
+	}
 };
