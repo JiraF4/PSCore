@@ -5,7 +5,8 @@ class PS_ManualMarkerClass : GenericEntityClass
 
 // Create custom widget on map every time player open map
 /*
-	Position and rotation -- Got from entity on map.
+	Position and rotation -- Got from entity on map. 
+		Since every default direction markers turned to right, -90° added to entity rotation
 	ImageSet -- Can be used any imageSet, but GM use only registered list of custom markers
 	ImageSetGlow -- Can be empty
 	QuadName -- Name of the Quad used for imageSet AND imageSetGlow
@@ -18,7 +19,7 @@ class PS_ManualMarkerClass : GenericEntityClass
 */
 class PS_ManualMarker : GenericEntity
 {
-	// Attributes for editing through workbench
+	// Attributes for editing through workbench TODO: proper description
 	[Attribute("{D17288006833490F}UI/Textures/Icons/icons_wrapperUI-32.imageset")]
 	protected ResourceName m_sImageSet;
 	[Attribute("")]
@@ -229,7 +230,8 @@ class PS_ManualMarker : GenericEntity
 		}
 		
 		// Update widget
-		m_hManualMarkerComponent.SetSlot(screenXD, screenYD, sizeXD, sizeYD, GetYawPitchRoll()[0]);
+		// Since every default direction marcers turned to right, -90° added to entity rotation
+		m_hManualMarkerComponent.SetSlot(screenXD, screenYD, sizeXD, sizeYD, GetYawPitchRoll()[0] - 90);
 	}
 	
 	override protected void EOnInit(IEntity owner)

@@ -1,6 +1,16 @@
+// BEWARE REALY STRANGE VANILA THINGS HERE
+// like saving EVERYTHING to vector
+
+// Since SCR_EditorAttributeStruct use JsonApiStruct fo serialization it's can't inherite class structure
+// And I really need strings, 12 bytes is 12 characters...
+// Why vanila can't just pack GM attribues to string? I mean every attribue int, float, vector and other, after all that's what json is made for?
+// Well... At least this solution save compatibility with vanila saves.
 modded class SCR_EditorAttributeStruct: JsonApiStruct
 {
-	protected string s1; // Use vanilla methoad and add this to every attribute
+	// Add string to our struct
+	protected string s1;
+	
+	// Copy of original function
 	override static void SerializeAttributes(out notnull array<ref SCR_EditorAttributeStruct> outEntries, SCR_EditorAttributeList attributeList = null, Managed item = null)
 	{
 		outEntries.Clear();
@@ -24,11 +34,13 @@ modded class SCR_EditorAttributeStruct: JsonApiStruct
 			entry.v0 = var.GetVector()[0];
 			entry.v1 = var.GetVector()[1];
 			entry.v2 = var.GetVector()[2];
-			entry.s1 = var.GetString();
+			entry.s1 = var.GetString(); // Write our string here
 			
 			int test = 0;
 		}
+		
 	}
+	// Copy of original function
 	override static void DeserializeAttributes(notnull array<ref SCR_EditorAttributeStruct> entries, SCR_EditorAttributeList attributeList = null, Managed item = null)
 	{
 		SCR_BaseEditorAttribute attribute;
@@ -42,7 +54,7 @@ modded class SCR_EditorAttributeStruct: JsonApiStruct
 			
 			var = new SCR_BaseEditorAttributeVar();
 			var.SetVector(Vector(entry.v0, entry.v1, entry.v2));
-			var.SetString(entry.s1);
+			var.SetString(entry.s1); // Read our string here
 			
 			attribute.WriteVariable(item, var, null, -1);
 		}
@@ -50,21 +62,23 @@ modded class SCR_EditorAttributeStruct: JsonApiStruct
 	
 	void SCR_EditorAttributeStruct()
 	{
-		RegV("s1");
+		RegV("s1"); // Register our string to json api
 	}
 };
 
+// SCR_BaseEditorAttributeVar also can't be inherited, since Rpc use static calls
+// Soo I'm adding string here.
 modded class SCR_BaseEditorAttributeVar
 {	
-	string m_vString;
+	string m_vString; // New string variable
 	
+	// Vanila like string functions
 	static SCR_BaseEditorAttributeVar CreateString(string value)
 	{
 		SCR_BaseEditorAttributeVar var = new SCR_BaseEditorAttributeVar();
 		var.SetString(value);
 		return var;
 	}
-	
 	void SetString(string value)
 	{
 		m_vString = value;
@@ -74,6 +88,8 @@ modded class SCR_BaseEditorAttributeVar
 		return m_vString;
 	}
 	
+	// Override serealization functions
+	// Here some documentation: core:scripts/Core/proto/EnNetwork.c
 	override static void Encode(SSnapSerializerBase snapshot, ScriptCtx hint, ScriptBitSerializer packet) 
 	{
 		vector v;
@@ -93,7 +109,6 @@ modded class SCR_BaseEditorAttributeVar
 		snapshot.SerializeString(s);
 		return true;
 	}
-	
 	override static bool SnapCompare(SSnapSerializerBase lhs, SSnapSerializerBase rhs, ScriptCtx hint) 
 	{
 		vector v1, v2;
@@ -122,9 +137,4 @@ modded class SCR_BaseEditorAttributeVar
 	{
 		return Extract(prop, hint, snapshot);
 	}
-	
-	
-	
-	
-	
 }

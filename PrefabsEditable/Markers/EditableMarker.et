@@ -1,6 +1,9 @@
 PS_ManualMarker {
  ID "5EDF4803173675DF"
  components {
+  MeshObject "{5EE4C890ECDDE8C5}" {
+   Object "{4CB958C15554E9DF}system/wbdata/Gizmo3D/axisZ.xob"
+  }
   PS_EditableMarkerComponent "{5EDF4803CD048668}" {
    m_EntityType SYSTEM
    m_UIInfo SCR_EditableDescriptorUIInfo "{5EDF4803E71335A1}" {
@@ -30,6 +33,4 @@ PS_ManualMarker {
  }
  coords 1060.328 39.01 2682.178
  m_sQuadName "battleye_enabled"
- m_fWorldSizeWidth 6
- m_fWorldSizeHeight 6
 }
