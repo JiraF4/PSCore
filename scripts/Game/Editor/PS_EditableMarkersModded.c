@@ -25,6 +25,8 @@ modded class SCR_EditorAttributeStruct: JsonApiStruct
 			entry.v1 = var.GetVector()[1];
 			entry.v2 = var.GetVector()[2];
 			entry.s1 = var.GetString();
+			
+			int test = 0;
 		}
 	}
 	override static void DeserializeAttributes(notnull array<ref SCR_EditorAttributeStruct> entries, SCR_EditorAttributeList attributeList = null, Managed item = null)

@@ -5,14 +5,49 @@ SCR_EditorModeEntity : "{E56F54E533ACE527}Prefabs/Editor/Modes/EditorModeBase.et
    m_AttributeLists {
     SCR_EditorAttributeList "{5606E7C45FE427EF}" {
      m_aAttributes {
-      PS_MarkerEditorAttribute "{5EE10E46090841B6}" {
-       m_UIInfo SCR_EditorAttributeUIInfo "{5EE10E5B0C9FB8FB}" {
-        Name "#AR-Editor_Attribute_MoveTaskName_Name"
-        Description "#AR-Editor_Attribute_TaskTextMove_Description"
+      PS_MarkerImageEditorAttribute "{5EE30373D656D9AA}" {
+       m_UIInfo SCR_EditorAttributeUIInfo "{5E6CDB81A7E241A0}" {
+        Name "Marker icon"
+        Description "Marker icon"
        }
-       m_CategoryConfig "{5C953F249F73FE1F}Configs/Editor/AttributeCategories/Tasks.conf"
+       m_CategoryConfig "{416C6E9ECC3D231D}Configs/Editor/AttributeCategories/Entity.conf"
+       m_Layout "{BE6B4B3F68EA340E}UI/layouts/Editor/Attributes/AttributePrefabs/AttributePrefab_IconList.layout"
+      }
+      PS_MarkerColorEditorAttribute "{5EE30373D41938BB}" {
+       m_UIInfo SCR_EditorAttributeUIInfo "{5E6CDB81A7E241A0}" {
+        Name "Color"
+        Description "Color"
+       }
+       m_CategoryConfig "{416C6E9ECC3D231D}Configs/Editor/AttributeCategories/Entity.conf"
        m_Layout "{D4A940A6000FB291}UI/layouts/Editor/Attributes/AttributePrefabs/AttributePrefab_String.layout"
-       m_TextType MOVE
+      }
+      PS_MarkerDescriptionEditorAttribute "{5EE30373D54C9C21}" {
+       m_UIInfo SCR_EditorAttributeUIInfo "{5E6CDB81A7E241A0}" {
+        Name "Description"
+        Description "Description"
+       }
+       m_CategoryConfig "{416C6E9ECC3D231D}Configs/Editor/AttributeCategories/Entity.conf"
+       m_Layout "{D4A940A6000FB291}UI/layouts/Editor/Attributes/AttributePrefabs/AttributePrefab_String.layout"
+      }
+      PS_MarkerSizeEditorAttribute "{5EE30373D775363F}" {
+       m_UIInfo SCR_EditorAttributeUIInfo "{5E6CDB81A7E241A0}" {
+        Name "Size"
+        Description "Size"
+       }
+       m_CategoryConfig "{416C6E9ECC3D231D}Configs/Editor/AttributeCategories/Entity.conf"
+       m_Layout "{680E4985E42137FB}UI/layouts/Editor/Attributes/AttributePrefabs/AttributePrefab_Slider.layout"
+       m_baseValues SCR_EditorAttributeBaseValues "{5EE3470AEC8F5DE8}" {
+        m_fStep 0.2
+        m_iDecimals 1
+       }
+      }
+      PS_MarkerWorldScaleEditorAttribute "{5EE30373D87DB9D5}" {
+       m_UIInfo SCR_EditorAttributeUIInfo "{5E6CDB81A7E241A0}" {
+        Name "Use world scale"
+        Description "Use world scale"
+       }
+       m_CategoryConfig "{416C6E9ECC3D231D}Configs/Editor/AttributeCategories/Entity.conf"
+       m_Layout "{D0F3CE0C63A5AEBB}UI/layouts/Editor/Attributes/AttributePrefabs/AttributePrefab_Checkbox.layout"
       }
      }
     }

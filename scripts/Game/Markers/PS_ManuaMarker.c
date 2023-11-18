@@ -9,26 +9,87 @@ class PS_ManualMarker : GenericEntity
 	protected ResourceName m_sMarkerPrefab;
 	[Attribute("{D17288006833490F}UI/Textures/Icons/icons_wrapperUI-32.imageset")]
 	protected ResourceName m_sImageSet;
-	[Attribute("{0250208EA4A9AB25}UI/Textures/Icons/icons_wrapperUI-32-glow.imageset")]
+	[Attribute("")]
 	protected ResourceName m_sImageSetGlow;
 	[Attribute("1 1 1 1", UIWidgets.ColorPicker)]
 	ref Color m_MarkerColor;
 	[Attribute("empty")]
 	protected string m_sQuadName;
 	[Attribute("5.0")]
-	protected float m_fWorldSizeWidth;
-	[Attribute("5.0")]
-	protected float m_fWorldSizeHeight;
+	protected float m_fWorldSize;
 	[Attribute("")]
-	string m_sDescription;
+	protected string m_sDescription;
 	[Attribute("true")]
 	bool m_bUseWorldScale;
+	
+	string GetImageSet()
+	{
+		return m_sImageSet;
+	}
+	void SetImageSet(string imageSet)
+	{
+		m_sImageSet = imageSet;
+	}
+	
+	string GetImageSetGlow()
+	{
+		return m_sImageSetGlow;
+	}
+	void SetImageSetGlow(string imageSetGlow)
+	{
+		m_sImageSetGlow = imageSetGlow;
+	}
+	
+	Color GetColor()
+	{
+		return m_MarkerColor;
+	}
+	void SetColor(Color color)
+	{
+		m_MarkerColor = color;
+	}
+	
+	string GetQuadName()
+	{
+		return m_sQuadName;
+	}
+	void SetQuadName(string quadName)
+	{
+		m_sQuadName = quadName;
+	}
+	
+	float GetSize()
+	{
+		return m_fWorldSize;
+	}
+	void SetSize(float worldSize)
+	{
+		m_fWorldSize = worldSize;
+	}
+	
+	string GetDescription()
+	{
+		return m_sDescription;
+	}
+	void SetDescription(string description)
+	{
+		m_sDescription = description;
+	}
+	
+	bool GetUseWorldScale()
+	{
+		return m_bUseWorldScale;
+	}
+	void SetUseWorldScale(bool useWorldScale)
+	{
+		m_bUseWorldScale = useWorldScale;
+	}
+	
+	
 	
 	Widget m_wRoot;
 	SCR_MapEntity m_MapEntity;
 	PS_ManualMarkerComponent m_hManualMarkerComponent;
-	
-	//
 	override protected void EOnPostFrame(IEntity owner, float timeSlice)
 	{
 		if (!m_wRoot)
@@ -40,7 +101,7 @@ class PS_ManualMarker : GenericEntity
 		wX = worldPosition[0];
 		wY = worldPosition[2];
 		m_MapEntity.WorldToScreen(wX, wY, screenX, screenY, true);
-		m_MapEntity.WorldToScreen(wX + m_fWorldSizeWidth, wY + m_fWorldSizeHeight, screenXEnd, screenYEnd, true);
+		m_MapEntity.WorldToScreen(wX + m_fWorldSize, wY + m_fWorldSize, screenXEnd, screenYEnd, true);
 		
 		float screenXD = GetGame().GetWorkspace().DPIUnscale(screenX);
 		float screenYD = GetGame().GetWorkspace().DPIUnscale(screenY);
@@ -48,8 +109,8 @@ class PS_ManualMarker : GenericEntity
 		float sizeYD = GetGame().GetWorkspace().DPIUnscale(screenY - screenYEnd); // Y flip
 		if (!m_bUseWorldScale)
 		{
-			sizeXD = m_fWorldSizeWidth;
-			sizeYD = m_fWorldSizeHeight;
+			sizeXD = m_fWorldSize;
+			sizeYD = m_fWorldSize;
 		}
 		
 		m_hManualMarkerComponent.SetSlot(screenXD, screenYD, sizeXD, sizeYD);

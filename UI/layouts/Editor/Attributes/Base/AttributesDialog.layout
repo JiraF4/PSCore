@@ -1,0 +1,30 @@
+FrameWidgetClass {
+ {
+  FrameWidgetClass "{54AEE24580660736}" {
+   Prefab "{54AEE24580660736}"
+   {
+    VerticalLayoutWidgetClass "{000000005ABA4553}" {
+     Prefab "{000000005ABA4553}"
+     {
+      VerticalLayoutWidgetClass "{00000000974AC4C5}" {
+       Prefab "{00000000974AC4C5}"
+       {
+        SizeLayoutWidgetClass "{0000000041B59A6F}" {
+         Prefab "{0000000041B59A6F}"
+         {
+          HorizontalLayoutWidgetClass "{54ACA2928A1FCB02}" {
+           Prefab "{54ACA2928A1FCB02}"
+           Slot AlignableSlot "{54ACA293E438C97C}" {
+            Padding 0 0 0 0
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

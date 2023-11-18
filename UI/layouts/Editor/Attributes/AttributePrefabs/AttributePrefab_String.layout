@@ -32,6 +32,28 @@ FrameWidgetClass {
              Name "EditBoxRoot"
              Slot AlignableSlot "{5538C206F1963489}" {
              }
+             {
+              VerticalLayoutWidgetClass "{5AA4D27F39EB2514}" {
+               Prefab "{5AA4D27F39EB2514}"
+               {
+                SizeLayoutWidgetClass "{5538C205B27B0F5D}" {
+                 Prefab "{5538C205B27B0F5D}"
+                 {
+                  OverlayWidgetClass "{55367D8E531FD623}" {
+                   Prefab "{55367D8E531FD623}"
+                   {
+                    ImageWidgetClass "{5E56750E5C017D9A}" {
+                     Prefab "{5E56750E5C017D9A}"
+                     Slot OverlayWidgetSlot "{5DB8C57A14F7A8AF}" {
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
             }
            }
           }

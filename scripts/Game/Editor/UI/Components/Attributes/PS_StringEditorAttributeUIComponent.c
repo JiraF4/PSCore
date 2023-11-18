@@ -2,7 +2,6 @@
 */
 class PS_StringEditorAttributeUIComponent: SCR_BaseEditorAttributeUIComponent
 {
-	
 	SCR_EditBoxComponent w_hEditBox;
 	
 	override void Init(Widget w, SCR_BaseEditorAttribute attribute)
@@ -32,11 +31,6 @@ class PS_StringEditorAttributeUIComponent: SCR_BaseEditorAttributeUIComponent
 			return;
 		
 		w_hEditBox.SetValue(var.GetString());
-	}
-	
-	protected void OnChangeCheckbox(SCR_SelectionWidgetComponent selectionBox, bool value)
-	{
-		OnChange(selectionBox.GetRootWidget(), value, 0, false);
 	}
 	
 	override bool OnChange(Widget w, int x, int y, bool finished)

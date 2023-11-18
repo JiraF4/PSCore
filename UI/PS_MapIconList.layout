@@ -1,0 +1,151 @@
+SizeLayoutWidgetClass {
+ Name "MapIconSelectorSize"
+ Slot LayoutSlot "{5E387E3EA1ACB5EF}" {
+ }
+ Clipping False
+ components {
+  PS_MapIconListComponent "{5EE3471EB0F39791}" {
+   m_sLabel "Icons"
+  }
+ }
+ "Up rule" Wrap
+ {
+  OverlayWidgetClass "{5EE347065CD9A8A7}" {
+   Name "Overlay"
+   Slot AlignableSlot "{55367D8E531FD640}" {
+    HorizontalAlign 3
+    VerticalAlign 3
+    Padding 2 2 2 2
+   }
+   Clipping False
+   {
+    HorizontalLayoutWidgetClass "{5EE400C939064389}" {
+     Name "HorizontalLayoutWrap"
+     Slot OverlayWidgetSlot "{5EE400C9390643F1}" {
+      HorizontalAlign 0
+      VerticalAlign 0
+     }
+     {
+      SizeLayoutWidgetClass "{5EE400CE8E862B76}" {
+       Name "SizeLayout0"
+       Slot LayoutSlot "{5EE400CFF7D39EF6}" {
+        HorizontalAlign 1
+        VerticalAlign 1
+        Padding 8 8 8 8
+       }
+       AllowWidthOverride 1
+       WidthOverride 38
+       AllowHeightOverride 1
+       HeightOverride 38
+       {
+        OverlayWidgetClass "{5EE400CE8E862B77}" {
+         Prefab "{5548E6E7F213FBF1}"
+         Name "Overlay0"
+         {
+          ImageWidgetClass "{5EE400CE8E862B78}" {
+           Prefab "{5548E6E7DF4EE3F2}"
+           Name "Image0"
+           Color 0.005 0.005 0.005 1
+           Size 64 64
+          }
+          ScaleWidgetClass "{5EE400CE8E862B7A}" {
+           Prefab "{55589476C896A09B}"
+           Name "Scale0"
+           {
+            ImageWidgetClass "{5EE400CE8E862B7B}" {
+             Prefab "{55589476CBD910D4}"
+             Name "SelectedIconImage"
+             Color 0.578 0.578 0.578 1
+             Texture "{BCAD9A06BDE86E1D}UI/qr_register_code_UI.edds"
+             Size 240 240
+            }
+           }
+          }
+          ScaleWidgetClass "{5EE400CFBF9B08BD}" {
+           Name "Scale1"
+           Slot OverlayWidgetSlot {
+           }
+           {
+            ImageWidgetClass "{5EE400CFBF9B08BE}" {
+             Prefab "{55589476CBD910D4}"
+             Name "SelectedIconImageGlow"
+             Opacity 0.5
+             Color 0.578 0.578 0.578 1
+             Texture "{BCAD9A06BDE86E1D}UI/qr_register_code_UI.edds"
+             Size 240 240
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+      HorizontalLayoutWidgetClass "{5EE3471DD312D3AF}" {
+       Name "HorizontalLayout"
+       Slot LayoutSlot "{5EE400CFF7D39FB3}" {
+       }
+       {
+        VerticalLayoutWidgetClass "{5EE347195EDC1177}" : "{A971263DAE3AD8BC}UI/layouts/WidgetLibrary/TabView/WLib_TabViewHorizontal.layout" {
+         Name "MarkerEditTab"
+         Slot LayoutSlot "{5EE34713B5148136}" {
+          Padding 64 8 8 8
+         }
+         components {
+          SCR_TabViewComponent "{546B27D01CA8A38D}" {
+           m_bCycleMode 1
+           m_fTabWidth 116
+           m_fTabWidthTextHidden -1
+          }
+         }
+         {
+          ImageWidgetClass "{00000000DB4F9EA9}" {
+           Prefab "{00000000DB4F9EA9}"
+           Slot LayoutSlot "{54871745AA809762}" {
+            SizeMode Auto
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    ImageWidgetClass "{5EE347065CD9A8A8}" {
+     Name "Background"
+     Slot OverlayWidgetSlot "{55367D8E48B5EC97}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+     }
+     Color 0 0 0 0.424
+    }
+    PanelWidgetClass "{5EE347065CD9A8A9}" {
+     Name "Border"
+     Slot OverlayWidgetSlot "{55367D8E4A13554A}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+      Padding -2 -2 -2 -2
+     }
+     Clipping False
+     Color 0.761 0.386 0.078 1
+     style outline_2px
+    }
+    VerticalLayoutWidgetClass "{5EE347076D208E58}" {
+     Name "IconSelector"
+     Slot OverlayWidgetSlot "{5EE347076D208F83}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+      Padding 8 68 8 16
+     }
+     {
+      HorizontalLayoutWidgetClass "{5EE347065CD9A8AA}" {
+       Name "HorizontalLayout"
+       Slot LayoutSlot "{5EE3471AB1ED34FA}" {
+        Padding 8 8 8 8
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

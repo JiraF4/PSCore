@@ -6,7 +6,15 @@ SCR_GameModeEditor : "{D2DE7F43D48A3667}Prefabs/MP/Modes/Editor/GameMode_Editor.
     m_Struct0 SCR_EditorStruct "{590C7881BB954DA4}" {
      m_AttributeList SCR_EditorAttributeList "{590C7881C296FA7D}" {
       m_aAttributes {
-       PS_MarkerEditorAttribute "{5EE10E612119DDA5}" {
+       PS_MarkerImageEditorAttribute "{5EE40087425219AE}" {
+       }
+       PS_MarkerColorEditorAttribute "{5EE4008745E39D72}" {
+       }
+       PS_MarkerDescriptionEditorAttribute "{5EE4008746FD2E07}" {
+       }
+       PS_MarkerSizeEditorAttribute "{5EE4008747F4CA38}" {
+       }
+       PS_MarkerWorldScaleEditorAttribute "{5EE40087489AC6A7}" {
        }
       }
      }
