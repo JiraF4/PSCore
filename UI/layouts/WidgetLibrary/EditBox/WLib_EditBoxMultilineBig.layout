@@ -208,29 +208,17 @@ ButtonWidgetClass {
                 VerticalAlign 3
                }
                {
-                ButtonWidgetClass "{5EE6D1A7666E1505}" {
-                 Name "Button"
-                 Slot LayoutSlot "{5EE6D1A7666E1569}" {
-                  HorizontalAlign 0
-                  VerticalAlign 0
-                  Padding 0 0 4 0
-                  SizeMode Auto
+                MultilineEditBoxWidgetClass "{5EE6A0BB9BCAF5A5}" {
+                 Name "EditBox"
+                 Slot LayoutSlot {
                  }
-                 Color 1 1 1 0.463
-                 {
-                  MultilineEditBoxWidgetClass "{5EE6A0BB9BCAF5A5}" {
-                   Name "EditBox"
-                   Slot ButtonWidgetSlot "{5EE6D1AD743454CB}" {
-                   }
-                   components {
-                    SCR_EventHandlerComponent "{59A89A761CC1E46C}" {
-                    }
-                   }
-                   "Font Size" 20
-                   Wrap 0
-                   FontProperties FontProperties "{59A89A76023159DC}" {
-                   }
+                 components {
+                  SCR_EventHandlerComponent "{59A89A761CC1E46C}" {
                   }
+                 }
+                 "Font Size" 20
+                 Wrap 0
+                 FontProperties FontProperties "{59A89A76023159DC}" {
                  }
                 }
                 SizeLayoutWidgetClass "{5EE6A7E64EEDE52D}" {
