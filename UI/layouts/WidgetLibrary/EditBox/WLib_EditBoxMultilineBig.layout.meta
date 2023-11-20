@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{3B43B22592EA20CB}UI/layouts/WidgetLibrary/EditBox/WLib_EditBoxMultilineBig.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

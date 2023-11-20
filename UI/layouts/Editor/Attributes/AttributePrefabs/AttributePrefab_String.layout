@@ -32,6 +32,34 @@ FrameWidgetClass {
              Name "EditBoxRoot"
              Slot AlignableSlot "{5538C206F1963489}" {
              }
+             components {
+              SCR_ModularButtonComponent "{5E56750EE338B92E}" {
+               m_aEffects {
+                SCR_ButtonEffectSound "{5D9E89455EE4B68D}" {
+                }
+                SCR_ButtonEffectSound "{5D9E89455EE4B687}" {
+                }
+                SCR_ButtonEffectSound "{5D9E89455EE4B681}" {
+                }
+                SCR_ButtonEffectColor "{5DB885898296DF89}" {
+                 m_fAnimationTime 0.2
+                 m_cDefault 0 0 0 0
+                 m_cHovered 0 0 0 0
+                 m_cActivated 0 0 0 0
+                 m_cActivatedHovered 0 0 0 0
+                 m_cDisabled 0 0 0 0
+                 m_cDisabledActivated 0 0 0 0
+                 m_cClicked 0 0 0 0
+                 m_cFocusLost 0 0 0 0
+                 m_cToggledOn 0 0 0 0
+                 m_cToggledOff 0 0 0 0
+                }
+                SCR_ButtonEffectColor "{5D9EFC157A1E1706}" {
+                }
+               }
+               m_bFocusOnMouseEnter 1
+              }
+             }
              {
               VerticalLayoutWidgetClass "{5AA4D27F39EB2514}" {
                Prefab "{5AA4D27F39EB2514}"

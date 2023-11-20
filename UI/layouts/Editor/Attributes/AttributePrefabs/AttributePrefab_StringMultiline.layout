@@ -1,0 +1,101 @@
+FrameWidgetClass {
+ Name "Attribute_TextMutliline"
+ components {
+  PS_StringEditorAttributeUIComponent "{5EE10E572DCAEE47}" {
+   m_sUiComponentName "MultilineEditBox"
+  }
+ }
+ {
+  FrameWidgetClass "{5EE6A0BBBC5C9542}" : "{D0CFC9245F8ADE64}UI/layouts/Editor/Attributes/Base/Attributes.layout" {
+   Name "AttributeBase0"
+   Slot FrameWidgetSlot "{55667D23ADAF9314}" {
+    SizeX 800
+    OffsetRight -800
+    SizeY 0
+    OffsetBottom 0
+    SizeToContent 1
+   }
+   {
+    SizeLayoutWidgetClass "{55A2D6D3563F2862}" {
+     Prefab "{55A2D6D3563F2862}"
+     {
+      HorizontalLayoutWidgetClass "{55A272E10C6C6415}" {
+       Prefab "{55A272E10C6C6415}"
+       {
+        FrameWidgetClass "{55ACAB41AC4B7EFA}" {
+         Prefab "{55ACAB41AC4B7EFA}"
+         {
+          SizeLayoutWidgetClass "{55A272E1277CE21D}" {
+           Prefab "{55A272E1277CE21D}"
+           {
+            ButtonWidgetClass "{5EE6A7E4A6142BA1}" : "{3B43B22592EA20CB}UI/layouts/WidgetLibrary/EditBox/WLib_EditBoxMultilineBig.layout" {
+             Name "MultilineEditBox"
+             Slot AlignableSlot "{5538C206F1963489}" {
+             }
+             components {
+              SCR_EditBoxComponent "{59BA916B7193FCE6}" {
+               m_bForceSize 0
+              }
+              SCR_ModularButtonComponent "{5EE6A7EC06651600}" {
+              }
+             }
+             {
+              SizeLayoutWidgetClass "{5EE6A0BB9BCAFFB7}" {
+               Prefab "{5EE6A0BB9BCAFFB7}"
+               {
+                OverlayWidgetClass "{55367D8E531FD623}" {
+                 Prefab "{55367D8E531FD623}"
+                 {
+                  HorizontalLayoutWidgetClass "{55367D8E4592BC6E}" {
+                   Prefab "{55367D8E4592BC6E}"
+                   {
+                    OverlayWidgetClass "{5EE6A0BB9BCAFFB9}" {
+                     Prefab "{5EE6A0BB9BCAFFB9}"
+                     Slot LayoutSlot "{5538C2059A570EB1}" {
+                      Padding -600 0 0 0
+                     }
+                     {
+                      HorizontalLayoutWidgetClass "{5EE6A0BB9BCAFFBE}" {
+                       Prefab "{5EE6A0BB9BCAFFBE}"
+                       {
+                        ScrollLayoutWidgetClass "{5EE6A7E59EA2E674}" {
+                         Prefab "{5EE6A7E59EA2E674}"
+                         Slot LayoutSlot "{5EE6A7E59EA2E65B}" {
+                         }
+                         style Small
+                         {
+                          VerticalLayoutWidgetClass "{5EE6A7E6B28BEE97}" {
+                           Prefab "{5EE6A7E6B28BEE97}"
+                           {
+                            SizeLayoutWidgetClass "{5EE6A7E64EEDE52D}" {
+                             Prefab "{5EE6A7E64EEDE52D}"
+                             "Is Visible" 1
+                            }
+                           }
+                          }
+                         }
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

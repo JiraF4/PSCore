@@ -48,7 +48,9 @@ class PS_MapIconListComponent : SCR_ChangeableComponentBase
 		super.HandlerAttached(w);
 		
 		// Get global markers config
-		SCR_MapMarkerManagerComponent markerMgr = SCR_MapMarkerManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_MapMarkerManagerComponent));
+		BaseGameMode gameMode = GetGame().GetGameMode();
+		if (!gameMode) return;
+		SCR_MapMarkerManagerComponent markerMgr = SCR_MapMarkerManagerComponent.Cast(gameMode.FindComponent(SCR_MapMarkerManagerComponent));
 		SCR_MapMarkerConfig markerConfig = markerMgr.GetMarkerConfig();
 		if (!markerConfig)
 			return;

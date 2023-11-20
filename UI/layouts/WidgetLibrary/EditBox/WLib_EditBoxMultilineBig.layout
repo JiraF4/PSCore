@@ -1,0 +1,265 @@
+ButtonWidgetClass {
+ Name "MultilineEditBox"
+ Slot AlignableSlot "{5538C206F1963489}" {
+  HorizontalAlign 3
+  VerticalAlign 3
+  Padding 4 4 4 4
+ }
+ Clipping False
+ Color 0 0 0 0
+ components {
+  PS_MultilineEditBoxComponent "{5EE6D1AD7B1C55BA}" {
+   m_bMouseOverToFocus 1
+   m_sLabel "Big edit"
+   m_bForceSize 0
+   m_sLabelLayout "{829BC1189A899017}UI/layouts/WidgetLibrary/BaseElements/WLib_Label.layout"
+   m_bShowWriteIcon 1
+   m_sIconImageSet "{2EFEA2AF1F38E7F0}UI/Textures/Icons/icons_wrapperUI-64.imageset"
+   m_sIconImageName "editor"
+   m_fOpacityDefault 1
+   m_fOpacityFocused 1
+   m_BackgroundDefault 0.023 0.023 0.023 1
+   m_BackgroundInteracting 0.109 0.109 0.109 1
+   m_BackgroundFocused 0.023 0.023 0.023 1
+  }
+  SCR_ModularButtonComponent "{5EE6A7EC06651600}" {
+   m_aEffects {
+    SCR_ButtonEffectSound "{5D9E89455EE4B68D}" {
+     m_eEvents EVENT_MOUSE_ENTER
+     m_eInputDevices 50
+     m_sSound "SOUND_FE_BUTTON_HOVER"
+    }
+    SCR_ButtonEffectSound "{5D9E89455EE4B687}" {
+     m_eEvents EVENT_FOCUS_GAINED
+     m_eInputDevices 61
+     m_sSound "SOUND_FE_BUTTON_HOVER"
+    }
+    SCR_ButtonEffectSound "{5D9E89455EE4B681}" {
+     m_eEvents EVENT_CLICKED
+    }
+    SCR_ButtonEffectColor "{5DB885898296DF89}" {
+     m_eEvents 6144
+     m_sWidgetName "LineHighlight"
+     m_cDefault 0 0 0 0
+     m_cHovered 0 0 0 0
+     m_cActivated 0 0 0 0
+     m_cActivatedHovered 0 0 0 0
+     m_cDisabled 0 0 0 0
+     m_cDisabledActivated 0 0 0 0
+     m_cClicked 0 0 0 0
+     m_cFocusGained 1 0.597 0.198 0.3
+     m_cFocusLost 0 0 0 0
+     m_cToggledOn 0 0 0 0
+     m_cToggledOff 0 0 0 0
+    }
+    SCR_ButtonEffectColor "{5D9EFC157A1E1706}" {
+     m_eEvents 24581
+     m_sWidgetName "Background"
+     m_fAnimationTime 0.1
+     m_cDefault 0 0 0 0.5
+     m_cHovered 0 0 0 0
+     m_cActivated 0 0 0 0
+     m_cActivatedHovered 0 0 0 0
+     m_cDisabled 0 0 0 0
+     m_cDisabledActivated 0 0 0 0
+     m_cClicked 0 0 0 0
+     m_cFocusGained 0 0 0 0
+     m_cFocusLost 0 0 0 0
+     m_cToggledOn 0 0 0 0
+     m_cToggledOff 0 0 0 0.5
+    }
+   }
+   m_bCanBeToggled 1
+   m_bToggledOnlyThroughApi 1
+   m_eEventReturnValue 2147483644
+   m_bFocusOnMouseEnter 1
+  }
+ }
+ "Left rule" Escape
+ "Right rule" Escape
+ {
+  SizeLayoutWidgetClass "{5EE6A0BB9BCAFFB7}" : "{37F2B4CB4DDDD310}UI/layouts/WidgetLibrary/BaseElements/WLib_Base.layout" {
+   Name "SizeLayout"
+   Slot ButtonWidgetSlot "{5538C205B27B0F74}" {
+    HorizontalAlign 3
+    VerticalAlign 3
+   }
+   AllowHeightOverride 0
+   {
+    OverlayWidgetClass "{55367D8E531FD623}" {
+     Prefab "{55367D8E531FD623}"
+     {
+      ImageWidgetClass "{5EE6A7EDC73ED1D1}" : "{E679D416053194D7}UI/layouts/WidgetLibrary/BaseElements/WLib_LineHighlight.layout" {
+       Name "LineHighlight"
+       Slot OverlayWidgetSlot "{5DB8C57A14F7A8AF}" {
+       }
+      }
+      HorizontalLayoutWidgetClass "{55367D8E4592BC6E}" {
+       Prefab "{55367D8E4592BC6E}"
+       Slot OverlayWidgetSlot "{55367D8E4592B383}" {
+       }
+       {
+        OverlayWidgetClass "{5EE6A0BB9BCAFFB9}" {
+         Name "OverlayPanel"
+         Slot LayoutSlot "{5538C2059A570EB1}" {
+          SizeMode Fill
+         }
+         Color 1 1 1 1
+         {
+          PanelWidgetClass "{5EE6A0BB9BCAFFBA}" {
+           Name "Panel"
+           Slot OverlayWidgetSlot "{5538C2058E52481D}" {
+            HorizontalAlign 3
+            VerticalAlign 3
+           }
+           "Is Visible" 0
+           "Inherit Color" 1
+           style outline_2px
+          }
+          ImageWidgetClass "{5EE6A0BB9BCAFFBB}" {
+           Name "EditBackground"
+           Slot OverlayWidgetSlot "{5538C20588BB6BFF}" {
+            HorizontalAlign 3
+            VerticalAlign 3
+           }
+           Opacity 0.05
+           Color 1 1 1 1
+           "Inherit Color" 1
+          }
+          ScaleWidgetClass "{5EE6A0BB9BCAFFBC}" {
+           Name "Scale1"
+           Slot OverlayWidgetSlot "{553AB38C59601DC8}" {
+            HorizontalAlign 0
+            Padding -40 0 0 0
+           }
+           {
+            ImageWidgetClass "{5EE6A0BB9BCAFFBD}" {
+             Name "ErrorIcon"
+             Slot OverlayWidgetSlot "{5538C2078EC8DD73}" {
+              HorizontalAlign 0
+              Padding 0 0 0 0
+             }
+             Color 0.93 0.056 0.056 1
+             "Inherit Color" 1
+             Texture "{2EFEA2AF1F38E7F0}UI/Textures/Icons/icons_wrapperUI-64.imageset"
+             Image "warning"
+             Size 64 64
+            }
+           }
+          }
+          HorizontalLayoutWidgetClass "{5EE6A0BB9BCAFFBE}" {
+           Name "HEditBox"
+           Slot OverlayWidgetSlot "{58D095EE846E2A50}" {
+            HorizontalAlign 3
+            VerticalAlign 3
+            Padding 0 0 0 0
+           }
+           Clipping True
+           {
+            ScaleWidgetClass "{5EE6A0BB9BCAFFBF}" {
+             Name "WriteIconScale"
+             Slot LayoutSlot "{58D095EE89E13D43}" {
+              VerticalAlign 0
+              Padding 0 0 0 0
+             }
+             "Z Order" 1
+             {
+              ButtonWidgetClass "{5EE6A0BB9BCAFF80}" {
+               Name "WriteIconButton"
+               Slot OverlayWidgetSlot "{5E08E3A6C8D0B058}" {
+                HorizontalAlign 1
+               }
+               Tooltip SCR_ScriptedWidgetTooltip "{5E08EDD419FF62AF}" {
+                m_sPresetsConfig "{09CAE70CB5B377CA}Configs/WLib/Tooltips/CommonTooltips.conf"
+                m_sPresetTag "EditBoxIcon"
+               }
+               components {
+                SCR_ModularButtonComponent "{5E08E3A6DA43D771}" {
+                }
+               }
+               style blank
+               "no focus" 1
+               {
+                ImageWidgetClass "{5EE6A0BB9BCAF5A6}" {
+                 Name "WriteIcon"
+                 Slot ButtonWidgetSlot "{5E08EDD41B429831}" {
+                 }
+                 Color 0.533 0.533 0.533 1
+                 Texture "{2EFEA2AF1F38E7F0}UI/Textures/Icons/icons_wrapperUI-64.imageset"
+                 Image "editor"
+                 Size 32 32
+                }
+               }
+              }
+             }
+            }
+            ScrollLayoutWidgetClass "{5EE6A7E59EA2E674}" {
+             Name "ScrollLayout"
+             Slot LayoutSlot "{5EE6A7E59EA2E65B}" {
+              Padding 4 8 4 8
+              SizeMode Fill
+             }
+             ScrollDirection Horizontal
+             {
+              VerticalLayoutWidgetClass "{5EE6A7E6B28BEE97}" {
+               Name "VerticalLayout"
+               Slot AlignableSlot "{5EE6A7E6B28BEEFA}" {
+                HorizontalAlign 3
+                VerticalAlign 3
+               }
+               {
+                ButtonWidgetClass "{5EE6D1A7666E1505}" {
+                 Name "Button"
+                 Slot LayoutSlot "{5EE6D1A7666E1569}" {
+                  HorizontalAlign 0
+                  VerticalAlign 0
+                  Padding 0 0 4 0
+                  SizeMode Auto
+                 }
+                 Color 1 1 1 0.463
+                 {
+                  MultilineEditBoxWidgetClass "{5EE6A0BB9BCAF5A5}" {
+                   Name "EditBox"
+                   Slot ButtonWidgetSlot "{5EE6D1AD743454CB}" {
+                   }
+                   components {
+                    SCR_EventHandlerComponent "{59A89A761CC1E46C}" {
+                    }
+                   }
+                   "Font Size" 20
+                   Wrap 0
+                   FontProperties FontProperties "{59A89A76023159DC}" {
+                   }
+                  }
+                 }
+                }
+                SizeLayoutWidgetClass "{5EE6A7E64EEDE52D}" {
+                 Name "SizeLayout0"
+                 Slot LayoutSlot "{5EE6A7E64EEDE50F}" {
+                 }
+                 AllowHeightOverride 1
+                 HeightOverride 16
+                 {
+                  PanelWidgetClass "{5EE6A7E6BB2252D4}" {
+                   Name "Panel0"
+                   Slot AlignableSlot "{5EE6A7E64EE14A52}" {
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
