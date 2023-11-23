@@ -51,8 +51,9 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 		GetGame().GetCallqueue().CallLater(VMLoop, 0);
 	}
 	
-	void RunVM(string code)
+	PS_VirtualMachine PrepareVM(string code)
 	{
+		if (code == "") return null;
 		PS_Lexer lexer = new PS_Lexer(code);
 		if (lexer.errorStr == "")
 		{
@@ -60,10 +61,23 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 			PS_Parser parser = new PS_Parser(lexer);
 			if (parser.m_lRoot) {
 				parser.m_lRoot.PrintNode(0);
-				PS_VirtualMachine virtualMachine = new PS_VirtualMachine(parser.m_lRoot);
-				m_aVirtualMachines.Insert(virtualMachine);
+				return new PS_VirtualMachine(parser.m_lRoot);
 			}
 		}
+		return null;
+	}
+	
+	void RunVM(PS_VirtualMachine vm)
+	{
+		if (m_aVirtualMachines.Contains(vm)) return;
+		vm.RunScheduled();
+		m_aVirtualMachines.Insert(vm);
+	}
+	
+	void RunVM(string code)
+	{
+		PS_VirtualMachine vm = PrepareVM(code);
+		if (vm) RunVM(vm);
 	}
 	
 	// more singletons for singletons god, make our spagetie kingdom great
@@ -151,6 +165,8 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 		m_mCommands.Insert("count", new PS_CommandCount(1, 0, 1));
 		m_mCommands.Insert("select", new PS_CommandSelect(4, 1, 1));
 		m_mCommands.Insert("cameraPosition", new PS_CommandCameraPosition(1, 0, 0));
+		m_mCommands.Insert("getPos", new PS_CommandGetPos(1, 0, 1));
+		m_mCommands.Insert("createPrefab", new PS_CommandCreatePrefab(1, 0, 1));
 	};
 	
 	void registerMultiCharTokens()

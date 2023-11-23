@@ -6,3 +6,4 @@ class PS_CommandPrint : PS_Command // "sqrt"
 		return right;
 	};
 }
+

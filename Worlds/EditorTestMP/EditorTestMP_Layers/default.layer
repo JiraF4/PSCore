@@ -13,6 +13,25 @@ TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
 SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/Editor/GameMode_Editor_Full.et" {
  coords 149.326 1 158.747
 }
+GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_Toilet_01.et" {
+ components {
+  ActionsManagerComponent "{55B2AC88AFFE731D}" {
+   additionalActions {
+    PS_SQFScriptedAction "{5EEEC745FF526096}" {
+     ParentContextList {
+      "Flush"
+     }
+     UIInfo UIInfo "{5EEEC74505F7ED02}" {
+     }
+     m_sVisibilityConditionScriptSQF "3 > 2;"
+     m_sPerformActionScriptSQF "_pos = getPos (_this select 0); createPrefab [\"{72BEEF40AF179763}Prefabs/Weapons/Warheads/Explosions/Explosion_Tnt_Large.et\", _pos];"
+     m_sGetActionNameScriptSQF "\"Explode toilet\";"
+    }
+   }
+  }
+ }
+ coords 165.402 1 150.738
+}
 PS_ManualMarker : "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker.et" {
  coords 158.401 1 170.947
  m_sDescription "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus eget nunc scelerisque viverra mauris in aliquam sem. Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Ut sem nulla pharetra diam sit amet. Elementum nibh tellus molestie nunc non. Ultrices neque ornare aenean euismod. Bibendum neque egestas congue quisque egestas diam in arcu. Mattis molestie a iaculis at. Convallis aenean et tortor at risus. In massa tempor nec feugiat nisl pretium fusce id velit. Pretium viverra suspendisse potenti nullam ac tortor vitae purus faucibus. Aliquet nec ullamcorper sit amet risus nullam eget. Tincidunt ornare massa eget egestas purus viverra. Id consectetur purus ut faucibus pulvinar elementum integer enim neque. Et ligula ullamcorper malesuada proin. Auctor eu augue ut lectus arcu bibendum at. Nibh mauris cursus mattis molestie a. Aliquam sem et tortor consequat id porta nibh venenatis. Libero justo laoreet sit amet cursus sit amet dictum sit. Ut sem nulla pharetra diam sit amet."\

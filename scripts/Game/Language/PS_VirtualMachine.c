@@ -3,6 +3,7 @@ class PS_VirtualMachine
 	// All local variables
 	protected ref map<string, ref PS_VariableHolder> m_mVariables = new map<string, ref PS_VariableHolder>();
 	
+	ref PS_VMCodeBlock m_cRootCodeBlock;
 	protected ref array<ref PS_VMCodeBlock> m_aCallstack = new array<ref PS_VMCodeBlock>();
 	protected ref array<int> m_aPointers = new array<int>();
 	ref PS_LanguageNodeCodeBlock m_nRootNode;
@@ -11,6 +12,22 @@ class PS_VirtualMachine
 	ref PS_Variable m_vRegister;
 	
 	int m_iSleepTime = 0;
+	
+	int m_iBackwardJumpCounter = 0;
+	int m_iMaxBackwardJump = 10000;
+	
+	int m_iMaxCallstack = 100;
+	
+	bool killed = false;
+	
+	// If script unscheduled you can't crete new VM through script
+	bool m_bScheduled = false;
+	
+	void KillVM()
+	{
+		// VM been removed on nextframe
+		killed = true;
+	}
 	
 	void Sleep(float timeSecods)
 	{
@@ -38,6 +55,14 @@ class PS_VirtualMachine
 	
 	void JumpRelative(int distance)
 	{
+		if (distance < 0) { // Prevent infinity loops
+			m_iBackwardJumpCounter++;
+			if (m_iBackwardJumpCounter > m_iMaxBackwardJump)
+			{
+				Print("Max jumps count reached. (Infinity loop?)");
+				KillVM();
+			}
+		}
 		m_aPointers[m_aPointers.Count() - 1] = m_aPointers[m_aPointers.Count() - 1] + distance;
 	}
 	
@@ -59,6 +84,11 @@ class PS_VirtualMachine
 	{
 		m_aCallstack.Insert(codeBlock);
 		m_aPointers.Insert(0);
+		if (m_iMaxCallstack > m_aCallstack.Count()) // Prevent infinity recursion, still possible throug spawn :(
+		{
+			Print("Call stack overflow. (Infinity recursion?)");
+			KillVM();
+		}
 	}
 	
 	bool IsSleep()
@@ -66,9 +96,37 @@ class PS_VirtualMachine
 		return m_iSleepTime > GetGame().GetWorld().GetWorldTime();
 	}
 	
+	// Run in one shoot
+	void Restart()
+	{
+		m_aCallstack.Clear();
+		m_aPointers.Clear();
+		m_aVarStack.Clear();
+		
+		m_aCallstack.Insert(m_cRootCodeBlock);
+		m_aPointers.Insert(0);
+		m_vRegister = new PS_Variable();
+	}
+	
+	PS_Variable RunUnscheduled()
+	{
+		m_bScheduled = false;
+		Restart();
+		while (!ExecuteNext())
+		{
+		}
+		return m_vRegister;
+	}
+	
+	void RunScheduled()
+	{
+		m_bScheduled = true;
+		Restart();
+	}
+	
 	bool ExecuteNext()
 	{
-		if (m_aCallstack.IsEmpty())
+		if (m_aCallstack.IsEmpty() || killed)
 			return true;
 		int callStactNum = m_aCallstack.Count() - 1;
 		PS_VMCodeBlock codeBlock = m_aCallstack.Get(callStactNum);
@@ -89,8 +147,7 @@ class PS_VirtualMachine
 	{
 		m_nRootNode = rootNode;
 		PS_VMCodeBlock codeBlock = rootNode.CompileBlock();
+		m_cRootCodeBlock = codeBlock;
 		codeBlock.PrintCommandList(0);
-		m_aCallstack.Insert(codeBlock);
-		m_aPointers.Insert(0);
 	}
 }

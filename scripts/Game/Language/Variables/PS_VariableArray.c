@@ -53,6 +53,7 @@ class PS_VariableArray : PS_Variable
 	
 	PS_Variable Get(int i)
 	{
+		if (i < 0 || i >= m_aArray.Count()) return new PS_Variable();
 		return m_aArray.Get(i);
 	}
 }
