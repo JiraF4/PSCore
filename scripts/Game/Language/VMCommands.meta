@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{76C7B829E16B2F38}scripts/Game/Language/VMCOmmanuds"
+ Configurations {
+  FolderResourceClass PC {
+  }
+  FolderResourceClass XBOX_ONE : PC {
+  }
+  FolderResourceClass XBOX_SERIES : PC {
+  }
+  FolderResourceClass PS4 : PC {
+  }
+  FolderResourceClass HEADLESS : PC {
+  }
+ }
+}

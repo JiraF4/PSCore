@@ -1,0 +1,49 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  ImageWidgetClass "{5EEB1604EC7ACCB6}" {
+   Name "Image0"
+   Slot FrameWidgetSlot "{5EEB1604EC7ACCD1}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 1930.08
+    OffsetRight -1930.08
+    SizeY 1137.85
+    OffsetBottom -1137.85
+   }
+   Color 0 0 0 1
+  }
+  ButtonWidgetClass "{5EEB093E95096CBE}" {
+   Name "RunButton"
+   Slot FrameWidgetSlot "{5EEB093E95096C97}" {
+    PositionX 508.951
+    OffsetLeft 508.951
+    PositionY 672.731
+    OffsetTop 672.731
+    SizeX 501.526
+    OffsetRight -1010.48
+    SizeY 267.75
+    OffsetBottom -940.481
+   }
+   components {
+    SCR_ButtonBaseComponent "{5EEB093E258C37DD}" {
+    }
+   }
+  }
+  MultilineEditBoxWidgetClass "{5EEB093E8EFE5861}" {
+   Name "MultilineEditBoxCode"
+   Slot FrameWidgetSlot "{5EEB093E8EFE5879}" {
+    PositionX 235.984
+    OffsetLeft 235.984
+    PositionY 116.231
+    OffsetTop 116.231
+    SizeX 1003.43
+    OffsetRight -1239.41
+    SizeY 510.774
+    OffsetBottom -627.005
+   }
+  }
+ }
+}

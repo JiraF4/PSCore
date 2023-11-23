@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CB1C714CB0E890DD}UI/layouts/FunnyScriptMenu/FunnyScriptMenu.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}
