@@ -148,6 +148,6 @@ class PS_VirtualMachine
 		m_nRootNode = rootNode;
 		PS_VMCodeBlock codeBlock = rootNode.CompileBlock();
 		m_cRootCodeBlock = codeBlock;
-		codeBlock.PrintCommandList(0);
+		//codeBlock.PrintCommandList(0);
 	}
 }

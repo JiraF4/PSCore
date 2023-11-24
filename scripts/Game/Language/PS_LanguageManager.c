@@ -13,10 +13,27 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 	ref array<ref PS_VirtualMachine> m_aVirtualMachines = new array<ref PS_VirtualMachine>();
 	int m_vCurrentVirtualMachine = 0;
 	
+	// All global variables
+	protected ref map<string, ref PS_VariableHolder> m_mVariables = new map<string, ref PS_VariableHolder>();
+	
 	int m_iLastCodeBlockId = 1;
 	int NextCodeBlockId()
 	{
 		return m_iLastCodeBlockId++;
+	}
+	
+	void SetVariable(string variableName, PS_Variable variable)
+	{
+		if (!m_mVariables.Contains(variableName)) 
+			m_mVariables[variableName] = new PS_VariableHolder(variable);
+		else
+			m_mVariables[variableName].m_vVariable = variable;
+	}
+	
+	PS_Variable GetVariableHolder(string variableName)
+	{
+		if (!m_mVariables.Contains(variableName)) SetVariable(variableName, new PS_Variable());
+		return m_mVariables[variableName];
 	}
 	
 	void VMLoop()
@@ -57,10 +74,10 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 		PS_Lexer lexer = new PS_Lexer(code);
 		if (lexer.errorStr == "")
 		{
-			lexer.PrintTokens();
+			//lexer.PrintTokens();
 			PS_Parser parser = new PS_Parser(lexer);
 			if (parser.m_lRoot) {
-				parser.m_lRoot.PrintNode(0);
+				//parser.m_lRoot.PrintNode(0);
 				return new PS_VirtualMachine(parser.m_lRoot);
 			}
 		}
@@ -167,6 +184,8 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 		m_mCommands.Insert("cameraPosition", new PS_CommandCameraPosition(1, 0, 0));
 		m_mCommands.Insert("getPos", new PS_CommandGetPos(1, 0, 1));
 		m_mCommands.Insert("createPrefab", new PS_CommandCreatePrefab(1, 0, 1));
+		m_mCommands.Insert("true", new PS_CommandTrue(1, 0, 0));
+		m_mCommands.Insert("false", new PS_CommandFalse(1, 0, 0));
 	};
 	
 	void registerMultiCharTokens()

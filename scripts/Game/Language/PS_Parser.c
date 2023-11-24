@@ -113,7 +113,7 @@ class PS_Parser
 		array<ref PS_LanguageNode> expressionNodes = new array<ref PS_LanguageNode>;
 		
 		while (m_iPosition < m_lLexer.tokens.Count()) {
-			array<PS_ETokenType> requireTokens = {PS_ETokenType.THEN, PS_ETokenType.RIGHTPARENTHISISFIGURE, PS_ETokenType.VARIABLELOCAL, PS_ETokenType.NUMBER, PS_ETokenType.STRING, PS_ETokenType.COMMAND, PS_ETokenType.LEFTPARENTHISISSQUARE, PS_ETokenType.LEFTPARENTHISISFIGURE, PS_ETokenType.LEFTPARENTHISISROUND};
+			array<PS_ETokenType> requireTokens = {PS_ETokenType.THEN, PS_ETokenType.RIGHTPARENTHISISFIGURE, PS_ETokenType.VARIABLELOCAL, PS_ETokenType.GLOBALVARIABLE, PS_ETokenType.NUMBER, PS_ETokenType.STRING, PS_ETokenType.COMMAND, PS_ETokenType.LEFTPARENTHISISSQUARE, PS_ETokenType.LEFTPARENTHISISFIGURE, PS_ETokenType.LEFTPARENTHISISROUND};
 			requireTokens.InsertAll(endTokenTypes);
 			array<PS_ETokenType> nextTokenTypes = {PS_ETokenType.COMMAND, PS_ETokenType.SEMICOLON};
 			nextTokenTypes.InsertAll(endTokenTypes);
@@ -144,6 +144,11 @@ class PS_Parser
 					array<PS_ETokenType> cmdNextTokens = {PS_ETokenType.VARIABLELOCAL, PS_ETokenType.COMMAND, PS_ETokenType.SEMICOLON, PS_ETokenType.NUMBER, PS_ETokenType.STRING, PS_ETokenType.LEFTPARENTHISISROUND, PS_ETokenType.LEFTPARENTHISISSQUARE};
 					cmdNextTokens.InsertAll(endTokenTypes);
 					if (!require(cmdNextTokens)) 
+						return null;
+					break;
+				case PS_ETokenType.GLOBALVARIABLE:
+					expressionNodes.Insert(new PS_LanguageNodeGlobalVariable(token));
+					if (!require(nextTokenTypes)) 
 						return null;
 					break;
 				case PS_ETokenType.VARIABLELOCAL:

@@ -1,4 +1,4 @@
-class PS_VMCommandPushVar : PS_VMCommand
+class PS_VMCommandPushVarGlobal : PS_VMCommand
 {
 	string m_sVariableName;
 	
@@ -9,12 +9,12 @@ class PS_VMCommandPushVar : PS_VMCommand
 	
 	override void Execute(PS_VirtualMachine vm)
 	{
-		vm.PushStack(vm.GetVariableHolder(m_sVariableName));
+		PS_LanguageManager languageManager = PS_LanguageManager.GetInstance();
+		vm.PushStack(languageManager.GetVariableHolder(m_sVariableName));
 	}
 	
-	void PS_VMCommandPushVar(string variableName)
+	void PS_VMCommandPushVarGlobal(string variableName)
 	{
 		m_sVariableName = variableName;
 	}
 }
-

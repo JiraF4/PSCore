@@ -13,24 +13,58 @@ TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
 SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/Editor/GameMode_Editor_Full.et" {
  coords 149.326 1 158.747
 }
-GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_Toilet_01.et" {
- components {
-  ActionsManagerComponent "{55B2AC88AFFE731D}" {
-   additionalActions {
-    PS_SQFScriptedAction "{5EEEC745FF526096}" {
-     ParentContextList {
-      "Flush"
+PS_SQFScriptedTriggerEntity {
+ coords 131.936 1 166.774
+ TriggerShapeType Sphere
+ SphereRadius 11.8
+ DrawShape 1
+ ShapeColor 1 0 0 0.15
+ TriggerActivationType "Every query"
+ PeriodicQueries 1
+ UpdatePeriod 3
+ ClassesFilter {
+  "SCR_ChimeraCharacter"
+ }
+}
+$grp GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_Toilet_01.et" {
+ {
+  components {
+   ActionsManagerComponent "{55B2AC88AFFE731D}" {
+    additionalActions {
+     PS_SQFScriptedAction "{5EEEC745FF526096}" {
+      ParentContextList {
+       "Flush"
+      }
+      UIInfo UIInfo "{5EEEC74505F7ED02}" {
+      }
+      m_sVisibilityConditionScriptSQF "3 > 2;"
+      m_sPerformActionScriptSQF "pos = getPos (_this select 0); createPrefab [\"{72BEEF40AF179763}Prefabs/Weapons/Warheads/Explosions/Explosion_Tnt_Large.et\", pos];"
+      m_sGetActionNameScriptSQF "\"Explode toilet\";"
      }
-     UIInfo UIInfo "{5EEEC74505F7ED02}" {
-     }
-     m_sVisibilityConditionScriptSQF "3 > 2;"
-     m_sPerformActionScriptSQF "_pos = getPos (_this select 0); createPrefab [\"{72BEEF40AF179763}Prefabs/Weapons/Warheads/Explosions/Explosion_Tnt_Large.et\", _pos];"
-     m_sGetActionNameScriptSQF "\"Explode toilet\";"
     }
    }
   }
+  coords 165.402 1 150.738
  }
- coords 165.402 1 150.738
+ {
+  components {
+   ActionsManagerComponent "{55B2AC88AFFE731D}" {
+    additionalActions {
+     PS_SQFScriptedAction "{5EEEC745FF526096}" {
+      ParentContextList {
+       "Flush"
+      }
+      UIInfo UIInfo "{5EEEC74505F7ED02}" {
+      }
+      m_sVisibilityConditionScriptSQF "3 > 2;"
+      m_sPerformActionScriptSQF "_pos = getPos (_this select 0); createPrefab [\"{72BEEF40AF179763}Prefabs/Weapons/Warheads/Explosions/Explosion_Tnt_Large.et\", _pos];"
+      m_sGetActionNameScriptSQF "\"Explode toilet\";"
+     }
+    }
+   }
+  }
+  coords 131.837 1 166.454
+ }
 }
 PS_ManualMarker : "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker.et" {
  coords 158.401 1 170.947
