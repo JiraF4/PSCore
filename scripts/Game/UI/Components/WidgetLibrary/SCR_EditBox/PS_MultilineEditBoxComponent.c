@@ -70,7 +70,7 @@ class PS_MultilineEditBoxComponent : SCR_ChangeableComponentBase
 	protected SCR_EventHandlerComponent m_EVHComponent;
 	
 	protected const int INTERACTION_STATE_UPDATE_FREQUENCY = 50;
-	protected const int FOCUS_LOST_INTERACTION_STATE_UPDATE_DELAY = 1000 / UIConstants.FADE_RATE_DEFAULT;
+	protected const int FOCUS_LOST_INTERACTION_STATE_UPDATE_DELAY = 1000 / 5;
 	
 	protected bool m_bIsFocused;
 	protected bool m_bIsInWriteMode;
