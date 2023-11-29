@@ -7,14 +7,14 @@ PS_ManualMarker {
   PS_EditableMarkerComponent "{5EDF4803CD048668}" {
    m_EntityType SYSTEM
    m_UIInfo SCR_EditableDescriptorUIInfo "{5EDF4803E71335A1}" {
-    Name "#AR-EditableEntity_ManurePile_01_Name"
+    Name "#PS-EditableEntity_MapMarker"
     Icon "{5E7A3FF224D598E3}UI/Textures/FieldManual/Gameplay/Navigation/Tiles/protractor-icon-brown_ui.edds"
-    m_Image "{F8E95157DCEDECBF}UI/Textures/EditorPreviews/Auto/Structures/Agriculture/Manure/E_ManurePile_01.edds"
+    m_Image "{5E7A3FF224D598E3}UI/Textures/FieldManual/Gameplay/Navigation/Tiles/protractor-icon-brown_ui.edds"
     m_aAuthoredLabels {
      1
     }
     m_aAutoLabels {
-     100 1 122
+     7
     }
     m_sNameFormat "Marker"
    }
