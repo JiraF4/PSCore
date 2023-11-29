@@ -2,7 +2,7 @@
 */
 class PS_StringMultilineEditorAttributeUIComponent: SCR_BaseEditorAttributeUIComponent
 {
-	SCR_EditBoxComponent w_hEditBox;
+	PS_MultilineEditBoxComponent w_hEditBox;
 	
 	override void Init(Widget w, SCR_BaseEditorAttribute attribute)
 	{
@@ -10,7 +10,7 @@ class PS_StringMultilineEditorAttributeUIComponent: SCR_BaseEditorAttributeUICom
 		if (!editboxWidget) 
 			return;
 		
-		w_hEditBox = SCR_EditBoxComponent.Cast(editboxWidget.FindHandler(SCR_EditBoxComponent));
+		w_hEditBox = PS_MultilineEditBoxComponent.Cast(editboxWidget.FindHandler(PS_MultilineEditBoxComponent));
 		if (!w_hEditBox) 
 			return;
 		

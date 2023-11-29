@@ -21,3 +21,4 @@ class PS_MarkerWorldScaleEditorAttribute: SCR_BaseEditorAttribute
 		return super.GetEntries(outEntries);
 	}
 };
+

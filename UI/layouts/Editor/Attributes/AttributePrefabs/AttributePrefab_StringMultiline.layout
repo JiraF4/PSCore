@@ -1,7 +1,7 @@
 FrameWidgetClass {
  Name "Attribute_TextMutliline"
  components {
-  PS_StringEditorAttributeUIComponent "{5EE10E572DCAEE47}" {
+  PS_StringMultilineEditorAttributeUIComponent "{5EF8DC4A944E016E}" {
    m_sUiComponentName "MultilineEditBox"
   }
  }
@@ -33,10 +33,10 @@ FrameWidgetClass {
              Slot AlignableSlot "{5538C206F1963489}" {
              }
              components {
+              SCR_ModularButtonComponent "{5EE6A7EC06651600}" {
+              }
               SCR_EditBoxComponent "{59BA916B7193FCE6}" {
                m_bForceSize 0
-              }
-              SCR_ModularButtonComponent "{5EE6A7EC06651600}" {
               }
              }
              {

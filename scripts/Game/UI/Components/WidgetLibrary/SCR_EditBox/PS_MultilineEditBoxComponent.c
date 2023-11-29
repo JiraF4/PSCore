@@ -314,6 +314,27 @@ class PS_MultilineEditBoxComponent : SCR_ChangeableComponentBase
 	}
 	
 	//------------------------------------------------------------------------------------------------
+	bool m_bInNewLineReplacement;
+	override bool OnChange(Widget w, int x, int y, bool finished)
+	{
+		if (m_bInNewLineReplacement)
+		{
+			m_bInNewLineReplacement = false;
+			return false;
+		}
+		
+		if (m_wMultilineEditBoxWidget)
+		{
+			string text = m_wMultilineEditBoxWidget.GetText();
+			text.Replace("|", "\n");
+			m_bInNewLineReplacement = true;
+			m_wMultilineEditBoxWidget.SetText(text);
+		}
+		
+		return OnChange(w, x, y, finished);
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	protected string GetEditBoxText()
 	{
 		if (!m_wEditBox)
