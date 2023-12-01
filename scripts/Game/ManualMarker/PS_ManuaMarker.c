@@ -35,8 +35,11 @@ class PS_ManualMarker : GenericEntity
 	[Attribute("true")]
 	bool m_bUseWorldScale;
 	
-	// TODO: somehove edit it through workbench
-	ref array<Faction> VisibleForFactions = new array<Faction>();
+	
+	
+	[Attribute("")] // For workbench
+	protected string m_sVisibleForFactions;
+	ref array<Faction> m_aVisibleForFactions = new array<Faction>();
 	[Attribute("")]
 	bool m_bVisibleForEmptyFaction;
 	
@@ -204,7 +207,7 @@ class PS_ManualMarker : GenericEntity
 	
 	bool GetVisibleForFaction(Faction faction)
 	{
-		return VisibleForFactions.Contains(faction);
+		return m_aVisibleForFactions.Contains(faction);
 	}
 	void SetVisibleForFaction(Faction faction, bool visible)
 	{
@@ -216,9 +219,9 @@ class PS_ManualMarker : GenericEntity
 	{
 		Faction faction = GetGame().GetFactionManager().GetFactionByKey(factionKey);
 		if (visible)
-			{if (!GetVisibleForFaction(faction)) VisibleForFactions.Insert(faction);}
+			{if (!GetVisibleForFaction(faction)) m_aVisibleForFactions.Insert(faction);}
 		else
-			{if (GetVisibleForFaction(faction)) VisibleForFactions.RemoveItem(faction);}
+			{if (GetVisibleForFaction(faction)) m_aVisibleForFactions.RemoveItem(faction);}
 		
 		// Update "On fly" show/hide marker, if map currently open
 		if (!m_MapEntity) return;
@@ -263,6 +266,15 @@ class PS_ManualMarker : GenericEntity
 	
 	override protected void EOnInit(IEntity owner)
 	{
+		// Workbench
+		array<string> outTokens = new array<string>();
+		m_sVisibleForFactions.Split(",", outTokens, false);
+		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
+		foreach (FactionKey factionKey : outTokens)
+		{
+			RPC_SetVisibleForFaction_ByKey(factionKey, true);
+		}
+		
 		m_MapEntity = SCR_MapEntity.GetMapInstance();
 		ScriptInvokerBase<MapConfigurationInvoker> onMapOpen = m_MapEntity.GetOnMapOpen();
 		ScriptInvokerBase<MapConfigurationInvoker> onMapClose = m_MapEntity.GetOnMapClose();
