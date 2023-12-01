@@ -30,7 +30,17 @@ class PS_EditableMarkerComponent: SCR_EditableSystemComponent
 	}
 	void SetMarkerColor(string colorStr)
 	{
-		// TODO
+		array<string> outTokens = new array<string>();
+		colorStr.Split(" ", outTokens, false);
+		if (outTokens.Count() == 4)
+		{
+			float a = outTokens[0].ToFloat();
+			float r = outTokens[1].ToFloat();
+			float g = outTokens[2].ToFloat();
+			float b = outTokens[3].ToFloat();
+			Color color = new Color(r, g, b, a);
+			m_eManualMarker.SetColor(color);
+		}
 	}
 	
 	string GetMarkerImage()
@@ -71,5 +81,14 @@ class PS_EditableMarkerComponent: SCR_EditableSystemComponent
 	void SetMarkerVisibleForFaction(Faction faction, bool visible)
 	{
 		m_eManualMarker.SetVisibleForFaction(faction, visible);
+	}
+	
+	bool GetVisibleForEmptyFaction()
+	{
+		return m_eManualMarker.GetVisibleForEmptyFaction();
+	}
+	void SetVisibleForEmptyFaction(bool visibleForEmptyFaction)
+	{
+		m_eManualMarker.SetVisibleForEmptyFaction(visibleForEmptyFaction);
 	}
 };

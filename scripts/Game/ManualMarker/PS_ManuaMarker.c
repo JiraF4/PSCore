@@ -37,6 +37,8 @@ class PS_ManualMarker : GenericEntity
 	
 	// TODO: somehove edit it through workbench
 	ref array<Faction> VisibleForFactions = new array<Faction>();
+	[Attribute("")]
+	bool m_bVisibleForEmptyFaction;
 	
 	// Internal variables
 	Widget m_wRoot;
@@ -175,6 +177,31 @@ class PS_ManualMarker : GenericEntity
 		// Updated on next frame
 	}
 	
+	bool GetVisibleForEmptyFaction()
+	{
+		return m_bVisibleForEmptyFaction;
+	}
+	void SetVisibleForEmptyFaction(bool visibleForEmptyFaction)
+	{
+		RPC_SetVisibleForEmptyFaction(visibleForEmptyFaction);
+		Rpc(RPC_SetVisibleForEmptyFaction, visibleForEmptyFaction);
+	}
+	[RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
+	void RPC_SetVisibleForEmptyFaction(bool visibleForEmptyFaction)
+	{
+		m_bVisibleForEmptyFaction = visibleForEmptyFaction;
+		
+		// Update "On fly" show/hide marker, if map currently open
+		if (!m_MapEntity) return;
+		if (!m_MapEntity.IsOpen()) return;
+		if (IsCurrentFactionVisibility())
+		{
+			if (!m_wRoot) CreateMapWidget(m_MapEntity.GetMapConfig());
+		} else {
+			if (m_wRoot) DeleteMapWidget(m_MapEntity.GetMapConfig());
+		}
+	}
+	
 	bool GetVisibleForFaction(Faction faction)
 	{
 		return VisibleForFactions.Contains(faction);
@@ -259,8 +286,14 @@ class PS_ManualMarker : GenericEntity
 		if (!playerFactionAffiliationComponent)
 			return true; // Somehow player faction component lost, show marker
 		
+		Faction faction = playerFactionAffiliationComponent.GetAffiliatedFaction();
+		if (faction == null)
+		{
+			return m_bVisibleForEmptyFaction;
+		}
+		
 		// Check is player faction in visibility list
-		return GetVisibleForFaction(playerFactionAffiliationComponent.GetAffiliatedFaction());
+		return GetVisibleForFaction(faction);
 	}
 	
 	// Create new widget in map frame widget

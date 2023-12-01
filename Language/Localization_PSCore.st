@@ -86,5 +86,18 @@ StringTable {
    Author "zazul"
    LastChanged "zazul"
   }
+  CustomStringTableItem "{5EFD5803FAF5569D}" {
+   Id "PS-EditorAttribute_Marker_VisibleForEmptyFaction"
+   Target_en_us "Visible for empty faction"
+   Modified 1593662479
+   Author "zazul"
+   LastChanged "zazul"
+  }
+  CustomStringTableItem "{5EFD5803FE9D923D}" {
+   Id "PS-EditorAttribute_Marker_VisibleForEmptyFaction_Description"
+   Modified 1593662468
+   Author "zazul"
+   LastChanged "zazul"
+  }
  }
 }
