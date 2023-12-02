@@ -208,22 +208,29 @@ ButtonWidgetClass {
                 VerticalAlign 3
                }
                {
-                MultilineEditBoxWidgetClass "{5EE6A0BB9BCAF5A5}" {
-                 Name "EditBox"
-                 Slot LayoutSlot "{5EF8D85192AF4AF1}" {
+                SizeLayoutWidgetClass "{5F03665019D34A93}" {
+                 Name "SizeLayout"
+                 Slot LayoutSlot "{5F03665019D34AEF}" {
                  }
-                 components {
-                  SCR_EventHandlerComponent "{59A89A761CC1E46C}" {
+                 {
+                  MultilineEditBoxWidgetClass "{5EE6A0BB9BCAF5A5}" {
+                   Name "EditBox"
+                   Slot AlignableSlot "{5F03665741DECF90}" {
+                   }
+                   components {
+                    SCR_EventHandlerComponent "{59A89A761CC1E46C}" {
+                    }
+                   }
+                   Text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, "\
+                   "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\
+                   "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "\
+                   "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "\
+                   "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                   "Font Size" 20
+                   Wrap 0
+                   FontProperties FontProperties "{59A89A76023159DC}" {
+                   }
                   }
-                 }
-                 Text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, "\
-                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\
-                 "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "\
-                 "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "\
-                 "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                 "Font Size" 20
-                 Wrap 0
-                 FontProperties FontProperties "{59A89A76023159DC}" {
                  }
                 }
                 SizeLayoutWidgetClass "{5EE6A7E64EEDE52D}" {

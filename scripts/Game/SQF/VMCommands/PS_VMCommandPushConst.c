@@ -4,9 +4,9 @@ class PS_VMCommandPushConst : PS_VMCommand
 	
 	override void PrintCommand(int level)
 	{
-		Print(level.ToString(level+1) + " " + this.ToString() + " " + m_vVariable.ToString());
+		Print(level.ToString(level+1) + " " + this.ToString() + " " + m_vVariable.GetValueName());
 		PS_VariableCodeBlock codeBlock = PS_VariableCodeBlock.Cast(m_vVariable);
-		if (codeBlock)
+		if (codeBlock && level >= 0)
 			codeBlock.m_cCodeBlock.PrintCommandList(level + 1);
 	}
 	

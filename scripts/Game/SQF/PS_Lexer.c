@@ -26,14 +26,13 @@ class PS_Lexer
 	
 	void PrintTokens()
 	{
-		//string output = "";
+		string output = "";
 		foreach (PS_Token token: tokens)
-		{
-			
-			Print(string.Format("Token: %1, %2, %3", token.type, token.text, token.position))
-    		//output += string.Format("<tr><td>%1</td><td>%2</td><td>%3</td></tr>", token.type, token.text, token.position);
+		{			
+			//Print(string.Format("Token: %1, %2, %3", token.position, token.text, token.GetTokenName()))
+    		output += string.Format("<tr><td>%1</td><td>%2</td><td>%3</td></tr>", token.position, token.text, token.GetTokenName());
 		}
-		//PrintFormat("%1", output);
+		PrintFormat("%1", output);
 	}
 	
 	protected void lexAnalysis()

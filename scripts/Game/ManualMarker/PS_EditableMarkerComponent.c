@@ -92,3 +92,7 @@ class PS_EditableMarkerComponent: SCR_EditableSystemComponent
 		m_eManualMarker.SetVisibleForEmptyFaction(visibleForEmptyFaction);
 	}
 };
+
+
+
+

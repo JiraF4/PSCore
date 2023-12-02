@@ -11,4 +11,3 @@ class PS_CommandSleep : PS_Command // "sleep"
 		return new PS_Variable();
 	};
 }
-

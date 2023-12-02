@@ -84,6 +84,11 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 		return null;
 	}
 	
+	bool IsVMRun(PS_VirtualMachine vm)
+	{
+		return m_aVirtualMachines.Contains(vm);
+	}
+	
 	void RunVM(PS_VirtualMachine vm)
 	{
 		if (m_aVirtualMachines.Contains(vm)) return;
@@ -186,6 +191,8 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 		m_mCommands.Insert("createPrefab", new PS_CommandCreatePrefab(1, 0, 1));
 		m_mCommands.Insert("true", new PS_CommandTrue(1, 0, 0));
 		m_mCommands.Insert("false", new PS_CommandFalse(1, 0, 0));
+		m_mCommands.Insert("setDamage", new PS_CommandSetDamage(4, 1, 1));
+		m_mCommands.Insert("ForEach", new PS_CommandForEach(4, 1, 1));
 	};
 	
 	void registerMultiCharTokens()

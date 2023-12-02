@@ -4,7 +4,7 @@ class PS_VariableEntity : PS_Variable
 	
 	override string GetValueName(bool arrayFirstScope = true)
 	{
-		return m_eEntity.ToString();
+		return string.Format("%1", m_eEntity);
 	}
 	
 	override void PrintVariable()

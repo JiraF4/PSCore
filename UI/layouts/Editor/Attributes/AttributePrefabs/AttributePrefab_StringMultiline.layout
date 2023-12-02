@@ -28,16 +28,9 @@ FrameWidgetClass {
           SizeLayoutWidgetClass "{55A272E1277CE21D}" {
            Prefab "{55A272E1277CE21D}"
            {
-            ButtonWidgetClass "{5EE6A7E4A6142BA1}" : "{3B43B22592EA20CB}UI/layouts/WidgetLibrary/EditBox/WLib_EditBoxMultilineBig.layout" {
+            ButtonWidgetClass "{5F03665357E3B29F}" : "{3B43B22592EA20CB}UI/layouts/WidgetLibrary/EditBox/WLib_EditBoxMultilineBig.layout" {
              Name "MultilineEditBox"
              Slot AlignableSlot "{5538C206F1963489}" {
-             }
-             components {
-              SCR_ModularButtonComponent "{5EE6A7EC06651600}" {
-              }
-              SCR_EditBoxComponent "{59BA916B7193FCE6}" {
-               m_bForceSize 0
-              }
              }
              {
               SizeLayoutWidgetClass "{5EE6A0BB9BCAFFB7}" {
@@ -51,25 +44,32 @@ FrameWidgetClass {
                    {
                     OverlayWidgetClass "{5EE6A0BB9BCAFFB9}" {
                      Prefab "{5EE6A0BB9BCAFFB9}"
-                     Slot LayoutSlot "{5538C2059A570EB1}" {
-                      Padding -600 0 0 0
-                     }
                      {
                       HorizontalLayoutWidgetClass "{5EE6A0BB9BCAFFBE}" {
                        Prefab "{5EE6A0BB9BCAFFBE}"
                        {
                         ScrollLayoutWidgetClass "{5EE6A7E59EA2E674}" {
                          Prefab "{5EE6A7E59EA2E674}"
-                         Slot LayoutSlot "{5EE6A7E59EA2E65B}" {
-                         }
-                         style Small
                          {
                           VerticalLayoutWidgetClass "{5EE6A7E6B28BEE97}" {
                            Prefab "{5EE6A7E6B28BEE97}"
                            {
-                            SizeLayoutWidgetClass "{5EE6A7E64EEDE52D}" {
-                             Prefab "{5EE6A7E64EEDE52D}"
-                             "Is Visible" 1
+                            SizeLayoutWidgetClass "{5F03665019D34A93}" {
+                             Prefab "{5F03665019D34A93}"
+                             AllowMinDesiredWidth 1
+                             MinDesiredWidth 386
+                             AllowMinDesiredHeight 1
+                             MinDesiredHeight 24
+                             {
+                              MultilineEditBoxWidgetClass "{5EE6A0BB9BCAF5A5}" {
+                               Prefab "{5EE6A0BB9BCAF5A5}"
+                               Slot AlignableSlot "{5F03665741DECF90}" {
+                                HorizontalAlign 0
+                                VerticalAlign 0
+                               }
+                               Text ""
+                              }
+                             }
                             }
                            }
                           }

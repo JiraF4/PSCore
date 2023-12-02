@@ -129,6 +129,11 @@ class PS_Parser
 				case PS_ETokenType.LEFTPARENTHISISSQUARE:
 					expressionNodes.Insert(ParseArray(token));
 					break;
+				case PS_ETokenType.LEFTPARENTHISISFIGURE:
+					expressionNodes.Insert(ParseCodeBlock(PS_ETokenType.RIGHTPARENTHISISFIGURE));
+					if (!require(nextTokenTypes)) 
+						return null;
+					break;
 				case PS_ETokenType.NUMBER:
 					expressionNodes.Insert(new PS_LanguageNodeNumber(token));
 					if (!require(nextTokenTypes)) 
@@ -228,6 +233,7 @@ class PS_Parser
 		if (m_iPosition >= m_lLexer.tokens.Count())
 		{
 			MakeMatchError(null, expected);
+			return null;
 		}
 		PS_Token currentToken = m_lLexer.tokens.Get(m_iPosition);
 		if (expected.Contains(currentToken.type))
@@ -244,6 +250,7 @@ class PS_Parser
 		if (m_iPosition >= m_lLexer.tokens.Count())
 		{
 			MakeMatchError(null, expected);
+			return null;
 		}
 		if (m_iPosition == 0) return false;
 		if (m_lLexer.tokens.Count() <= 1) return false;

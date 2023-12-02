@@ -3,10 +3,11 @@ class PS_VirtualMachine
 	// All local variables
 	protected ref map<string, ref PS_VariableHolder> m_mVariables = new map<string, ref PS_VariableHolder>();
 	
+	// TODO: move all stacks to vm state class
 	ref PS_VMCodeBlock m_cRootCodeBlock;
-	protected ref array<ref PS_VMCodeBlock> m_aCallstack = new array<ref PS_VMCodeBlock>();
-	protected ref array<int> m_aPointers = new array<int>();
 	ref PS_LanguageNodeCodeBlock m_nRootNode;
+	
+	ref array<ref PS_VirtualMachineState> m_aStates = new array<ref PS_VirtualMachineState>();
 	
 	ref array<ref PS_Variable> m_aVarStack = new array<ref PS_Variable>();
 	ref PS_Variable m_vRegister;
@@ -22,6 +23,22 @@ class PS_VirtualMachine
 	
 	// If script unscheduled you can't crete new VM through script
 	bool m_bScheduled = false;
+	
+	PS_VirtualMachineState GetSate()
+	{
+		return m_aStates[m_aStates.Count() - 1];
+	}
+	
+	PS_VirtualMachineItterator GetItterator()
+	{
+		return GetSate().m_iItterator;
+	}
+	
+	void SetItterator(PS_VirtualMachineItterator iterrator)
+	{
+		GetSate().m_iItterator = iterrator;
+	}
+	
 	
 	void KillVM()
 	{
@@ -63,7 +80,7 @@ class PS_VirtualMachine
 				KillVM();
 			}
 		}
-		m_aPointers[m_aPointers.Count() - 1] = m_aPointers[m_aPointers.Count() - 1] + distance;
+		GetSate().m_aPointer = GetSate().m_aPointer + distance;
 	}
 	
 	void SetVariable(string variableName, PS_Variable variable)
@@ -82,9 +99,8 @@ class PS_VirtualMachine
 	
 	void RunCodeBlock(PS_VMCodeBlock codeBlock)
 	{
-		m_aCallstack.Insert(codeBlock);
-		m_aPointers.Insert(0);
-		if (m_iMaxCallstack > m_aCallstack.Count()) // Prevent infinity recursion, still possible throug spawn :(
+		m_aStates.Insert(new PS_VirtualMachineState(codeBlock));
+		if (m_iMaxCallstack < m_aStates.Count()) // Prevent infinity recursion, still possible throug spawn :(
 		{
 			Print("Call stack overflow. (Infinity recursion?)");
 			KillVM();
@@ -99,13 +115,15 @@ class PS_VirtualMachine
 	// Run in one shoot
 	void Restart()
 	{
-		m_aCallstack.Clear();
-		m_aPointers.Clear();
-		m_aVarStack.Clear();
+		m_aStates.Clear();
+		m_aStates.Insert(new PS_VirtualMachineState(m_cRootCodeBlock));
 		
-		m_aCallstack.Insert(m_cRootCodeBlock);
-		m_aPointers.Insert(0);
+		m_aVarStack.Clear();
 		m_vRegister = new PS_Variable();
+		
+		m_iBackwardJumpCounter = 0;
+		
+		killed = false;
 	}
 	
 	PS_Variable RunUnscheduled()
@@ -124,21 +142,25 @@ class PS_VirtualMachine
 		Restart();
 	}
 	
+	// TODO: refactor
 	bool ExecuteNext()
 	{
-		if (m_aCallstack.IsEmpty() || killed)
+		if (m_aStates.IsEmpty() || killed)
+		{
+			//Print("KILL");
 			return true;
-		int callStactNum = m_aCallstack.Count() - 1;
-		PS_VMCodeBlock codeBlock = m_aCallstack.Get(callStactNum);
-		int pointerNum = m_aPointers[callStactNum];
+		}
+		int callStactNum = m_aStates.Count() - 1;
+		PS_VMCodeBlock codeBlock = m_aStates.Get(callStactNum).m_cCodeBlock;
+		int pointerNum = m_aStates.Get(callStactNum).m_aPointer;
 		if (pointerNum >= codeBlock.Count())
 		{
-			m_aCallstack.Remove(callStactNum);
-			m_aPointers.Remove(callStactNum);
+			m_aStates.Remove(callStactNum);
 		} else {
 			PS_VMCommand node = codeBlock.Get(pointerNum);
+			//node.PrintCommand(-1);
 			node.Execute(this);
-			m_aPointers[callStactNum] = m_aPointers[callStactNum] + 1;
+			m_aStates.Get(callStactNum).m_aPointer = m_aStates.Get(callStactNum).m_aPointer + 1;
 		}
 		return false;
 	}
@@ -151,3 +173,48 @@ class PS_VirtualMachine
 		//codeBlock.PrintCommandList(0);
 	}
 }
+
+class PS_VirtualMachineState
+{
+	ref PS_VirtualMachineItterator m_iItterator;
+	int m_aPointer;
+	ref PS_VMCodeBlock m_cCodeBlock;
+	
+	void PS_VirtualMachineState(PS_VMCodeBlock codeBlock)
+	{
+		m_aPointer = 0;
+		m_cCodeBlock = codeBlock;
+	}
+}
+
+class PS_VirtualMachineItterator
+{
+	int m_iPosition;
+	ref PS_VariableArray m_aArray;
+	ref PS_VariableCodeBlock m_cCodeBlock;
+	
+	void PS_VirtualMachineItterator(PS_VariableArray variableArray, PS_VariableCodeBlock codeBlock)
+	{
+		m_iPosition = 0;
+		m_aArray = variableArray;
+		m_cCodeBlock = codeBlock;
+	}
+	
+	bool RunNext(PS_VirtualMachine vm)
+	{
+		if (m_iPosition >= m_aArray.Count())
+			return true; // Exit iterrator loop
+		
+		vm.SetVariable("_x", m_aArray.Get(m_iPosition));
+		vm.RunCodeBlock(m_cCodeBlock.m_cCodeBlock);
+		m_iPosition++;
+		return false;
+	}
+}
+
+
+
+
+
+
+

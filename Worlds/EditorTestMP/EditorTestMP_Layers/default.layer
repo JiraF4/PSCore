@@ -11,20 +11,88 @@ TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
  coords 79.929 1 170.913
 }
 SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/Editor/GameMode_Editor_Full.et" {
- coords 149.326 1 158.747
+ coords 95.281 1 179.742
+ {
+  SCR_FactionManager "5F036067DAF03950" {
+   ID "56E685E92F1B7E7A"
+   coords 0 0 0
+  }
+  SCR_BaseTaskManager {
+   ID "56E685E92F1B7FAB"
+   coords 0 0 0
+   {
+    SCR_BaseTaskSupportEntity {
+     ID "5A0AA0B0D37D2B35"
+     coords 0 0 0
+    }
+    SCR_EditorTaskSupportEntity {
+     ID "5A0AA0B0D37D2BC3"
+     coords 0 0 0
+    }
+    SCR_TriggerTaskSupportEntity {
+     ID "5A0AA0B0D37D2BFF"
+     coords 0 0 0
+    }
+   }
+  }
+  SCR_EditorSettingsEntity {
+   ID "5982CAB0B3E6AA4C"
+   coords 0 0 0
+  }
+  SCR_LoadoutManager {
+   ID "56E685E92F1B7E2A"
+   coords 0 0 0
+  }
+ }
 }
 PS_SQFScriptedTriggerEntity {
- coords 131.936 1 166.774
+ components {
+  PS_EditableTriggerComponent "{5F03495F7AD26788}" {
+   m_EntityType SYSTEM
+   m_UIInfo SCR_EditableDescriptorUIInfo "{5F03495F352667C0}" {
+    Name "#PS-EditableEntity_MapMarker"
+    Icon "{5E7A3FF224D598E3}UI/Textures/FieldManual/Gameplay/Navigation/Tiles/protractor-icon-brown_ui.edds"
+    m_Image "{5E7A3FF224D598E3}UI/Textures/FieldManual/Gameplay/Navigation/Tiles/protractor-icon-brown_ui.edds"
+    m_aAutoLabels {
+     7
+    }
+    m_sNameFormat "Marker"
+   }
+   m_bAutoRegister ALWAYS
+   m_vIconPos 0 0 0
+   m_bStatic 1
+   m_Flags 0
+  }
+  PS_TriggerZoneAreaMeshComponent "{5F034951C09EDC24}" {
+   m_vResolution 32
+   m_bStretchMaterial 1
+   m_Material "{788C42E96DB8587C}Assets/Editor/VirtualArea/VirtualArea_01_Danger.emat"
+  }
+  SCR_EditableEntityVisibilityChildComponent "{5F03495EE221AA8E}" {
+   m_State 96
+  }
+  RplComponent "{5F03495EF573E24E}" {
+  }
+  Hierarchy "{5F03495E803D4008}" {
+  }
+ }
+ coords 141.28 1 128.017
  TriggerShapeType Sphere
- SphereRadius 11.8
- DrawShape 1
+ SphereRadius 10
+ BoxMins -15 -9000 -15
+ BoxMaxs 15 9000 15
+ "Polyline Height" 46.4
  ShapeColor 1 0 0 0.15
  TriggerActivationType "Every query"
  PeriodicQueries 1
- UpdatePeriod 3
+ UpdatePeriod 0.1
  ClassesFilter {
   "SCR_ChimeraCharacter"
  }
+ m_sActivateScriptSQF "{_loadout = GetLoadout _x; print _loadout;} ForEach (_this select 0); "
+}
+SCR_CharacterTriggerEntity {
+ coords 152.513 1 106.241
 }
 $grp GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_Toilet_01.et" {
  {
@@ -37,14 +105,14 @@ $grp GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_T
       }
       UIInfo UIInfo "{5EEEC74505F7ED02}" {
       }
-      m_sVisibilityConditionScriptSQF "3 > 2;"
+      m_sVisibilityConditionScriptSQF "true;"
       m_sPerformActionScriptSQF "pos = getPos (_this select 0); createPrefab [\"{72BEEF40AF179763}Prefabs/Weapons/Warheads/Explosions/Explosion_Tnt_Large.et\", pos];"
       m_sGetActionNameScriptSQF "\"Explode toilet\";"
      }
     }
    }
   }
-  coords 165.402 1 150.738
+  coords 155.101 1 140.17
  }
  {
   components {
@@ -63,11 +131,14 @@ $grp GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_T
     }
    }
   }
-  coords 131.837 1 166.454
+  coords 128.475 1 163.194
  }
 }
+SCR_ChimeraCharacter : "{42A502E3BB727CEB}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_HeliPilot.et" {
+ coords 132.599 4.712 123.147
+}
 PS_ManualMarker : "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker.et" {
- coords 158.401 1 170.947
+ coords 147.021 1 159.603
  m_sDescription "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus eget nunc scelerisque viverra mauris in aliquam sem. Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Ut sem nulla pharetra diam sit amet. Elementum nibh tellus molestie nunc non. Ultrices neque ornare aenean euismod. Bibendum neque egestas congue quisque egestas diam in arcu. Mattis molestie a iaculis at. Convallis aenean et tortor at risus. In massa tempor nec feugiat nisl pretium fusce id velit. Pretium viverra suspendisse potenti nullam ac tortor vitae purus faucibus. Aliquet nec ullamcorper sit amet risus nullam eget. Tincidunt ornare massa eget egestas purus viverra. Id consectetur purus ut faucibus pulvinar elementum integer enim neque. Et ligula ullamcorper malesuada proin. Auctor eu augue ut lectus arcu bibendum at. Nibh mauris cursus mattis molestie a. Aliquam sem et tortor consequat id porta nibh venenatis. Libero justo laoreet sit amet cursus sit amet dictum sit. Ut sem nulla pharetra diam sit amet."\
  ""\
  "Viverra suspendisse potenti nullam ac tortor vitae. Faucibus purus in massa tempor nec. Senectus et netus et malesuada fames ac turpis egestas. Id consectetur purus ut faucibus pulvinar. Semper auctor neque vitae tempus quam pellentesque nec nam aliquam. Ut sem viverra aliquet eget sit amet tellus cras adipiscing. Nec dui nunc mattis enim ut tellus elementum sagittis. Tempor orci eu lobortis elementum nibh tellus molestie nunc. Morbi tincidunt ornare massa eget. Turpis massa tincidunt dui ut ornare lectus sit amet. Cursus euismod quis viverra nibh cras pulvinar mattis. Est pellentesque elit ullamcorper dignissim cras. Cursus risus at ultrices mi tempus imperdiet nulla malesuada."\
