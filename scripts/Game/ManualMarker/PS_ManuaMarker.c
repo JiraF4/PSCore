@@ -368,6 +368,18 @@ class PS_ManualMarker : GenericEntity
 		writer.WriteFloat(m_fWorldSize);
 		writer.WriteString(m_sDescription);
 		writer.WriteBool(m_bUseWorldScale);
+		writer.WriteBool(m_bVisibleForEmptyFaction);
+		
+		string factions = "";
+		foreach (Faction faction: m_aVisibleForFactions)
+		{
+			if (faction) 
+			{
+				if (factions != "") factions += ", ";
+				factions += faction.GetFactionKey();
+			}
+		}
+		writer.WriteString(factions);
 		
 		return true;
 	}
@@ -383,6 +395,17 @@ class PS_ManualMarker : GenericEntity
 		reader.ReadFloat(m_fWorldSize);
 		reader.ReadString(m_sDescription);
 		reader.ReadBool(m_bUseWorldScale);
+		reader.ReadBool(m_bVisibleForEmptyFaction);
+		
+		string factions;
+		reader.ReadString(factions);
+		array<string> outTokens = new array<string>();
+		factions.Split(",", outTokens, false);
+		foreach (FactionKey factionKey: outTokens)
+		{
+			SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
+			m_aVisibleForFactions.Insert(factionManager.GetFactionByKey(factionKey));
+		}
 		
 		return true;
 	}
