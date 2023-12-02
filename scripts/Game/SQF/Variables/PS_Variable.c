@@ -2,7 +2,7 @@ class PS_Variable
 {
 	string m_sVariableName = "";
 	
-	string GetValueName(bool arrayFirstScope = true)
+	string GetValueName(bool fancy = false, bool arrayFirstScope = true)
 	{
 		return "null";
 	}

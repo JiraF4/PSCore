@@ -76,7 +76,7 @@ PS_SQFScriptedTriggerEntity {
   Hierarchy "{5F03495E803D4008}" {
   }
  }
- coords 141.28 1 128.017
+ coords 197.199 1 94.156
  TriggerShapeType Sphere
  SphereRadius 10
  BoxMins -15 -9000 -15
@@ -89,7 +89,7 @@ PS_SQFScriptedTriggerEntity {
  ClassesFilter {
   "SCR_ChimeraCharacter"
  }
- m_sActivateScriptSQF "{_loadout = GetLoadout _x; print _loadout;} ForEach (_this select 0); "
+ m_sActivateScriptSQF "{fancyPrint _x;} ForEach (_this select 0); "
 }
 SCR_CharacterTriggerEntity {
  coords 152.513 1 106.241
@@ -133,9 +133,6 @@ $grp GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_T
   }
   coords 128.475 1 163.194
  }
-}
-SCR_ChimeraCharacter : "{42A502E3BB727CEB}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_HeliPilot.et" {
- coords 132.599 4.712 123.147
 }
 PS_ManualMarker : "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker.et" {
  coords 147.021 1 159.603

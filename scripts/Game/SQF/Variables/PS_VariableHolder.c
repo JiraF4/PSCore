@@ -2,7 +2,7 @@ class PS_VariableHolder : PS_Variable
 {
 	ref PS_Variable m_vVariable;
 	
-	override string GetValueName(bool arrayFirstScope = true)
+	override string GetValueName(bool fancy = false, bool arrayFirstScope = true)
 	{
 		return "VariableHolder";
 	}

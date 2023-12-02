@@ -2,7 +2,7 @@ class PS_VariableNumber : PS_Variable
 {
 	float m_mNumber;
 	
-	override string GetValueName(bool arrayFirstScope = true)
+	override string GetValueName(bool fancy = false, bool arrayFirstScope = true)
 	{
 		return m_mNumber.ToString();
 	}

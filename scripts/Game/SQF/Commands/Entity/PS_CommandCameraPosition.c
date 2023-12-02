@@ -11,3 +11,4 @@ class PS_CommandCameraPosition : PS_Command // "cameraPosition"
 		return arr;
 	};
 }
+

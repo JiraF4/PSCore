@@ -2,7 +2,7 @@ class PS_VariableCodeBlock : PS_Variable
 {
 	ref PS_VMCodeBlock m_cCodeBlock;
 	
-	override string GetValueName(bool arrayFirstScope = true)
+	override string GetValueName(bool fancy = false, bool arrayFirstScope = true)
 	{
 		return "CodeBlock";
 	}

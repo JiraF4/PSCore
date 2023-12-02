@@ -3,7 +3,7 @@ class PS_VariableArray : PS_Variable
 	ref array<ref PS_Variable> m_aArray = new array<ref PS_Variable>;
 	
 	private static ref array<PS_Variable> m_aVarsInArray; // recursion dirty hack
-	override string GetValueName(bool arrayFirstScope = true)
+	override string GetValueName(bool fancy = false, bool arrayFirstScope = true)
 	{
 		if (arrayFirstScope) m_aVarsInArray = new array<PS_Variable>();
 		m_aVarsInArray.Insert(this); // Exclude recursion
@@ -11,17 +11,18 @@ class PS_VariableArray : PS_Variable
 		bool firstAdded = false;
 		foreach (PS_Variable var : m_aArray) {
 			if (firstAdded) str += ", ";
+			if (fancy && arrayFirstScope) str += "\n";
 			PS_VariableArray arr = PS_VariableArray.Cast(var);
 			if (arr)
 			{
 				if (!m_aVarsInArray.Contains(arr))
 				{
-					str += arr.GetValueName(false);
+					str += arr.GetValueName(fancy, false);
 				} else {
 					str += "RECURS";
 				}
 			}
-			else str += var.GetValueName(false);
+			else str += var.GetValueName(fancy, false);
 			firstAdded = true;
 		}
 		str += "]";

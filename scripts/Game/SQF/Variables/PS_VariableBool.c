@@ -2,7 +2,7 @@ class PS_VariableBool : PS_Variable
 {
 	bool m_mBool;
 	
-	override string GetValueName(bool arrayFirstScope = true)
+	override string GetValueName(bool fancy = false, bool arrayFirstScope = true)
 	{
 		if (m_mBool)
 			return "true";

@@ -183,6 +183,7 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 		m_mCommands.Insert("/", new PS_CommandDiv(2, 1, 1));
 		m_mCommands.Insert("sqrt", new PS_CommandSqrt(1, 0, 1));
 		m_mCommands.Insert("print", new PS_CommandPrint(5, 0, 1));
+		m_mCommands.Insert("fancyPrint", new PS_CommandFancyPrint(5, 0, 1));
 		m_mCommands.Insert("sleep", new PS_CommandSleep(5, 0, 1));
 		m_mCommands.Insert("count", new PS_CommandCount(1, 0, 1));
 		m_mCommands.Insert("select", new PS_CommandSelect(4, 1, 1));
@@ -193,6 +194,7 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 		m_mCommands.Insert("false", new PS_CommandFalse(1, 0, 0));
 		m_mCommands.Insert("setDamage", new PS_CommandSetDamage(4, 1, 1));
 		m_mCommands.Insert("ForEach", new PS_CommandForEach(4, 1, 1));
+		m_mCommands.Insert("getLoadout", new PS_CommandGetLoadout(2, 0, 1));
 	};
 	
 	void registerMultiCharTokens()
