@@ -28,6 +28,15 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 		m_wDescriptionPanel = PanelWidget.Cast(w.FindAnyWidget("DescriptionPanel"));
 	}
 	
+	float GetYScale()
+	{
+		int x, y;
+		m_wMarkerIcon.GetImageSize(0, x, y);
+		if (y == 0) y = 1;
+		float scale = (float) x / (float) y;
+		return scale;
+	}
+	
 	// Every info contains in PS_ManualMarker, soo ther is onle setters
 	void SetImage(ResourceName m_sImageSet, string quadName)
 	{

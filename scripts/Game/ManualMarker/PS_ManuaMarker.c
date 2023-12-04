@@ -11,8 +11,8 @@ class PS_ManualMarkerClass : GenericEntityClass
 	QuadName -- Name of the Quad used for imageSet AND imageSetGlow
 	Color -- Color of marker icon
 	Size -- Size in meter or pixels, m_bUseWorldScale = 1 mean in meter else in pixels (Default layout size is 1920x1080 pixels)
-	Description -- Multiline marker description show on hover, Only one line from GM
-	Visibility for factions -- Which factions this markerr been show, it's use PLAYER faction, not entity.
+	Description -- Multiline marker description show on hover
+	Visibility for factions -- Which factions this marker been show, it's use PLAYER faction, not entity.
 	
 	Widget update position, size and rotation every frame when present in screen.
 */
@@ -248,7 +248,7 @@ class PS_ManualMarker : GenericEntity
 		float screenXD = GetGame().GetWorkspace().DPIUnscale(screenX);
 		float screenYD = GetGame().GetWorkspace().DPIUnscale(screenY);
 		float sizeXD = m_fWorldSize;
-		float sizeYD = m_fWorldSize;
+		float sizeYD = m_fWorldSize * m_hManualMarkerComponent.GetYScale();
 		if (m_bUseWorldScale) // Calculate world size if need
 		{
 			sizeXD = GetGame().GetWorkspace().DPIUnscale(screenXEnd - screenX);
