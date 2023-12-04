@@ -76,7 +76,7 @@ class PS_EditableMarkerComponent: SCR_EditableSystemComponent
 	
 	bool GetMarkerVisibleForFaction(Faction faction)
 	{
-		return m_eManualMarker.GetVisibleForFaction(faction);
+		return m_eManualMarker.GetVisibleForFaction(faction.GetFactionKey());
 	}
 	void SetMarkerVisibleForFaction(Faction faction, bool visible)
 	{

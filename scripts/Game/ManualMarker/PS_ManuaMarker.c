@@ -6,7 +6,6 @@ class PS_ManualMarkerClass : GenericEntityClass
 // Create custom widget on map every time player open map
 /*
 	Position and rotation -- Got from entity on map. 
-		Since every default direction markers turned to right, -90° added to entity rotation
 	ImageSet -- Can be used any imageSet, but GM use only registered list of custom markers
 	ImageSetGlow -- Can be empty
 	QuadName -- Name of the Quad used for imageSet AND imageSetGlow
@@ -34,12 +33,9 @@ class PS_ManualMarker : GenericEntity
 	protected string m_sDescription;
 	[Attribute("true")]
 	bool m_bUseWorldScale;
-	
-	
-	
-	[Attribute("")] // For workbench
-	protected string m_sVisibleForFactions;
-	ref array<Faction> m_aVisibleForFactions = new array<Faction>();
+		
+	[Attribute("")]
+	ref array<FactionKey> m_aVisibleForFactions = new array<FactionKey>();
 	[Attribute("")]
 	bool m_bVisibleForEmptyFaction;
 	
@@ -205,9 +201,9 @@ class PS_ManualMarker : GenericEntity
 		}
 	}
 	
-	bool GetVisibleForFaction(Faction faction)
+	bool GetVisibleForFaction(FactionKey factionKey)
 	{
-		return m_aVisibleForFactions.Contains(faction);
+		return m_aVisibleForFactions.Contains(factionKey);
 	}
 	void SetVisibleForFaction(Faction faction, bool visible)
 	{
@@ -219,9 +215,9 @@ class PS_ManualMarker : GenericEntity
 	{
 		Faction faction = GetGame().GetFactionManager().GetFactionByKey(factionKey);
 		if (visible)
-			{if (!GetVisibleForFaction(faction)) m_aVisibleForFactions.Insert(faction);}
+			{if (!GetVisibleForFaction(faction.GetFactionKey())) m_aVisibleForFactions.Insert(faction.GetFactionKey());}
 		else
-			{if (GetVisibleForFaction(faction)) m_aVisibleForFactions.RemoveItem(faction);}
+			{if (GetVisibleForFaction(faction.GetFactionKey())) m_aVisibleForFactions.RemoveItem(faction.GetFactionKey());}
 		
 		// Update "On fly" show/hide marker, if map currently open
 		if (!m_MapEntity) return;
@@ -265,16 +261,7 @@ class PS_ManualMarker : GenericEntity
 	}
 	
 	override protected void EOnInit(IEntity owner)
-	{
-		// Workbench
-		array<string> outTokens = new array<string>();
-		m_sVisibleForFactions.Split(",", outTokens, false);
-		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
-		foreach (FactionKey factionKey : outTokens)
-		{
-			RPC_SetVisibleForFaction_ByKey(factionKey, true);
-		}
-		
+	{		
 		m_MapEntity = SCR_MapEntity.GetMapInstance();
 		ScriptInvokerBase<MapConfigurationInvoker> onMapOpen = m_MapEntity.GetOnMapOpen();
 		ScriptInvokerBase<MapConfigurationInvoker> onMapClose = m_MapEntity.GetOnMapClose();
@@ -305,7 +292,7 @@ class PS_ManualMarker : GenericEntity
 		}
 		
 		// Check is player faction in visibility list
-		return GetVisibleForFaction(faction);
+		return GetVisibleForFaction(faction.GetFactionKey());
 	}
 	
 	// Create new widget in map frame widget
@@ -371,13 +358,10 @@ class PS_ManualMarker : GenericEntity
 		writer.WriteBool(m_bVisibleForEmptyFaction);
 		
 		string factions = "";
-		foreach (Faction faction: m_aVisibleForFactions)
+		foreach (FactionKey factionKey: m_aVisibleForFactions)
 		{
-			if (faction) 
-			{
-				if (factions != "") factions += ", ";
-				factions += faction.GetFactionKey();
-			}
+			if (factions != "") factions += ",";
+			factions += factionKey;
 		}
 		writer.WriteString(factions);
 		
@@ -399,14 +383,21 @@ class PS_ManualMarker : GenericEntity
 		
 		string factions;
 		reader.ReadString(factions);
+		GetGame().GetCallqueue().CallLater(FactionsInit, 0, false, factions);
+		
+		return true;
+	}
+	
+	void FactionsInit(string factions)
+	{
 		array<string> outTokens = new array<string>();
 		factions.Split(",", outTokens, false);
 		foreach (FactionKey factionKey: outTokens)
 		{
 			SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
-			m_aVisibleForFactions.Insert(factionManager.GetFactionByKey(factionKey));
+			Faction faction = factionManager.GetFactionByKey(factionKey);
+			m_aVisibleForFactions.Insert(faction.GetFactionKey());
+			PrintFormat("PS_MissionDescription | %1 | %2", factionKey, faction);
 		}
-		
-		return true;
 	}
 }
