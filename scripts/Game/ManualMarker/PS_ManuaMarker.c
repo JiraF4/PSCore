@@ -35,7 +35,7 @@ class PS_ManualMarker : GenericEntity
 	bool m_bUseWorldScale;
 		
 	[Attribute("")]
-	ref array<FactionKey> m_aVisibleForFactions = new array<FactionKey>();
+	ref array<FactionKey> m_aVisibleForFactions;
 	[Attribute("")]
 	bool m_bVisibleForEmptyFaction;
 	
@@ -262,6 +262,9 @@ class PS_ManualMarker : GenericEntity
 	
 	override protected void EOnInit(IEntity owner)
 	{		
+		if (m_aVisibleForFactions == null)
+			m_aVisibleForFactions = new array<FactionKey>();
+		
 		m_MapEntity = SCR_MapEntity.GetMapInstance();
 		ScriptInvokerBase<MapConfigurationInvoker> onMapOpen = m_MapEntity.GetOnMapOpen();
 		ScriptInvokerBase<MapConfigurationInvoker> onMapClose = m_MapEntity.GetOnMapClose();
