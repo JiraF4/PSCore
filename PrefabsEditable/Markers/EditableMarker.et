@@ -32,6 +32,7 @@ PS_ManualMarker {
   }
  }
  coords 1060.328 39.01 2682.178
+ angleY 90
  m_sImageSet "{E23427CAC80DA8B7}UI/Textures/Icons/icons_mapMarkersUI.imageset"
  m_sImageSetGlow "{67B3A6DC2D712B52}UI/Textures/Icons/icons_mapMarkersUI-glow.imageset"
  m_sQuadName "circle-2"
