@@ -248,12 +248,13 @@ class PS_ManualMarker : GenericEntity
 		float screenXD = GetGame().GetWorkspace().DPIUnscale(screenX);
 		float screenYD = GetGame().GetWorkspace().DPIUnscale(screenY);
 		float sizeXD = m_fWorldSize;
-		float sizeYD = m_fWorldSize * m_hManualMarkerComponent.GetYScale();
+		float sizeYD = m_fWorldSize;
 		if (m_bUseWorldScale) // Calculate world size if need
 		{
 			sizeXD = GetGame().GetWorkspace().DPIUnscale(screenXEnd - screenX);
 			sizeYD = GetGame().GetWorkspace().DPIUnscale(screenY - screenYEnd); // Y flip
 		}
+		sizeYD *= m_hManualMarkerComponent.GetYScale();
 		
 		// Update widget
 		// Since every default direction marcers turned to right, -90° added to entity rotation
