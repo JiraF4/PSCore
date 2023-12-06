@@ -3,6 +3,8 @@
 - Also manual markers, for workbench and GM.
 - And some SQF interpretator.
 
+[Workshop page](https://reforger.armaplatform.com/workshop/5EE9238E61637E47-PSCore)
+
 # Modded save system
 Default attributes system do not support string saving at all.
 
