@@ -29,7 +29,7 @@ class PS_ManualMarker : GenericEntity
 	protected string m_sQuadName;
 	[Attribute("5.0")]
 	protected float m_fWorldSize;
-	[Attribute("")]
+	[Attribute(defvalue: "", uiwidget: UIWidgets.EditBoxMultiline)]
 	protected string m_sDescription;
 	[Attribute("true")]
 	bool m_bUseWorldScale;
@@ -312,6 +312,7 @@ class PS_ManualMarker : GenericEntity
 		
 		// Get map frame
 		Widget mapFrame = m_MapEntity.GetMapMenuRoot().FindAnyWidget(SCR_MapConstants.MAP_FRAME_NAME);
+		if (!mapFrame) mapFrame = m_MapEntity.GetMapMenuRoot();
 		if (!mapFrame) return; // Somethig gone wrong
 		
 		// Create and init marker
