@@ -59,6 +59,30 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 		m_wMarkerIconGlow.SetColor(color);	
 	}
 	
+	void SetSlotWorld(vector worldPosition, vector rotation, float worldSize, bool useWorldScale)
+	{
+		// Get screen position
+		float wX, wY, screenX, screenY, screenXEnd, screenYEnd;
+		wX = worldPosition[0];
+		wY = worldPosition[2];
+		m_MapEntity.WorldToScreen(wX, wY, screenX, screenY, true);
+		m_MapEntity.WorldToScreen(wX + worldSize, wY + worldSize, screenXEnd, screenYEnd, true);
+		
+		// Scale to workspace
+		float screenXD = GetGame().GetWorkspace().DPIUnscale(screenX);
+		float screenYD = GetGame().GetWorkspace().DPIUnscale(screenY);
+		float sizeXD = worldSize;
+		float sizeYD = worldSize;
+		if (useWorldScale) // Calculate world size if need
+		{
+			sizeXD = GetGame().GetWorkspace().DPIUnscale(screenXEnd - screenX);
+			sizeYD = GetGame().GetWorkspace().DPIUnscale(screenY - screenYEnd); // Y flip
+		}
+		sizeYD *= GetYScale();
+		
+		SetSlot(screenXD, screenYD, sizeXD, sizeYD, rotation[0] - 90);
+	}
+	
 	// Update marker "Transform", called every frame
 	void SetSlot(float posX, float posY, float sizeX, float sizeY, float rotation)
 	{

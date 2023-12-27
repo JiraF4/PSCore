@@ -1,0 +1,64 @@
+FrameWidgetClass : "{52CA8FF5F56C6F31}UI/Map/ManualMapMarkerBase.layout" {
+ {
+  FrameWidgetClass "{5EB91D1E5DDA01E7}" {
+   Prefab "{5EB91D1E5DDA01E7}"
+   {
+    PanelWidgetClass "{5EC357C30F6D2666}" {
+     Prefab "{5EC357C30F6D2666}"
+     {
+      PanelWidgetClass "{5EC3651206FED48D}" {
+       Prefab "{5EC3651206FED48D}"
+       Slot FrameWidgetSlot "{5EC3651206FED4CB}" {
+        OffsetLeft 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+       }
+       {
+        OverlayWidgetClass "{5EC357C0B0940163}" {
+         Prefab "{5EC357C0B0940163}"
+         Slot FrameWidgetSlot "{5EC357C0B094015A}" {
+          OffsetLeft 0
+          OffsetTop 0
+          SizeX 0
+          OffsetRight 0
+          SizeY 0
+          OffsetBottom 0
+         }
+         {
+          SizeLayoutWidgetClass "{5F36C91E18635B13}" {
+           Name "SizeLayout"
+           Slot OverlayWidgetSlot "{5F36C91E18635B79}" {
+           }
+           AllowWidthOverride 1
+           WidthOverride 512
+           AllowHeightOverride 1
+           HeightOverride 512
+           {
+            RenderTargetWidgetClass "{5F36C91E4151AB0A}" {
+             Name "RenderTarget"
+             Slot AlignableSlot "{5F36C91E18781A2C}" {
+             }
+             "Use clear color" 1
+            }
+           }
+          }
+          RichTextWidgetClass "{5EB91D112318E078}" {
+           Prefab "{5EB91D112318E078}"
+           Slot OverlayWidgetSlot "{5EC357C069D46CD2}" {
+            Padding 0 0 0 0
+           }
+           "Is Visible" 0
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
