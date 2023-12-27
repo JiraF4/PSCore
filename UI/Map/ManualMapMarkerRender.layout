@@ -1,4 +1,11 @@
 FrameWidgetClass : "{52CA8FF5F56C6F31}UI/Map/ManualMapMarkerBase.layout" {
+ components {
+  PS_ManualMarkerComponent "{5EB91D13C38EDB9D}" {
+   Enabled 0
+  }
+  PS_ManualMarkerRenderComponent "{5F36C91D8A72F45F}" {
+  }
+ }
  {
   FrameWidgetClass "{5EB91D1E5DDA01E7}" {
    Prefab "{5EB91D1E5DDA01E7}"
@@ -33,24 +40,36 @@ FrameWidgetClass : "{52CA8FF5F56C6F31}UI/Map/ManualMapMarkerBase.layout" {
            Slot OverlayWidgetSlot "{5F36C91E18635B79}" {
            }
            AllowWidthOverride 1
-           WidthOverride 512
+           WidthOverride 1800
            AllowHeightOverride 1
-           HeightOverride 512
+           HeightOverride 1024
            {
             RenderTargetWidgetClass "{5F36C91E4151AB0A}" {
              Name "RenderTarget"
              Slot AlignableSlot "{5F36C91E18781A2C}" {
+              HorizontalAlign 3
+              VerticalAlign 3
              }
+             Format "HDR Low"
              "Use clear color" 1
             }
            }
           }
+          PanelWidgetClass "{5F36D4245EB0B8AA}" {
+           Name "Panel"
+           Slot OverlayWidgetSlot "{5F36D4245EB0B884}" {
+            HorizontalAlign 3
+            VerticalAlign 3
+           }
+           Color 0 0 0 1
+           style outline_4px
+          }
           RichTextWidgetClass "{5EB91D112318E078}" {
            Prefab "{5EB91D112318E078}"
            Slot OverlayWidgetSlot "{5EC357C069D46CD2}" {
-            Padding 0 0 0 0
+            HorizontalAlign 0
+            VerticalAlign 2
            }
-           "Is Visible" 0
           }
          }
         }

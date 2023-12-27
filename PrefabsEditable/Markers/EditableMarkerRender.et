@@ -1,0 +1,27 @@
+PS_ManuaMarkerRender : "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker.et" {
+ ID "5EDF4803173675DF"
+ coords 0 0 0
+ angleY 0
+ {
+  GenericEntity {
+   ID "5F36D427DE745527"
+   components {
+    RplComponent "{5F36D427F9A26247}" {
+     "Rpl State Override" Runtime
+     AutoHierarchy 1
+    }
+    Hierarchy "{5F36D427F7CA42CA}" {
+    }
+   }
+   coords 0 0 0
+   {
+    SCR_CameraBase SCR_CameraBase1 {
+     ID "5F36D427B0D92373"
+     coords -0.858 -8.426 2.639
+     Flags 1048579
+     FOV 90
+    }
+   }
+  }
+ }
+}
