@@ -56,9 +56,9 @@ class PS_PolyZone : ScriptComponent
 		}
 		for (int i = 0; i < outPoints.Count() - 1; i++)
 		{
-			if ((Math.AbsFloat(outPoints[i][0] - outPoints[i+1][0]) + Math.AbsFloat(outPoints[i][1] - outPoints[i+1][1])) < 0.0075)
+			if ((Math.AbsFloat(outPoints[i][0] - outPoints[i+1][0]) + Math.AbsFloat(outPoints[i][1] - outPoints[i+1][1])) < 0.3)
 			{
-				outPoints.Remove(i);
+				outPoints.RemoveOrdered(i);
 				i--;
 			}
 		}

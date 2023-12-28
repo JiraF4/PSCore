@@ -1,10 +1,11 @@
 [BaseContainerProps()]
-class PS_PolyZoneEffectRestricted : PS_PolyZoneEffect
+class PS_PolyZoneEffectFreezeZone : PS_PolyZoneEffect
 {
 	[Attribute("10")]
 	float m_fKillTime;
 	
 	bool m_bTriggerd = false;
+	bool m_bOutside = false;
 	
 	override void OnFrame(PS_PolyZoneEffectHandler handler, IEntity ent, float timeSlice)
 	{
@@ -20,7 +21,7 @@ class PS_PolyZoneEffectRestricted : PS_PolyZoneEffect
 	
 	override void OnActivate(PS_PolyZoneEffectHandler handler, IEntity ent)
 	{
-		handler.ShowEffect(m_iId, PS_EPolyZoneEffectHUDType.RestrictedZone, m_fKillTime);
+		handler.ShowEffect(m_iId, PS_EPolyZoneEffectHUDType.FreezeZone, m_fKillTime);
 	}
 	
 	override void OnDeactivate(PS_PolyZoneEffectHandler handler, IEntity ent)

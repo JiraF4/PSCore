@@ -15,6 +15,11 @@ class PS_PolyZoneEffectHUD : SCR_ScriptedWidgetComponent
 		Update(0.0);
 	}
 	
+	bool ShowVignette()
+	{
+		return false;
+	}
+	
 	void Update(float timeSlice)
 	{
 		m_fTime -= timeSlice;

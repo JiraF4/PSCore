@@ -6,6 +6,8 @@ class PS_PolyZoneHUD : SCR_InfoDisplay
 	ref map<PS_EPolyZoneEffectHUDType, ResourceName> m_mEffectLayouts = new map<PS_EPolyZoneEffectHUDType, ResourceName>();
 	ref map<int, PS_PolyZoneEffectHUD> m_mEffects = new map<PS_EPolyZoneEffectHUDType, PS_PolyZoneEffectHUD>();
 	
+	bool m_bShowVignette = false;
+	
 	override event void OnStartDraw(IEntity owner)
 	{
 		super.OnStartDraw(owner);
@@ -24,6 +26,9 @@ class PS_PolyZoneHUD : SCR_InfoDisplay
 		{
 			polyZoneEffectHUD.Update(timeSlice);
 		}
+		
+		if (m_bShowVignette) m_wVignette.SetOpacity(Math.Clamp(m_wVignette.GetOpacity() + timeSlice * 5.0, 0, 1));
+		else m_wVignette.SetOpacity(Math.Clamp(m_wVignette.GetOpacity() - timeSlice * 5.0, 0, 1));
 	}
 	
 	void ShowEffect(int id, PS_EPolyZoneEffectHUDType type, float time)
@@ -35,6 +40,7 @@ class PS_PolyZoneHUD : SCR_InfoDisplay
 		Widget effectWidget = GetGame().GetWorkspace().CreateWidgets(effectLayout, m_wEffectsVerticalLayout);
 		PS_PolyZoneEffectHUD polyZoneEffectHUD = PS_PolyZoneEffectHUD.Cast(effectWidget.FindHandler(PS_PolyZoneEffectHUD));
 		polyZoneEffectHUD.SetTime(time);
+		if (!m_bShowVignette) m_bShowVignette = polyZoneEffectHUD.ShowVignette();
 		m_mEffects.Insert(id, polyZoneEffectHUD);
 	}
 	
@@ -42,5 +48,11 @@ class PS_PolyZoneHUD : SCR_InfoDisplay
 	{
 		m_mEffects.Get(id).GetRootWidget().RemoveFromHierarchy();
 		m_mEffects.Remove(id);
+		m_bShowVignette = false;
+		foreach (int idT, PS_PolyZoneEffectHUD polyZoneEffectHUD : m_mEffects)
+		{
+			m_bShowVignette = polyZoneEffectHUD.ShowVignette();
+			if (m_bShowVignette) break;
+		}
 	}
 }
