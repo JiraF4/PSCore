@@ -68,6 +68,11 @@ class PS_PolyZone : ScriptComponent
 		SCR_Math2D.Get2DPolygon(outPoints, m_aPolygon);
 	}
 	
+	bool IsInsidePolygon(vector position)
+	{
+		return Math2D.IsPointInPolygon(m_aPolygon, position[0], position[2]);
+	}
+	
 	CanvasWidget m_wCanvasWidget;
 	protected ref PolygonDrawCommand m_DrawPolygon = new PolygonDrawCommand();
 	protected ref LineDrawCommand m_LinePolygon = new LineDrawCommand();

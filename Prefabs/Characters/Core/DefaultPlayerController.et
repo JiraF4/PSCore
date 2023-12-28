@@ -1,0 +1,15 @@
+SCR_PlayerController {
+ ID "1A9BA6BEFA06E3B1"
+ components {
+  PS_PolyZoneHUDController "{5F38B8926F58C27C}" {
+  }
+  SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
+   InfoDisplays {
+    PS_PolyZoneHUD "{5F38BC5BC71A76DD}" {
+     m_LayoutPath "{B9A11E3F0DADF929}UI/layouts/HUD/PolyZoneHUD.layout"
+     m_eLayer OVERLAY
+    }
+   }
+  }
+ }
+}

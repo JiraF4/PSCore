@@ -1,0 +1,44 @@
+PanelWidgetClass {
+ Name "RestrictedZonePanel"
+ Slot LayoutSlot "{5F38BC501A1901F1}" {
+ }
+ components {
+  PS_PolyZoneEffectHUDRestrictedZone "{5F38BC55D2F47F93}" {
+  }
+ }
+ {
+  OverlayWidgetClass "{5F38BC503A58C502}" {
+   Name "Overlay"
+   Slot FrameWidgetSlot "{5F38BC503A58C51D}" {
+    Anchor 0 0 1 0
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX -1820
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+    SizeToContent 1
+   }
+   {
+    TextWidgetClass "{5F38BC502D9625E6}" {
+     Name "Text"
+     Slot OverlayWidgetSlot "{5F38BC56E65FFE1B}" {
+      HorizontalAlign 0
+      Padding 10 10 10 10
+     }
+     Text "Restricted zone"
+    }
+    TextWidgetClass "{5F38BC56E7D5D434}" {
+     Name "Counter"
+     Slot OverlayWidgetSlot "{5F38BC56E65FFE1B}" {
+      HorizontalAlign 2
+      Padding 10 10 10 10
+     }
+     Text "00:00"
+    }
+   }
+  }
+ }
+}
