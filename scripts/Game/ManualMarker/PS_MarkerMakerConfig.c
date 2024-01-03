@@ -58,5 +58,7 @@ class PS_ManualMarkerConfig
 	[Attribute("0", UIWidgets.ComboBox, "", "", ParamEnumArray.FromEnum(SCR_EGameModeState))]
 	ref array<SCR_EGameModeState> m_aHideOnGameModeStates;
 	[Attribute("")]
-	int m_iZOrder
+	int m_iZOrder;
+	[Attribute("")]
+	float m_fMinSize;
 }

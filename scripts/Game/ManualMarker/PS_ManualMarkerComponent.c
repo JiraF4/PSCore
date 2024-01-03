@@ -60,7 +60,7 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 		m_wMarkerIconGlow.SetColor(color);	
 	}
 	
-	void SetSlotWorld(vector worldPosition, vector rotation, float worldSize, bool useWorldScale)
+	void SetSlotWorld(vector worldPosition, vector rotation, float worldSize, bool useWorldScale, float minSize = 0.0)
 	{
 		// Get screen position
 		float wX, wY, screenX, screenY, screenXEnd, screenYEnd;
@@ -78,6 +78,11 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 		{
 			sizeXD = GetGame().GetWorkspace().DPIUnscale(screenXEnd - screenX);
 			sizeYD = GetGame().GetWorkspace().DPIUnscale(screenY - screenYEnd); // Y flip
+		}
+		if (minSize > 0)
+		{
+			if (sizeXD < minSize) sizeXD = minSize;
+			if (sizeYD < minSize) sizeYD = minSize;
 		}
 		sizeYD *= GetYScale();
 		
