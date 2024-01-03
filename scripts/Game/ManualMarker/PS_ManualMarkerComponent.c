@@ -14,6 +14,7 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 	// Internal variables
 	protected string m_sDescription;
 	protected bool m_bHasGlow;
+	protected int m_iZOrder;
 	
 	// Cache every used widget after attaching to widget tree
 	override void HandlerAttached(Widget w)
@@ -107,6 +108,8 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 	// Show/Hide description box
 	override bool OnMouseEnter(Widget w, int x, int y)
 	{
+		m_iZOrder = m_wRoot.GetZOrder();
+		m_wRoot.SetZOrder(10000);
 		if (m_bHasGlow) m_wMarkerIconGlow.SetVisible(true);
 		if (m_sDescription != "") m_wDescriptionPanel.SetVisible(true);
 		
@@ -114,6 +117,7 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 	}
 	override bool OnMouseLeave(Widget w, Widget enterW, int x, int y)
 	{
+		m_wRoot.SetZOrder(m_iZOrder);
 		m_wMarkerIconGlow.SetVisible(false);	
 		m_wDescriptionPanel.SetVisible(false);
 		

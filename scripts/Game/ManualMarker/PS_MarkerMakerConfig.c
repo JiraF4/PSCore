@@ -57,4 +57,6 @@ class PS_ManualMarkerConfig
 	bool m_bVisibleForEmptyFaction;
 	[Attribute("0", UIWidgets.ComboBox, "", "", ParamEnumArray.FromEnum(SCR_EGameModeState))]
 	ref array<SCR_EGameModeState> m_aHideOnGameModeStates;
+	[Attribute("")]
+	int m_iZOrder
 }

@@ -39,8 +39,11 @@ class PS_ManualMarker : GenericEntity
 	[Attribute("")]
 	bool m_bVisibleForEmptyFaction;
 	
-	[Attribute("")]
+	[Attribute("0", UIWidgets.ComboBox, "", "", ParamEnumArray.FromEnum(SCR_EGameModeState))]
 	ref array<SCR_EGameModeState> m_aHideOnGameModeStates;
+	
+	[Attribute("")]
+	int m_iZOrder;
 	
 	// Internal variables
 	Widget m_wRoot;
@@ -327,6 +330,7 @@ class PS_ManualMarker : GenericEntity
 		
 		// Create and init marker
 		m_wRoot = Widget.Cast(GetGame().GetWorkspace().CreateWidgets(m_sMarkerPrefab, mapFrame));
+		m_wRoot.SetZOrder(m_iZOrder);
 		m_hManualMarkerComponent = PS_ManualMarkerComponent.Cast(m_wRoot.FindHandler(PS_ManualMarkerComponent));
 		m_hManualMarkerComponent.SetImage(m_sImageSet, m_sQuadName);
 		m_hManualMarkerComponent.SetImageGlow(m_sImageSetGlow, m_sQuadName);
