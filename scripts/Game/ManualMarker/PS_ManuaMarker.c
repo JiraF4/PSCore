@@ -39,6 +39,9 @@ class PS_ManualMarker : GenericEntity
 	[Attribute("")]
 	bool m_bVisibleForEmptyFaction;
 	
+	[Attribute("")]
+	ref array<SCR_EGameModeState> m_aHideOnGameModeStates;
+	
 	// Internal variables
 	Widget m_wRoot;
 	SCR_MapEntity m_MapEntity;
@@ -277,6 +280,13 @@ class PS_ManualMarker : GenericEntity
 	
 	bool IsCurrentFactionVisibility()
 	{
+		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
+		if (!gameMode)
+			return true;
+		
+		if (m_aHideOnGameModeStates.Contains(gameMode.GetState()))
+			return false;
+		
 		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 		if (!factionManager)
 			return true; // Somehow manager lost, show marker

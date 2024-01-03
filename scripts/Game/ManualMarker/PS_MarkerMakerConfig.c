@@ -55,4 +55,6 @@ class PS_ManualMarkerConfig
 	ref array<FactionKey> m_aVisibleForFactions;
 	[Attribute("")]
 	bool m_bVisibleForEmptyFaction;
+	[Attribute("0", UIWidgets.ComboBox, "", "", ParamEnumArray.FromEnum(SCR_EGameModeState))]
+	ref array<SCR_EGameModeState> m_aHideOnGameModeStates;
 }
