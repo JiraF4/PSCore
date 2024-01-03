@@ -56,7 +56,7 @@ class PS_PolyZone : ScriptComponent
 		}
 		for (int i = 0; i < outPoints.Count() - 1; i++)
 		{
-			if ((Math.AbsFloat(outPoints[i][0] - outPoints[i+1][0]) + Math.AbsFloat(outPoints[i][1] - outPoints[i+1][1])) < 0.3)
+			if ((Math.AbsFloat(outPoints[i][0] - outPoints[i+1][0]) + Math.AbsFloat(outPoints[i][1] - outPoints[i+1][1])) < 0.1)
 			{
 				outPoints.RemoveOrdered(i);
 				i--;
@@ -122,10 +122,18 @@ class PS_PolyZone : ScriptComponent
 	{
 		m_DrawPolygon.m_Vertices = new array<float>();
 		m_LinePolygon.m_Vertices = new array<float>();
+		float screenXold, screenYold;
 		for (int i = 0; i < m_aPolygon.Count(); i += 2)
 		{
 			float screenX, screenY;
 			m_MapEntity.WorldToScreen(m_aPolygon[i], m_aPolygon[i+1], screenX, screenY, true);
+			if ((Math.AbsFloat(screenXold - screenX) + Math.AbsFloat(screenYold - screenY)) < 2.1)
+			{
+				continue;
+			}
+			screenXold = screenX;
+			screenYold = screenY;
+			
 			m_DrawPolygon.m_Vertices.Insert(screenX);
 			m_DrawPolygon.m_Vertices.Insert(screenY);
 			m_LinePolygon.m_Vertices.Insert(screenX);
