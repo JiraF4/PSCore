@@ -2,6 +2,22 @@ FrameWidgetClass {
  Name "RestrictionZoneWarning"
  Color 1 1 1 1
  {
+  BlurWidgetClass "{604CC43693E4C3CF}" {
+   Name "ScreenBlure"
+   Slot FrameWidgetSlot "{604CC43693E4C328}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX -1820
+    OffsetRight 0
+    SizeY -1050
+    OffsetBottom 0
+   }
+   Color 0.216 0.216 0.216 1
+   Intensity 0.8
+  }
   OverlayWidgetClass "{5F38B78BFC66B933}" {
    Name "Vignette"
    Slot FrameWidgetSlot "{59D0B50D495D33B9}" {

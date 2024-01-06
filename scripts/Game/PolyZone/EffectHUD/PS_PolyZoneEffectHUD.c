@@ -20,6 +20,11 @@ class PS_PolyZoneEffectHUD : SCR_ScriptedWidgetComponent
 		return false;
 	}
 	
+	bool ShowScreenBlure()
+	{
+		return false;
+	}
+	
 	void Update(float timeSlice)
 	{
 		m_fTime -= timeSlice;

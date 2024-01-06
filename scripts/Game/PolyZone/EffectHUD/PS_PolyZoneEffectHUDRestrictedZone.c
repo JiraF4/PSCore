@@ -5,3 +5,4 @@ class PS_PolyZoneEffectHUDRestrictedZone : PS_PolyZoneEffectHUD
 		return true;
 	}
 }
+
