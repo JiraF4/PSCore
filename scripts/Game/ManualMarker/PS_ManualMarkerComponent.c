@@ -60,6 +60,11 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 		m_wMarkerIconGlow.SetColor(color);	
 	}
 	
+	void SetOpacity(float opacity)
+	{
+		m_wRoot.SetOpacity(opacity);
+	}
+	
 	void SetSlotWorld(vector worldPosition, vector rotation, float worldSize, bool useWorldScale, float minSize = 0.0)
 	{
 		// Get screen position
