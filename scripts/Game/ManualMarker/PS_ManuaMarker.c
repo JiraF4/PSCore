@@ -45,6 +45,9 @@ class PS_ManualMarker : GenericEntity
 	[Attribute("")]
 	int m_iZOrder;
 	
+	[Attribute("")]
+	bool m_bShowForAnyFaction;
+	
 	// Internal variables
 	Widget m_wRoot;
 	SCR_MapEntity m_MapEntity;
@@ -209,6 +212,7 @@ class PS_ManualMarker : GenericEntity
 	
 	bool GetVisibleForFaction(FactionKey factionKey)
 	{
+		if (m_bShowForAnyFaction) return true;
 		return m_aVisibleForFactions.Contains(factionKey);
 	}
 	void SetVisibleForFaction(Faction faction, bool visible)

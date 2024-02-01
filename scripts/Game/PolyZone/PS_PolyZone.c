@@ -110,15 +110,17 @@ class PS_PolyZone : ScriptComponent
 		m_LinePolygon.m_bShouldEnclose = true;
 		
 		m_wCanvasWidget.SetDrawCommands(m_MapDrawCommands);
-		GetGame().GetCallqueue().CallLater(Update, 0, true);
+		//GetGame().GetCallqueue().CallLater(Update, 0, true);
+		SetEventMask(GetOwner(), EntityEvent.POSTFRAME);
 	}
 	
 	void DeleteMapWidget(MapConfiguration mapConfig)
 	{
-		GetGame().GetCallqueue().Remove(Update);
+		//GetGame().GetCallqueue().Remove(Update);
+		ClearEventMask(GetOwner(), EntityEvent.POSTFRAME);
 	}
 	
-	void Update()
+	override void EOnPostFrame(IEntity owner, float timeSlice)
 	{
 		m_DrawPolygon.m_Vertices = new array<float>();
 		m_LinePolygon.m_Vertices = new array<float>();
