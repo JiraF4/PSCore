@@ -11,6 +11,9 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 	[Attribute()]
 	ref PS_PolyZoneEffect m_polyZoneEffect;
 	
+	[Attribute("0")]
+	bool m_bReversed;
+	
 	override void OnInit(IEntity owner)
 	{
 		m_polyZone = PS_PolyZone.Cast(owner.GetParent().FindComponent(PS_PolyZone));
@@ -24,30 +27,24 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 		if (!m_polyZone.IsInsidePolygon(ent.GetOrigin()))
 			return false;
 		
-		return true;	
+		return true;
 	}
 	
 	override protected void OnActivate(IEntity ent)
 	{
 		PS_PolyZoneEffectHandler polyZoneEffectHandler = PS_PolyZoneEffectHandler.Cast(ent.FindComponent(PS_PolyZoneEffectHandler));
-		polyZoneEffectHandler.AddEffect(this, m_polyZoneEffect);
+		if (m_bReversed)
+			polyZoneEffectHandler.RemoveEffect(this, m_polyZoneEffect);
+		else
+			polyZoneEffectHandler.AddEffect(this, m_polyZoneEffect);
 	}
 	
 	override protected void OnDeactivate(IEntity ent)
 	{
 		PS_PolyZoneEffectHandler polyZoneEffectHandler = PS_PolyZoneEffectHandler.Cast(ent.FindComponent(PS_PolyZoneEffectHandler));
-		polyZoneEffectHandler.RemoveEffect(this, m_polyZoneEffect);
+		if (m_bReversed)
+			polyZoneEffectHandler.AddEffect(this, m_polyZoneEffect);
+		else
+			polyZoneEffectHandler.RemoveEffect(this, m_polyZoneEffect);
 	}
-	
-	/*
-	override protected void OnQueryFinished(bool bIsEmpty){ 
-		super.OnQueryFinished(bIsEmpty);
-		if (bIsEmpty)
-			return;
-		
-		array<IEntity> outEntities = new array<IEntity>();
-		int entitiesCount = GetEntitiesInside(outEntities);
-		
-	};
-	*/
 }

@@ -22,38 +22,6 @@ class PS_PolyZoneEffectHandler : ScriptComponent
 		}
 	}
 	
-	void ShowEffect(int id, PS_EPolyZoneEffectHUDType type, float time)
-	{
-		PlayerManager playerManager = GetGame().GetPlayerManager();
-		
-		int playerId = playerManager.GetPlayerIdFromControlledEntity(GetOwner());
-		if (playerId <= 0)
-			return;
-		
-		PlayerController playerController = playerManager.GetPlayerController(playerId);
-		if (!playerController)
-			return;
-			
-		PS_PolyZoneHUDController polyZoneHUDController = PS_PolyZoneHUDController.Cast(playerController.FindComponent(PS_PolyZoneHUDController));
-		polyZoneHUDController.ShowEffect(id, type, time);
-	}
-	
-	void HideEffect(int id)
-	{
-		PlayerManager playerManager = GetGame().GetPlayerManager();
-		
-		int playerId = playerManager.GetPlayerIdFromControlledEntity(GetOwner());
-		if (playerId <= 0)
-			return;
-		
-		PlayerController playerController = playerManager.GetPlayerController(playerId);
-		if (!playerController)
-			return;
-			
-		PS_PolyZoneHUDController polyZoneHUDController = PS_PolyZoneHUDController.Cast(playerController.FindComponent(PS_PolyZoneHUDController));
-		polyZoneHUDController.HideEffect(id);
-	}
-	
 	void AddEffect(PS_PolyZoneTrigger zone, PS_PolyZoneEffect effect)
 	{
 		if (!Replication.IsServer()) return;
@@ -69,6 +37,18 @@ class PS_PolyZoneEffectHandler : ScriptComponent
 			return;
 		m_mapPolyZoneEffects[zone].OnDeactivate(this, GetOwner());
 		m_mapPolyZoneEffects.Remove(zone);
+	}
+	
+	void RemoveByEffect(PS_PolyZoneEffect effectForRemove)
+	{
+		if (!Replication.IsServer()) return;
+		foreach (PS_PolyZoneTrigger zone, PS_PolyZoneEffect effect : m_mapPolyZoneEffects)
+		{
+			if (effectForRemove != effect)
+				continue;
+			RemoveEffect(zone, effect);
+			return;
+		}
 	}
 }
 

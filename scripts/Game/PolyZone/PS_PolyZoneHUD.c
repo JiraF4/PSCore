@@ -20,6 +20,7 @@ class PS_PolyZoneHUD : SCR_InfoDisplay
 		
 		// TODO: config
 		m_mEffectLayouts.Insert(PS_EPolyZoneEffectHUDType.RestrictedZone, "{934EEEE4F36CE31E}UI/layouts/HUD/PolyZoneEffects/PolyZoneRestrictedZoneEffect.layout");
+		m_mEffectLayouts.Insert(PS_EPolyZoneEffectHUDType.FreezeZone, "{934EEEE4F36CE31E}UI/layouts/HUD/PolyZoneEffects/PolyZoneRestrictedZoneEffect.layout");
 		m_mEffectLayouts.Insert(PS_EPolyZoneEffectHUDType.ScreenBlure, "{97EFA3A83FBCB3EF}UI/layouts/HUD/PolyZoneEffects/PolyZoneScreenBlureEffect.layout");
 	}
 	
@@ -37,22 +38,33 @@ class PS_PolyZoneHUD : SCR_InfoDisplay
 		else m_wVignette.SetOpacity(Math.Clamp(m_wVignette.GetOpacity() - timeSlice * 5.0, 0, 1));
 	}
 	
-	void ShowEffect(int id, PS_EPolyZoneEffectHUDType type, float time)
+	void HideAll()
 	{
-		if (m_mEffects.Contains(id))
+		foreach (int id, PS_PolyZoneEffectHUD effectHUD : m_mEffects)
+		{
 			HideEffect(id);
+		}
+	}
+	
+	void ShowEffect(PS_EffectContainer effect)
+	{
+		if (m_mEffects.Contains(effect.m_iId))
+			HideEffect(effect.m_iId);
 		
-		ResourceName effectLayout = m_mEffectLayouts.Get(type);
+		ResourceName effectLayout = m_mEffectLayouts.Get(effect.m_iType);
 		Widget effectWidget = GetGame().GetWorkspace().CreateWidgets(effectLayout, m_wEffectsVerticalLayout);
 		PS_PolyZoneEffectHUD polyZoneEffectHUD = PS_PolyZoneEffectHUD.Cast(effectWidget.FindHandler(PS_PolyZoneEffectHUD));
-		polyZoneEffectHUD.SetTime(time);
+		polyZoneEffectHUD.SetTime(effect.m_fTime);
 		if (!m_bShowVignette) m_bShowVignette = polyZoneEffectHUD.ShowVignette();
 		if (!m_bShowScreenBlure) m_bShowScreenBlure = polyZoneEffectHUD.ShowScreenBlure();
-		m_mEffects.Insert(id, polyZoneEffectHUD);
+		m_mEffects.Insert(effect.m_iId, polyZoneEffectHUD);
 	}
 	
 	void HideEffect(int id)
 	{
+		if (!m_mEffects.Contains(id))
+			return;
+		
 		m_mEffects.Get(id).GetRootWidget().RemoveFromHierarchy();
 		m_mEffects.Remove(id);
 		m_bShowVignette = false;

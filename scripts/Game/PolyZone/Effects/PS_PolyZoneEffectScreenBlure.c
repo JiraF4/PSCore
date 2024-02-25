@@ -3,12 +3,21 @@ class PS_PolyZoneEffectScreenBlure : PS_PolyZoneEffect
 {
 	override void OnActivate(PS_PolyZoneEffectHandler handler, IEntity ent)
 	{
-		handler.ShowEffect(m_iId, PS_EPolyZoneEffectHUDType.ScreenBlure, 1000000.0);
+		
 	}
 	
 	override void OnDeactivate(PS_PolyZoneEffectHandler handler, IEntity ent)
 	{
-		handler.HideEffect(m_iId);
+		
+	}
+	
+	override PS_EffectContainer GetEffectContainer()
+	{
+		PS_EffectContainer effect = new PS_EffectContainer();
+		effect.m_iId = m_iId;
+		effect.m_fTime = 10000;
+		effect.m_iType = PS_EPolyZoneEffectHUDType.ScreenBlure;
+		return effect;
 	}
 	
 	override PS_PolyZoneEffect CreateCopyObject()

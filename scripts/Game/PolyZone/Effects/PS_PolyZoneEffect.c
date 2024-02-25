@@ -29,6 +29,12 @@ class PS_PolyZoneEffect
 		
 	}
 	
+	PS_EffectContainer GetEffectContainer()
+	{
+		PS_EffectContainer effect = new PS_EffectContainer();
+		return effect;
+	}
+	
 	PS_PolyZoneEffect Copy()
 	{
 		PS_PolyZoneEffect copy = CreateCopyObject();
@@ -41,4 +47,10 @@ class PS_PolyZoneEffect
 		m_iLastId++;
 		m_iId = m_iLastId;
 	}
+}
+class PS_EffectContainer
+{
+	int m_iId;
+	PS_EPolyZoneEffectHUDType m_iType;
+	float m_fTime;
 }

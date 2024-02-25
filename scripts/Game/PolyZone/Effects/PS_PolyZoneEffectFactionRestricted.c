@@ -20,12 +20,21 @@ class PS_PolyZoneEffectRestricted : PS_PolyZoneEffect
 	
 	override void OnActivate(PS_PolyZoneEffectHandler handler, IEntity ent)
 	{
-		handler.ShowEffect(m_iId, PS_EPolyZoneEffectHUDType.RestrictedZone, m_fKillTime);
+		
 	}
 	
 	override void OnDeactivate(PS_PolyZoneEffectHandler handler, IEntity ent)
 	{
-		handler.HideEffect(m_iId);
+		
+	}
+	
+	override PS_EffectContainer GetEffectContainer()
+	{
+		PS_EffectContainer effect = new PS_EffectContainer();
+		effect.m_iId = m_iId;
+		effect.m_fTime = m_fKillTime;
+		effect.m_iType = PS_EPolyZoneEffectHUDType.RestrictedZone;
+		return effect;
 	}
 	
 	override PS_PolyZoneEffect CreateCopyObject()

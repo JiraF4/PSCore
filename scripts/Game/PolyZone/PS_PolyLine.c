@@ -1,20 +1,13 @@
 [ComponentEditorProps(category: "GameScripted/Character", description: "Add label for observers", color: "0 0 255 255", icon: HYBRID_COMPONENT_ICON)]
-class PS_PolyZoneClass: ScriptComponentClass
+class PS_PolyLineClass: ScriptComponentClass
 {
 };
 
 [ComponentEditorProps(icon: HYBRID_COMPONENT_ICON)]
-class PS_PolyZone : ScriptComponent
+class PS_PolyLine : ScriptComponent
 {
 	[Attribute("{B8793707B56B2F9F}UI/Map/PolyMapMarkerBase.layout", params: "layout")]
 	protected ResourceName m_sPolyMarkerLayout;
-	
-	[Attribute("{EE369172FCB6F4B2}UI/layouts/Textures/WarningZone.edds", UIWidgets.ResourcePickerThumbnail, desc: "", params: "edds")]
-	ResourceName m_mPolygonTexture;
-	[Attribute("1 1 1 1", UIWidgets.ColorPicker, desc: "")]
-	ref Color m_cPolygonColor;
-	[Attribute("0.01", UIWidgets.Slider, desc: "", params: "0.001 4 0.01")]
-	float m_fPolygonUVScale;
 	
 	[Attribute("{15A6B5F9E6E1DB8E}UI/layouts/Textures/WarningZoneBorder.edds", UIWidgets.ResourcePickerThumbnail, desc: "", params: "edds")]
 	ResourceName m_mPolygonTextureBorder;
@@ -25,15 +18,10 @@ class PS_PolyZone : ScriptComponent
 	[Attribute("15", UIWidgets.Slider, desc: "", params: "1 100 0.1")]
 	float m_fPolygonBorderWidth;
 	
-	protected ref SharedItemRef m_TextureSharedItem;
 	protected ref SharedItemRef m_TextureBorderSharedItem;
 	ShapeEntity m_ePolylineShapeEntity;
 	SCR_MapEntity m_MapEntity;
-	ref array<float> m_aPolygon;
-	ref array<float> m_aPolygonTrigger;
-	
-	[Attribute("0")]
-	bool m_bReversed;
+	ref array<float> m_aPoints;
 	
 	override void OnPostInit(IEntity owner)
 	{
@@ -52,7 +40,7 @@ class PS_PolyZone : ScriptComponent
 	void UpdatePolygon()
 	{
 		array<vector> outPoints = new array<vector>();
-		
+		//m_ePolylineShapeEntity.GenerateTesselatedShape(outPoints);
 		m_ePolylineShapeEntity.GetPointsPositions(outPoints);
 		vector origin = GetOwner().GetOrigin();
 		for (int i = 0; i < outPoints.Count(); i++)
@@ -67,40 +55,15 @@ class PS_PolyZone : ScriptComponent
 				i--;
 			}
 		}
-		/*
 		while (outPoints.Count() > 1 && (outPoints[0] - outPoints[outPoints.Count() - 1]).Length() < 1)
 			outPoints.Remove(0);
-		*/
-		m_aPolygon = new array<float>();
-		m_aPolygonTrigger = new array<float>();
-		
-		SCR_Math2D.Get2DPolygon(outPoints, m_aPolygonTrigger);
-		
-		if (m_bReversed)
-		{
-			vector minB;
-			vector maxB;
-			GetGame().GetWorld().GetBoundBox(minB, maxB);
-			outPoints.InsertAt(Vector(minB[0], 0, minB[2]), 0);
-			outPoints.InsertAt(Vector(minB[0], 0, maxB[2]), 0);
-			outPoints.InsertAt(Vector(maxB[0], 0, maxB[2]), 0);
-			outPoints.InsertAt(Vector(maxB[0], 0, minB[2]), 0);
-			outPoints.InsertAt(Vector(minB[0] + 0.5, 0, minB[2]), 0);
-			outPoints.InsertAt(outPoints[5] + "0.5 0 0", 0);
-		}
-			
-		SCR_Math2D.Get2DPolygon(outPoints, m_aPolygon);
-	}
-	
-	bool IsInsidePolygon(vector position)
-	{
-		return Math2D.IsPointInPolygon(m_aPolygonTrigger, position[0], position[2]);
+		m_aPoints = new array<float>();
+		SCR_Math2D.Get2DPolygon(outPoints, m_aPoints);
 	}
 	
 	CanvasWidget m_wCanvasWidget;
-	protected ref PolygonDrawCommand m_DrawPolygon = new PolygonDrawCommand();
 	protected ref LineDrawCommand m_LinePolygon = new LineDrawCommand();
-	protected ref array<ref CanvasWidgetCommand> m_MapDrawCommands = { m_DrawPolygon, m_LinePolygon };
+	protected ref array<ref CanvasWidgetCommand> m_MapDrawCommands = { m_LinePolygon };
 	void CreateMapWidget(MapConfiguration mapConfig)
 	{
 		if (!m_MapEntity)
@@ -113,46 +76,35 @@ class PS_PolyZone : ScriptComponent
 		
 		m_wCanvasWidget = CanvasWidget.Cast(GetGame().GetWorkspace().CreateWidgets(m_sPolyMarkerLayout, mapFrame));
 				
-		if (m_mPolygonTexture != "")
-			m_TextureSharedItem = m_wCanvasWidget.LoadTexture(m_mPolygonTexture);
-		else
-			m_TextureSharedItem = null;
-		
 		if (m_mPolygonTextureBorder != "")
 			m_TextureBorderSharedItem = m_wCanvasWidget.LoadTexture(m_mPolygonTextureBorder);
 		else
 			m_TextureBorderSharedItem = null;
 		
-		m_DrawPolygon.m_pTexture = m_TextureSharedItem;
-		m_DrawPolygon.m_fUVScale = m_fPolygonUVScale;
-		m_DrawPolygon.m_iColor = m_cPolygonColor.PackToInt();
-		
 		m_LinePolygon.m_pTexture = m_TextureBorderSharedItem;
 		m_LinePolygon.m_UVScale = Vector(1, m_fPolygonBorderUVScale, 0.01);
 		m_LinePolygon.m_iColor = m_cPolygonBorderColor.PackToInt();
 		m_LinePolygon.m_fWidth = m_fPolygonBorderWidth;
-		m_LinePolygon.m_bShouldEnclose = true;
+		m_LinePolygon.m_bShouldEnclose = false;
 		
 		m_wCanvasWidget.SetDrawCommands(m_MapDrawCommands);
-		//GetGame().GetCallqueue().CallLater(Update, 0, true);
+		
 		SetEventMask(GetOwner(), EntityEvent.POSTFRAME);
 	}
 	
 	void DeleteMapWidget(MapConfiguration mapConfig)
 	{
-		//GetGame().GetCallqueue().Remove(Update);
 		ClearEventMask(GetOwner(), EntityEvent.POSTFRAME);
 	}
 	
 	override void EOnPostFrame(IEntity owner, float timeSlice)
 	{
-		m_DrawPolygon.m_Vertices = new array<float>();
 		m_LinePolygon.m_Vertices = new array<float>();
 		float screenXold, screenYold;
-		for (int i = 0; i < m_aPolygon.Count(); i += 2)
+		for (int i = 0; i < m_aPoints.Count(); i += 2)
 		{
 			float screenX, screenY;
-			m_MapEntity.WorldToScreen(m_aPolygon[i], m_aPolygon[i+1], screenX, screenY, true);
+			m_MapEntity.WorldToScreen(m_aPoints[i], m_aPoints[i+1], screenX, screenY, true);
 			if ((Math.AbsFloat(screenXold - screenX) + Math.AbsFloat(screenYold - screenY)) < 2.1)
 			{
 				continue;
@@ -160,13 +112,8 @@ class PS_PolyZone : ScriptComponent
 			screenXold = screenX;
 			screenYold = screenY;
 			
-			m_DrawPolygon.m_Vertices.Insert(screenX);
-			m_DrawPolygon.m_Vertices.Insert(screenY);
-			if (!m_bReversed || i > 10)
-			{
-				m_LinePolygon.m_Vertices.Insert(screenX);
-				m_LinePolygon.m_Vertices.Insert(screenY);
-			}
+			m_LinePolygon.m_Vertices.Insert(screenX);
+			m_LinePolygon.m_Vertices.Insert(screenY);
 		}
 	}
 }
