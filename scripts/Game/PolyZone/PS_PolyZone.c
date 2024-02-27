@@ -31,9 +31,47 @@ class PS_PolyZone : ScriptComponent
 	SCR_MapEntity m_MapEntity;
 	ref array<float> m_aPolygon;
 	ref array<float> m_aPolygonTrigger;
+		
+	[Attribute("0")]
+	bool m_bLineMode;
 	
 	[Attribute("0")]
 	bool m_bReversed;
+	
+	[Attribute("")]
+	ref array<FactionKey> m_aVisibleForFactions;
+	[Attribute("0", UIWidgets.ComboBox, "", "", ParamEnumArray.FromEnum(SCR_EGameModeState))]
+	ref array<SCR_EGameModeState> m_aHideOnGameModeStates;
+	
+	bool IsCurrentVisibility()
+	{
+		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
+		if (!gameMode)
+			return true;
+		
+		if (m_aHideOnGameModeStates.Contains(gameMode.GetState()))
+			return false;
+		
+		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
+		if (!factionManager)
+			return true; // Somehow manager lost, show marker
+		
+		SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerController());
+		if (!playerController)
+			return true; // Somehow player controller lost, show marker
+		
+		SCR_PlayerFactionAffiliationComponent playerFactionAffiliationComponent = SCR_PlayerFactionAffiliationComponent.Cast(playerController.FindComponent(SCR_PlayerFactionAffiliationComponent));
+		if (!playerFactionAffiliationComponent)
+			return true; // Somehow player faction component lost, show marker
+		
+		Faction faction = playerFactionAffiliationComponent.GetAffiliatedFaction();
+		FactionKey factionKey = "";
+		if (faction)
+			factionKey = faction.GetFactionKey();
+		
+		// Check is player faction in visibility list
+		return m_aVisibleForFactions.Contains(factionKey);
+	}
 	
 	override void OnPostInit(IEntity owner)
 	{
@@ -103,6 +141,14 @@ class PS_PolyZone : ScriptComponent
 	protected ref array<ref CanvasWidgetCommand> m_MapDrawCommands = { m_DrawPolygon, m_LinePolygon };
 	void CreateMapWidget(MapConfiguration mapConfig)
 	{
+		if (m_bLineMode)
+			m_MapDrawCommands = { m_LinePolygon };
+		else
+			m_MapDrawCommands = { m_DrawPolygon, m_LinePolygon };
+		
+		if (!IsCurrentVisibility())
+			return;
+		
 		if (!m_MapEntity)
 			m_MapEntity = SCR_MapEntity.GetMapInstance();
 		
@@ -131,7 +177,7 @@ class PS_PolyZone : ScriptComponent
 		m_LinePolygon.m_UVScale = Vector(1, m_fPolygonBorderUVScale, 0.01);
 		m_LinePolygon.m_iColor = m_cPolygonBorderColor.PackToInt();
 		m_LinePolygon.m_fWidth = m_fPolygonBorderWidth;
-		m_LinePolygon.m_bShouldEnclose = true;
+		m_LinePolygon.m_bShouldEnclose = !m_bLineMode;
 		
 		m_wCanvasWidget.SetDrawCommands(m_MapDrawCommands);
 		//GetGame().GetCallqueue().CallLater(Update, 0, true);
@@ -159,7 +205,7 @@ class PS_PolyZone : ScriptComponent
 			}
 			screenXold = screenX;
 			screenYold = screenY;
-			
+						
 			m_DrawPolygon.m_Vertices.Insert(screenX);
 			m_DrawPolygon.m_Vertices.Insert(screenY);
 			if (!m_bReversed || i > 10)

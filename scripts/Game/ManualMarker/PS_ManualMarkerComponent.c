@@ -41,12 +41,18 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 	// Every info contains in PS_ManualMarker, soo ther is onle setters
 	void SetImage(ResourceName m_sImageSet, string quadName)
 	{
-		m_wMarkerIcon.LoadImageFromSet(0, m_sImageSet, quadName);
+		if (m_sImageSet.EndsWith(".edds"))
+			m_wMarkerIcon.LoadImageTexture(0, m_sImageSet);
+		else
+			m_wMarkerIcon.LoadImageFromSet(0, m_sImageSet, quadName);
 	}
 	void SetImageGlow(ResourceName m_sImageSet, string quadName)
 	{
 		if (m_sImageSet != "") m_bHasGlow = true;
-		m_wMarkerIconGlow.LoadImageFromSet(0, m_sImageSet, quadName);
+		if (m_sImageSet.EndsWith(".edds"))
+			m_wMarkerIconGlow.LoadImageTexture(0, m_sImageSet);
+		else
+			m_wMarkerIconGlow.LoadImageFromSet(0, m_sImageSet, quadName);
 	}
 	void SetDescription(string description)
 	{
@@ -110,6 +116,10 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 		m_wDescriptionPanel.GetScreenSize(panelX, panelY);
 		float panelXD = GetGame().GetWorkspace().DPIUnscale(panelX);
 		float panelYD = GetGame().GetWorkspace().DPIUnscale(panelY);
+		if (panelX == 0)
+			m_wDescriptionPanel.SetOpacity(0);
+		else
+			m_wDescriptionPanel.SetOpacity(1);
 		FrameSlot.SetPos(m_wDescriptionPanel, -panelXD/2, -panelYD/2);
 		m_wMarkerIcon.SetRotation(rotation);
 		m_wMarkerIconGlow.SetRotation(rotation);
