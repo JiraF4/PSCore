@@ -123,8 +123,8 @@ class PS_PolyZone : ScriptComponent
 			outPoints.InsertAt(Vector(minB[0], 0, maxB[2]), 0);
 			outPoints.InsertAt(Vector(maxB[0], 0, maxB[2]), 0);
 			outPoints.InsertAt(Vector(maxB[0], 0, minB[2]), 0);
-			outPoints.InsertAt(Vector(minB[0] + 0.5, 0, minB[2]), 0);
-			outPoints.InsertAt(outPoints[5] + "0.5 0 0", 0);
+			outPoints.InsertAt(Vector(minB[0], 0, minB[2]), 0);
+			outPoints.InsertAt(outPoints[5], 0);
 		}
 			
 		SCR_Math2D.Get2DPolygon(outPoints, m_aPolygon);
@@ -202,6 +202,10 @@ class PS_PolyZone : ScriptComponent
 			if ((Math.AbsFloat(screenXold - screenX) + Math.AbsFloat(screenYold - screenY)) < 2.1)
 			{
 				continue;
+			}
+			if (m_bReversed && (i == 0 || i == 2))
+			{
+				screenX += 0.1;
 			}
 			screenXold = screenX;
 			screenYold = screenY;

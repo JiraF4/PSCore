@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{387ADF4E0631F89F}UI/layouts/Textures/Border1.edds"
+ Name "{E468BE5A1BEBE5F4}UI/layouts/Textures/Grid4.edds"
  Configurations {
   PNGResourceClass PC : "{DC555BD399D92412}Configs/System/ResourceTypes/PC/TextureUnspecified.conf" {
    ColorSpace ToSRGB
