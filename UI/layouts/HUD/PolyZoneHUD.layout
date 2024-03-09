@@ -2,9 +2,9 @@ FrameWidgetClass {
  Name "RestrictionZoneWarning"
  Color 1 1 1 1
  {
-  BlurWidgetClass "{604CC43693E4C3CF}" {
+  OverlayWidgetClass "{60D306CB65DCE7C5}" {
    Name "ScreenBlure"
-   Slot FrameWidgetSlot "{604CC43693E4C328}" {
+   Slot FrameWidgetSlot "{60D306CB65DCE72D}" {
     Anchor 0 0 1 1
     PositionX 0
     OffsetLeft 0
@@ -15,8 +15,28 @@ FrameWidgetClass {
     SizeY -1050
     OffsetBottom 0
    }
-   Color 0.216 0.216 0.216 1
-   Intensity 0.8
+   {
+    BlurWidgetClass "{604CC43693E4C3CF}" {
+     Name "Blure"
+     Slot OverlayWidgetSlot "{60D306CCFD4D85C3}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+     }
+     Color 0.216 0.216 0.216 1
+     Intensity 0.8
+    }
+    TextWidgetClass "{60D306CB177B8603}" {
+     Name "Text"
+     Slot OverlayWidgetSlot "{60D306CB177B8618}" {
+     }
+     Text "#PS-PolyZoneEffect-Blure"
+     "Font Size" 196
+     "Min Font Size" 196
+     "Horizontal Alignment" Center
+     "Vertical Alignment" Center
+     Wrap 1
+    }
+   }
   }
   OverlayWidgetClass "{5F38B78BFC66B933}" {
    Name "Vignette"

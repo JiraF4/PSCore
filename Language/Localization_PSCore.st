@@ -99,5 +99,15 @@ StringTable {
    Author "zazul"
    LastChanged "zazul"
   }
+  CustomStringTableItem "{60D306CCD520FB94}" {
+   Id "PS-PolyZoneEffect-Blure"
+   Target_en_us "Get Back "\
+   "to the battlefield!"
+   Target_ru_ru "Вернитесь"\
+   "на поле боя!"
+   Modified 1624464097
+   Author "zazul"
+   LastChanged "zazul"
+  }
  }
 }

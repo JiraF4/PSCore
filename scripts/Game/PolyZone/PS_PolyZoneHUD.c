@@ -1,7 +1,7 @@
 class PS_PolyZoneHUD : SCR_InfoDisplay
 {
 	OverlayWidget m_wVignette;
-	BlurWidget m_wScreenBlure;
+	OverlayWidget m_wScreenBlure;
 	VerticalLayoutWidget m_wEffectsVerticalLayout;
 	
 	ref map<PS_EPolyZoneEffectHUDType, ResourceName> m_mEffectLayouts = new map<PS_EPolyZoneEffectHUDType, ResourceName>();
@@ -15,7 +15,7 @@ class PS_PolyZoneHUD : SCR_InfoDisplay
 		super.OnStartDraw(owner);
 		
 		m_wVignette = OverlayWidget.Cast(m_wRoot.FindAnyWidget("Vignette"));
-		m_wScreenBlure = BlurWidget.Cast(m_wRoot.FindAnyWidget("ScreenBlure"));
+		m_wScreenBlure = OverlayWidget.Cast(m_wRoot.FindAnyWidget("ScreenBlure"));
 		m_wEffectsVerticalLayout = VerticalLayoutWidget.Cast(m_wContent.FindAnyWidget("EffectsVerticalLayout"));
 		
 		// TODO: config

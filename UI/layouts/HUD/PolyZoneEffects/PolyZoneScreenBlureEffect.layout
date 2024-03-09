@@ -2,6 +2,7 @@ PanelWidgetClass {
  Name "RestrictedZonePanel"
  Slot LayoutSlot "{5F38BC501A1901F1}" {
  }
+ "Is Visible" 0
  components {
   PS_PolyZoneEffectHUDScreenBlure "{604CC436E457321A}" {
   }
