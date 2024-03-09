@@ -76,7 +76,7 @@ class PS_MapIconListComponent : SCR_ChangeableComponentBase
 		m_IconSelector = m_wRoot.FindAnyWidget(ICON_SELECTOR);	
 		
 		// Register tab change event and switch to first available
-		m_TabComponent.m_OnChanged.Insert(OnTabChanged);
+		m_TabComponent.GetOnChanged().Insert(OnTabChanged);
 		m_TabComponent.ShowTab(0, true, false);
 	}
 	
