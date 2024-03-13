@@ -62,8 +62,8 @@ class PS_MultilineEditBoxComponent : SCR_ChangeableComponentBase
 	protected ref Color COLOR_VALID_INPUT 	= Color.White;
 	
 	// Arguments passed: SCR_EditBoxComponent, string (text)
-	ref ScriptInvoker m_OnConfirm = new ref ScriptInvoker();
-	ref ScriptInvoker m_OnFocusChangedEditBox = new ref ScriptInvoker();
+	ref ScriptInvoker m_OnConfirm = new ScriptInvoker();
+	ref ScriptInvoker m_OnFocusChangedEditBox = new ScriptInvoker();
 	
 	protected MultilineEditBoxWidget m_wMultilineEditBoxWidget;
 	protected EditBoxWidget m_wEditBoxWidget;
@@ -78,9 +78,9 @@ class PS_MultilineEditBoxComponent : SCR_ChangeableComponentBase
 	protected ref Color m_BackgroundCurrent;
 	
 	// TODO: protect these
-	ref ScriptInvokerVoid m_OnWriteModeEnter = new ref ScriptInvokerVoid();
-	ref ScriptInvokerString m_OnWriteModeLeave = new ref ScriptInvokerString();
-	ref ScriptInvokerString m_OnTextChange = new ref ScriptInvokerString();
+	ref ScriptInvokerVoid m_OnWriteModeEnter = new ScriptInvokerVoid();
+	ref ScriptInvokerString m_OnWriteModeLeave = new ScriptInvokerString();
+	ref ScriptInvokerString m_OnTextChange = new ScriptInvokerString();
 	
 	protected string m_sTextPrevious;
 	

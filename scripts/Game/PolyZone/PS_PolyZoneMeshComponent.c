@@ -43,7 +43,8 @@ class PS_PolyZoneMeshComponent : ScriptComponent
 			positions[i] = owner.CoordToLocal(worldPos);
 		}
 		
-		MeshObject meshObject = SCR_Shape.CreateAreaMesh(positions, m_fHeight + m_fUndergroundHeight, m_Material, m_bStretchMaterial);
+		Resource res = SCR_Shape.CreateAreaMesh(positions, m_fHeight + m_fUndergroundHeight, m_Material, m_bStretchMaterial);
+		MeshObject meshObject = res.GetResource().ToMeshObject();
 		if (meshObject)
 		{
 			owner.SetObject(meshObject, "");
