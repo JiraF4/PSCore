@@ -419,8 +419,8 @@ class PS_ManualMarker : GenericEntity
 		{
 			SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 			Faction faction = factionManager.GetFactionByKey(factionKey);
-			m_aVisibleForFactions.Insert(faction.GetFactionKey());
-			PrintFormat("PS_MissionDescription | %1 | %2", factionKey, faction);
+			if (faction)
+				m_aVisibleForFactions.Insert(faction.GetFactionKey());
 		}
 	}
 }
