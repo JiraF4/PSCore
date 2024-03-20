@@ -21,9 +21,6 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 	
 	override bool ScriptedEntityFilterForQuery(IEntity ent)
 	{
-		if (!IsAlive(ent))
-			return false;
-		
 		if (!m_polyZone.IsInsidePolygon(ent.GetOrigin()))
 			return false;
 		

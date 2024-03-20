@@ -6,7 +6,8 @@ PS_Objective {
   }
  }
  coords 163.725 1 152.329
- m_iScore 100
  m_sTitle "Explode lasagna"
+ m_sDescriptionLayout "{41DAF7B7061DC0BC}UI/MissionDescription/DescriptionEditable.layout"
+ m_iScore 100
  m_sFactionKey "FIA"
 }
