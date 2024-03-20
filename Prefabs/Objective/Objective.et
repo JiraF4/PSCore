@@ -4,8 +4,9 @@ PS_Objective {
   RplComponent "{60B551D053E22EBB}" {
    Streamable Disabled
   }
+  Hierarchy "{60E90626CE47B865}" {
+  }
  }
- coords 163.725 1 152.329
  m_sTitle "Explode lasagna"
  m_sDescriptionLayout "{41DAF7B7061DC0BC}UI/MissionDescription/DescriptionEditable.layout"
  m_iScore 100
