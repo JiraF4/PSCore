@@ -7,9 +7,6 @@ SCR_AIWorld : "{E0A05C76552E7F58}Prefabs/AI/SCR_AIWorld.et" {
 PerceptionManager PerceptionManager1 : "{028DAEAD63E056BE}Prefabs/World/Game/PerceptionManager.et" {
  coords 113.126 1 124.397
 }
-TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
- coords 79.929 1 170.913
-}
 SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/Editor/GameMode_Editor_Full.et" {
  coords 95.281 1 179.742
  {
@@ -112,7 +109,7 @@ $grp GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_T
     }
    }
   }
-  coords 155.101 1 140.17
+  coords 155.101 0.994 140.135
  }
  {
   components {
@@ -133,6 +130,9 @@ $grp GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_T
   }
   coords 128.475 1 163.194
  }
+}
+SCR_ChimeraCharacter : "{677B515F119222C2}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_SL.et" {
+ coords 187.44 9.04 96.268
 }
 PS_ManualMarker : "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker.et" {
  coords 167.527 1 101.838

@@ -9,7 +9,7 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 	protected FrameWidget m_wMarkerFrame;
 	protected RichTextWidget m_wDescriptionText;
 	protected PanelWidget m_wDescriptionPanel;
-	protected ScrollLayoutWidget m_wMarkerScrollLayout;
+	protected OverlayWidget m_wMarkerScrollLayout; // ...
 	
 	// Internal variables
 	protected string m_sDescription;
@@ -25,7 +25,7 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 		m_wMarkerIconGlow = ImageWidget.Cast(w.FindAnyWidget("MarkerGlowIcon"));
 		m_wMarkerFrame = FrameWidget.Cast(w.FindAnyWidget("MarkerFrame"));
 		m_wDescriptionText = RichTextWidget.Cast(w.FindAnyWidget("DescriptionText"));
-		m_wMarkerScrollLayout = ScrollLayoutWidget.Cast(w.FindAnyWidget("MarkerScrollLayout"));
+		m_wMarkerScrollLayout = OverlayWidget.Cast(w.FindAnyWidget("MarkerScrollLayout"));
 		m_wDescriptionPanel = PanelWidget.Cast(w.FindAnyWidget("DescriptionPanel"));
 	}
 	

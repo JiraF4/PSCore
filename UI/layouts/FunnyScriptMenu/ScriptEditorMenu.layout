@@ -1,0 +1,111 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  OverlayWidgetClass "{60F724D6609D5B44}" {
+   Name "Overlay"
+   Slot FrameWidgetSlot "{60F724D6609D44A7}" {
+    PositionX 332
+    OffsetLeft 332
+    PositionY 193
+    OffsetTop 193
+    SizeX 1416
+    OffsetRight -1748
+    SizeY 673
+    OffsetBottom -866
+   }
+   {
+    ImageWidgetClass "{60F73CE4954840F2}" {
+     Name "BackgroundBorder"
+     Slot OverlayWidgetSlot "{60F73CE4FC2D1B1B}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+     }
+     Color 0.051 0.053 0.06 1
+    }
+    ImageWidgetClass "{60F73CE4FC2D1B03}" {
+     Name "Background"
+     Slot OverlayWidgetSlot "{60F73CE4FC2D1B1B}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+      Padding 4 4 4 4
+     }
+     Color 0.019 0.021 0.024 1
+    }
+    MultilineEditBoxWidgetClass "{60F724D6BCDE432C}" {
+     Name "ScriptEditBox"
+     Slot OverlayWidgetSlot "{60F724D432E3852F}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+      Padding 4 4 4 4
+     }
+     Text "pos = getPos (_this select 0);"\
+     "createPrefab [\"{72BEEF40AF179763}Prefabs/Weapons/Warheads/Explosions/Explosion_Tnt_Large.et\", pos];"
+     FontProperties FontProperties "{60F72ED69E524D8F}" {
+      Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+     }
+     "Line Spacing" 8
+    }
+    RichTextWidgetClass "{60F724D65DD675C7}" {
+     Name "ScriptRichText"
+     Slot OverlayWidgetSlot "{60F724D432E385C9}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+      Padding 4 4 4 4
+     }
+     Text ""
+     "No Localization" 1
+     FontProperties FontProperties "{60F724D3D6D2B68D}" {
+      Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+      OutlineSize 2
+     }
+     "Line Spacing" 8
+    }
+   }
+  }
+  ButtonWidgetClass "{60F740F9189A41C5}" {
+   Name "ExecuteButton"
+   Slot FrameWidgetSlot "{60F740F9189A41DE}" {
+    PositionX 1669
+    OffsetLeft 1669
+    PositionY 866
+    OffsetTop 866
+    SizeX 79
+    OffsetRight -1748
+    SizeY 45
+    OffsetBottom -911
+   }
+   Color 1 1 1 0
+   components {
+    SCR_ButtonBaseComponent "{60F740F8E1D323B3}" {
+    }
+   }
+   {
+    OverlayWidgetClass "{60F740F931E65E03}" {
+     Name "Overlay"
+     Slot ButtonWidgetSlot "{60F740F931E65E1C}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+     }
+     {
+      ImageWidgetClass "{60F740F9357AAA49}" {
+       Name "Background"
+       Slot OverlayWidgetSlot "{60F740F9357AABA2}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       Color 0.216 0.216 0.216 1
+      }
+      TextWidgetClass "{60F740F8D1D90AAA}" {
+       Name "Text"
+       Slot OverlayWidgetSlot "{60F740F8D1D90A84}" {
+       }
+       Text "EXEC"
+       "Font Size" 32
+       "Min Font Size" 32
+      }
+     }
+    }
+   }
+  }
+ }
+}

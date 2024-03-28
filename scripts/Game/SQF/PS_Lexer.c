@@ -5,7 +5,6 @@ class PS_Lexer
 	string errorStr;
 	ref array<ref PS_Token> tokens = new array<ref PS_Token>();
 	
-	
 	string PeekBackCode(int peekPosition, int length)
 	{
 		peekPosition = peekPosition - length;

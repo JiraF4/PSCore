@@ -29,10 +29,11 @@ FrameWidgetClass {
     OffsetBottom -60
    }
    {
-    ScrollLayoutWidgetClass "{5EC357C5300FE777}" {
+    OverlayWidgetClass "{5EC357C5300FE777}" {
      Name "MarkerScrollLayout"
      Slot FrameWidgetSlot "{5EC357C5300FE75C}" {
      }
+     "Ignore Cursor" 0
     }
     ImageWidgetClass "{5EB91D178F17F034}" {
      Name "MarkerIcon"

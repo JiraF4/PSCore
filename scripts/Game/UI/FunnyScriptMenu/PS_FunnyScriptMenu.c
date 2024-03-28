@@ -1,8 +1,3 @@
-modded enum ChimeraMenuPreset
-{
-	FunnyScriptMenu
-}
-
 class PS_FunnyScriptMenu : ChimeraMenuBase
 {
 	MultilineEditBoxWidget m_wMultilineEditBoxCode;
@@ -24,16 +19,5 @@ class PS_FunnyScriptMenu : ChimeraMenuBase
 		PS_LanguageManager.GetInstance().RunVM(code);
 		
 		Close();
-	}
-}
-
-class PS_FunnyScriptMenuModeClass : SCR_BaseGameModeClass
-{
-}
-class PS_FunnyScriptMenuMode : SCR_BaseGameMode
-{
-	override void OnGameStart()
-	{
-		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.FunnyScriptMenu);
 	}
 }

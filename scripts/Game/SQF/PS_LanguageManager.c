@@ -16,6 +16,18 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 	// All global variables
 	protected ref map<string, ref PS_VariableHolder> m_mVariables = new map<string, ref PS_VariableHolder>();
 	
+	void AddChatAction()
+	{
+		SCR_ChatPanelManager chatPanelManager = SCR_ChatPanelManager.GetInstance();
+		ChatCommandInvoker invoker = chatPanelManager.GetCommandInvoker("sem");
+		invoker.Insert(ScriptEditorMenu_Callback);
+	}
+	
+	void ScriptEditorMenu_Callback(SCR_ChatPanel panel, string data)
+	{
+		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.ScriptEditorMenu);
+	}
+	
 	int m_iLastCodeBlockId = 1;
 	int NextCodeBlockId()
 	{
@@ -120,6 +132,7 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 		
 		GetGame().GetCallqueue().CallLater(VMLoop, 0);
 		GetGame().GetCallqueue().CallLater(AddMsgAction, 0);
+		GetGame().GetCallqueue().CallLater(AddChatAction, 0);
 	}
 	
 	void AddMsgAction()
