@@ -4,14 +4,14 @@ PanelWidgetClass {
  }
  Color 0.008 0.012 0.016 1
  components {
-  PS_PolyZoneEffectHUDRestrictedZone "{5F38BC55D2F47F93}" {
+  PS_PolyZoneEffectHUDTriggerCapture "{60FD404F2C9D1262}" {
   }
  }
  style full
  {
-  VerticalLayoutWidgetClass "{60FD404BCC2B3F7F}" {
+  VerticalLayoutWidgetClass "{60FD404FB51C99C6}" {
    Name "VerticalLayout0"
-   Slot FrameWidgetSlot "{60FD404BCC2B38AC}" {
+   Slot FrameWidgetSlot "{60FD404FB51C992E}" {
     Anchor 0 0 1 0
     PositionX 0
     OffsetLeft 0
@@ -24,38 +24,30 @@ PanelWidgetClass {
     SizeToContent 1
    }
    {
-    OverlayWidgetClass "{5F38BC503A58C502}" {
+    OverlayWidgetClass "{60FD404F93B7043B}" {
      Name "Overlay"
-     Slot LayoutSlot "{60FD404BDAB7D3A7}" {
+     Slot LayoutSlot "{60FD404F21BE2637}" {
      }
      {
-      TextWidgetClass "{5F38BC502D9625E6}" {
+      TextWidgetClass "{60FD404F93B7043E}" {
        Name "Text"
        Slot OverlayWidgetSlot "{5F38BC56E65FFE1B}" {
         HorizontalAlign 0
         Padding 10 10 10 10
        }
-       Color 1 0 0 1
-       Text "Restricted zone"
-       FontProperties FontProperties "{60FD404BE4B5E2A9}" {
-        OutlineSize 2
-       }
+       Text "Trigger zone"
       }
-      TextWidgetClass "{5F38BC56E7D5D434}" {
+      TextWidgetClass "{60FD404F93B7043F}" {
        Name "Counter"
        Slot OverlayWidgetSlot "{5F38BC56E65FFE1B}" {
         HorizontalAlign 2
         Padding 10 10 10 10
        }
-       Color 1 0 0 1
        Text "00:00"
-       FontProperties FontProperties "{60FD404BF513A2E9}" {
-        OutlineSize 2
-       }
       }
      }
     }
-    ImageWidgetClass "{60FD404BD087B12B}" {
+    ImageWidgetClass "{60FD404FB8334E3B}" {
      Name "Separator"
      Slot LayoutSlot "{60FD404FB8334E18}" {
      }

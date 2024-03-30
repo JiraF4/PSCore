@@ -2,6 +2,7 @@ class PS_PolyZoneEffectHUD : SCR_ScriptedWidgetComponent
 {
 	TextWidget m_wCounter;
 	float m_fTime;
+	string m_sString;
 	
 	override void HandlerAttached(Widget w)
 	{
@@ -13,6 +14,11 @@ class PS_PolyZoneEffectHUD : SCR_ScriptedWidgetComponent
 	{
 		m_fTime = time;
 		Update(0.0);
+	}
+	
+	void SetString(string str)
+	{
+		m_sString = str;
 	}
 	
 	bool ShowVignette()

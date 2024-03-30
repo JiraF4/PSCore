@@ -80,13 +80,16 @@ class PS_EffectsContainer
 			int id;
 			PS_EPolyZoneEffectHUDType type;
 			float time;
+			string str;
 			
 			snapshot.SerializeInt(id);
 			snapshot.SerializeInt(type);
 			snapshot.SerializeFloat(time);
+			snapshot.SerializeString(str);
 			packet.SerializeInt(id);
 			packet.SerializeInt(type);
 			packet.SerializeFloat(time);
+			packet.SerializeString(str);
 		}
 	}
 	static bool Decode(ScriptBitSerializer packet, ScriptCtx hint, SSnapSerializerBase snapshot) 
@@ -99,13 +102,16 @@ class PS_EffectsContainer
 			int id;
 			PS_EPolyZoneEffectHUDType type;
 			float time;
+			string str;
 			
 			packet.SerializeInt(id);
 			packet.SerializeInt(type);
 			packet.SerializeFloat(time);
+			packet.SerializeString(str);
 			snapshot.SerializeInt(id);
 			snapshot.SerializeInt(type);
 			snapshot.SerializeFloat(time);
+			snapshot.SerializeString(str);
 		}
 		return true;
 	}
@@ -121,6 +127,7 @@ class PS_EffectsContainer
 			int id1, id2;
 			PS_EPolyZoneEffectHUDType type1, type2;
 			float time1, time2;
+			string str1, str2;
 			
 			lhs.SerializeInt(id1);
 			rhs.SerializeInt(id2);
@@ -136,6 +143,11 @@ class PS_EffectsContainer
 			rhs.SerializeFloat(time2);
 			if (time1 != time2)
 				return false;
+			
+			lhs.SerializeString(str1);
+			rhs.SerializeString(str2);
+			if (str1 != str2)
+				return false;
 		}
 		return true;
 	}
@@ -150,16 +162,20 @@ class PS_EffectsContainer
 			int id;
 			PS_EPolyZoneEffectHUDType type;
 			float time;
+			string str;
 			
 			snapshot.SerializeInt(id);
 			snapshot.SerializeInt(type);
 			snapshot.SerializeFloat(time);
+			snapshot.SerializeString(str);
 			
 			if (prop.m_aEffects[i].m_iId != id)
 				return false;
 			if (prop.m_aEffects[i].m_iType != type)
 				return false;
 			if (prop.m_aEffects[i].m_fTime != time)
+				return false;
+			if (prop.m_aEffects[i].m_sString != str)
 				return false;
 		}
 		return true;
@@ -173,6 +189,7 @@ class PS_EffectsContainer
 			snapshot.SerializeInt(prop.m_aEffects[i].m_iId);
 			snapshot.SerializeInt(prop.m_aEffects[i].m_iType);
 			snapshot.SerializeFloat(prop.m_aEffects[i].m_fTime);
+			snapshot.SerializeString(prop.m_aEffects[i].m_sString);
 		}
 		return true;
 	}
@@ -187,6 +204,7 @@ class PS_EffectsContainer
 			snapshot.SerializeInt(prop.m_aEffects[i].m_iId);
 			snapshot.SerializeInt(prop.m_aEffects[i].m_iType);
 			snapshot.SerializeFloat(prop.m_aEffects[i].m_fTime);
+			snapshot.SerializeString(prop.m_aEffects[i].m_sString);
 		}
 		return true;
 	}

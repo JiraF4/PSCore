@@ -53,4 +53,5 @@ class PS_EffectContainer
 	int m_iId;
 	PS_EPolyZoneEffectHUDType m_iType;
 	float m_fTime;
+	string m_sString;
 }

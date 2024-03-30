@@ -4,4 +4,5 @@ enum PS_EPolyZoneEffectHUDType
 	FreezeZoneLeave,
 	RestrictedZone,
 	ScreenBlure,
+	TriggerCapture,
 }

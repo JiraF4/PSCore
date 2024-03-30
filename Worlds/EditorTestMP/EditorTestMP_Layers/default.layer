@@ -132,7 +132,7 @@ $grp GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_T
  }
 }
 SCR_ChimeraCharacter : "{677B515F119222C2}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_SL.et" {
- coords 187.44 9.04 96.268
+ coords 187.44 -0.08 96.268
 }
 PS_ManualMarker : "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker.et" {
  coords 167.527 1 101.838
