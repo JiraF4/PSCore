@@ -13,6 +13,15 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 	[Attribute("0")]
 	bool m_bReversed;
 	
+	[Attribute("0")]
+	bool m_bAliveOnly;
+	
+	[Attribute("")]
+	FactionKey m_sFactionKey;
+	
+	[Attribute("")]
+	string m_sGroupKey;
+	
 	override void OnInit(IEntity owner)
 	{
 		m_polyZone = PS_PolyZone.Cast(owner.GetParent().FindComponent(PS_PolyZone));
@@ -24,6 +33,38 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			return true;
 		if (!m_polyZone.IsInsidePolygon(ent.GetOrigin()))
 			return false;
+		
+		if (m_bAliveOnly || m_sFactionKey != "" || m_sGroupKey != "")
+		{
+			SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
+			if (m_sGroupKey != "" && !character)
+				return false;
+			
+			Vehicle vehicle = Vehicle.Cast(ent);
+			SCR_DamageManagerComponent damageManager;
+			FactionAffiliationComponent factionAffiliation;
+			AIGroup aiGroup;
+			
+			if (vehicle)
+			{
+				damageManager = vehicle.GetDamageManager();
+				factionAffiliation = vehicle.GetFactionAffiliation();
+			}
+			
+			if (character)
+			{
+				damageManager = character.GetDamageManager();
+				factionAffiliation = character.PS_GetPlayable().GetFactionAffiliationComponent();
+				aiGroup = character.PS_GetPlayable().GetAIAgent().GetParentGroup();
+			}
+			
+			if (m_bAliveOnly && damageManager.GetState() == EDamageState.DESTROYED)
+				return false;
+			if (m_sFactionKey != "" && factionAffiliation.GetDefaultAffiliatedFaction().GetFactionKey() != m_sFactionKey)
+				return false;
+			if (m_sGroupKey != "" && !aiGroup.GetName().Contains(m_sGroupKey))
+				return false;
+		}
 		
 		return true;
 	}
