@@ -55,15 +55,22 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			{
 				damageManager = character.GetDamageManager();
 				factionAffiliation = character.PS_GetPlayable().GetFactionAffiliationComponent();
-				aiGroup = character.PS_GetPlayable().GetAIAgent().GetParentGroup();
+				AIAgent aiAgent = character.PS_GetPlayable().GetAIAgent();
+				if (aiAgent)
+					aiGroup = aiAgent.GetParentGroup();
 			}
 			
 			if (m_bAliveOnly && damageManager.GetState() == EDamageState.DESTROYED)
 				return false;
 			if (m_sFactionKey != "" && factionAffiliation.GetDefaultAffiliatedFaction().GetFactionKey() != m_sFactionKey)
 				return false;
-			if (m_sGroupKey != "" && !aiGroup.GetName().Contains(m_sGroupKey))
-				return false;
+			if (m_sGroupKey != "")
+			{
+				if (!aiGroup)
+					return false;
+				if (!aiGroup.GetName().Contains(m_sGroupKey))
+					return false;
+			}
 		}
 		
 		return true;
