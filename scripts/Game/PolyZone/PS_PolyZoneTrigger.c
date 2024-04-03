@@ -43,7 +43,7 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			Vehicle vehicle = Vehicle.Cast(ent);
 			SCR_DamageManagerComponent damageManager;
 			FactionAffiliationComponent factionAffiliation;
-			AIGroup aiGroup;
+			SCR_AIGroup aiGroup;
 			
 			if (vehicle)
 			{
@@ -57,7 +57,9 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 				factionAffiliation = character.PS_GetPlayable().GetFactionAffiliationComponent();
 				AIAgent aiAgent = character.PS_GetPlayable().GetAIAgent();
 				if (aiAgent)
-					aiGroup = aiAgent.GetParentGroup();
+					aiGroup = SCR_AIGroup.Cast(aiAgent.GetParentGroup());
+				if (aiGroup)
+					aiGroup = aiGroup.GetSlave();
 			}
 			
 			if (m_bAliveOnly && damageManager.GetState() == EDamageState.DESTROYED)

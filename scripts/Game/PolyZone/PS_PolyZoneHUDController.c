@@ -63,7 +63,7 @@ class PS_PolyZoneHUDController: ScriptComponent
 		}
 		
 		if (Replication.IsServer())
-			GetGame().GetCallqueue().CallLater(UpdatePlayerHUD, 1000, true, owner);
+			GetGame().GetCallqueue().CallLater(UpdatePlayerHUD, 100, true, owner);
 	}
 }
 class PS_EffectsContainer
