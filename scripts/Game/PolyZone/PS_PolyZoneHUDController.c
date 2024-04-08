@@ -9,6 +9,8 @@ class PS_PolyZoneHUDController: ScriptComponent
 	void UpdatePlayerHUD(IEntity owner)
 	{
 		SCR_PlayerController playerController = SCR_PlayerController.Cast(owner);
+		if (!playerController)
+			return;
 		
 		IEntity character = playerController.GetControlledEntity();
 		if (!character)
