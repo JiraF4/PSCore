@@ -62,6 +62,9 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 					aiGroup = aiGroup.GetSlave();
 			}
 			
+			if (m_bAliveOnly)
+				damageManager = SCR_DamageManagerComponent.Cast(ent.FindComponent(SCR_DamageManagerComponent));
+			
 			if (m_bAliveOnly && damageManager.GetState() == EDamageState.DESTROYED)
 				return false;
 			if (m_sFactionKey != "" && factionAffiliation.GetDefaultAffiliatedFaction().GetFactionKey() != m_sFactionKey)
