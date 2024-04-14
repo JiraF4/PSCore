@@ -54,8 +54,8 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			if (character)
 			{
 				damageManager = character.GetDamageManager();
-				factionAffiliation = character.PS_GetPlayable().GetFactionAffiliationComponent();
-				AIAgent aiAgent = character.PS_GetPlayable().GetAIAgent();
+				factionAffiliation = character.PS_GetFactionAffiliationComponent();
+				AIAgent aiAgent = character.PS_GetAIAgent();
 				if (aiAgent)
 					aiGroup = SCR_AIGroup.Cast(aiAgent.GetParentGroup());
 				if (aiGroup)
