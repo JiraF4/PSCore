@@ -131,6 +131,30 @@ $grp GenericEntity : "{0BDAA9A4393511D5}PrefabsEditable/Auto/Props/Furniture/E_T
   coords 128.475 1 163.194
  }
 }
+PolylineShapeEntity : "{127D357736B0C350}Prefabs/PolyZone/PolyZone_Destroy.et" {
+ coords 40.028 1 224.286
+ Points {
+  ShapePoint "{6114F29D4A23CDA6}" {
+   Position -0.472 0 -6.298
+  }
+  ShapePoint "{6114F29D4BB28FDD}" {
+   Position 8.902 0 -5.596
+  }
+  ShapePoint "{6114F29D4BFBA36C}" {
+   Position 7.194 0 0.538
+  }
+ }
+ {
+  PS_PolyZoneObjectiveTriggerDestroy {
+   ID "60E9062E6BABF765"
+   ClassesFilter {
+   }
+  }
+ }
+}
+GenericEntity : "{14D23D512E84C364}Prefabs/Props/Military/MilitaryCrates/CrateStack_01/Dst/BoxBoom.et" {
+ coords 42.445 1.906 221.977
+}
 SCR_ChimeraCharacter : "{677B515F119222C2}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_SL.et" {
  coords 187.44 -0.08 96.268
 }

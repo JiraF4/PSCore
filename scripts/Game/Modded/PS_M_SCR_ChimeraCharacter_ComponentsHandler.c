@@ -9,13 +9,13 @@ modded class SCR_ChimeraCharacter
 	
 	void SCR_ChimeraCharacter(IEntitySource src, IEntity parent)
 	{
-		GetGame().GetCallqueue().Call(PS_LateInit, this);
+		GetGame().GetCallqueue().CallLater(PS_LateInit, 100, false, this);
 	}
 	
 	void PS_LateInit(IEntity owner)
 	{
 		PS_m_FactionAffiliationComponent = FactionAffiliationComponent.Cast(owner.FindComponent(FactionAffiliationComponent));
-		AIControlComponent aiControlComponent = AIControlComponent.Cast(owner.FindComponent(AIControlComponent));
+		ChimeraAIControlComponent aiControlComponent = ChimeraAIControlComponent.Cast(owner.FindComponent(ChimeraAIControlComponent));
 		PS_m_AIAgent = aiControlComponent.GetAIAgent();
 	}
 }

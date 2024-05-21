@@ -34,6 +34,7 @@ class PS_ManualMarkerComponent : SCR_ScriptedWidgetComponent
 		int x, y;
 		m_wMarkerIcon.GetImageSize(0, x, y);
 		if (y == 0) y = 1;
+		if (x == 0) x = 1;
 		float scale = (float) y / (float) x;
 		return scale;
 	}

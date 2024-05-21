@@ -87,6 +87,9 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			return;
 		
 		PS_PolyZoneEffectHandler polyZoneEffectHandler = PS_PolyZoneEffectHandler.Cast(ent.FindComponent(PS_PolyZoneEffectHandler));
+		if (!polyZoneEffectHandler)
+			return;
+		
 		if (m_bReversed)
 			polyZoneEffectHandler.RemoveEffect(this, m_polyZoneEffect);
 		else
@@ -99,6 +102,9 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			return;
 		
 		PS_PolyZoneEffectHandler polyZoneEffectHandler = PS_PolyZoneEffectHandler.Cast(ent.FindComponent(PS_PolyZoneEffectHandler));
+		if (!polyZoneEffectHandler)
+			return;
+		
 		if (m_bReversed)
 			polyZoneEffectHandler.AddEffect(this, m_polyZoneEffect);
 		else
