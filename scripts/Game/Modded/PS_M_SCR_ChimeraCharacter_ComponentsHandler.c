@@ -14,8 +14,12 @@ modded class SCR_ChimeraCharacter
 	
 	void PS_LateInit(IEntity owner)
 	{
+		if (!owner)
+			return;
+		
 		PS_m_FactionAffiliationComponent = FactionAffiliationComponent.Cast(owner.FindComponent(FactionAffiliationComponent));
 		ChimeraAIControlComponent aiControlComponent = ChimeraAIControlComponent.Cast(owner.FindComponent(ChimeraAIControlComponent));
-		PS_m_AIAgent = aiControlComponent.GetAIAgent();
+		if (aiControlComponent)
+			PS_m_AIAgent = aiControlComponent.GetAIAgent();
 	}
 }

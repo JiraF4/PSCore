@@ -35,8 +35,6 @@ modded class SCR_EditorAttributeStruct: JsonApiStruct
 			entry.v1 = var.GetVector()[1];
 			entry.v2 = var.GetVector()[2];
 			entry.s1 = var.GetString(); // Write our string here
-			
-			int test = 0;
 		}
 		
 	}

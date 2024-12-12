@@ -41,9 +41,9 @@ FrameWidgetClass {
      Text "pos = getPos (_this select 0);"\
      "createPrefab [\"{72BEEF40AF179763}Prefabs/Weapons/Warheads/Explosions/Explosion_Tnt_Large.et\", pos];"
      FontProperties FontProperties "{60F72ED69E524D8F}" {
-      Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+      Font "{A645E326E8B712B0}UI/Fonts/consolas.fnt"
      }
-     "Line Spacing" 8
+     "Line Spacing" 0
     }
     RichTextWidgetClass "{60F724D65DD675C7}" {
      Name "ScriptRichText"
@@ -55,10 +55,10 @@ FrameWidgetClass {
      Text ""
      "No Localization" 1
      FontProperties FontProperties "{60F724D3D6D2B68D}" {
-      Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+      Font "{A645E326E8B712B0}UI/Fonts/consolas.fnt"
       OutlineSize 2
      }
-     "Line Spacing" 8
+     "Line Spacing" 0
     }
    }
   }
@@ -100,6 +100,52 @@ FrameWidgetClass {
        Slot OverlayWidgetSlot "{60F740F8D1D90A84}" {
        }
        Text "EXEC"
+       "Font Size" 32
+       "Min Font Size" 32
+      }
+     }
+    }
+   }
+  }
+  ButtonWidgetClass "{62DAB8D2C59C3993}" {
+   Name "ExitButton"
+   Slot FrameWidgetSlot "{60F740F9189A41DE}" {
+    PositionX 1669
+    OffsetLeft 1669
+    PositionY 147
+    OffsetTop 147
+    SizeX 79
+    OffsetRight -1748
+    SizeY 45
+    OffsetBottom -192
+   }
+   Color 1 1 1 0
+   components {
+    SCR_ButtonBaseComponent "{60F740F8E1D323B3}" {
+    }
+   }
+   {
+    OverlayWidgetClass "{62DAB8D2C59C3994}" {
+     Name "Overlay"
+     Slot ButtonWidgetSlot "{60F740F931E65E1C}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+     }
+     {
+      ImageWidgetClass "{62DAB8D2C59C3995}" {
+       Name "Background"
+       Slot OverlayWidgetSlot "{60F740F9357AABA2}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       Color 0.216 0.216 0.216 1
+      }
+      TextWidgetClass "{62DAB8D2C583DAD5}" {
+       Name "Text"
+       Slot OverlayWidgetSlot "{60F740F8D1D90A84}" {
+       }
+       Color 1 0 0 1
+       Text "X"
        "Font Size" 32
        "Min Font Size" 32
       }

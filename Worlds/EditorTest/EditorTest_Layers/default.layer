@@ -1,11 +1,19 @@
-SCR_ChimeraCharacter : "{A47EB499090D69B9}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_GL_P.et" {
- coords 1936.866 76.632 2271.544
+GenericEntity {
+ components {
+  MeshObject "{62156C0FEF282533}" {
+   Object "{7FF449DB9ED11DB4}Assets/Vehicles/Helicopters/UH1H/UH1H_base.xob"
+  }
+ }
+ coords 3273.538 3.632 2882.056
 }
-$grp SCR_ChimeraCharacter : "{EDCFF009262F881C}Prefabs/Characters/Factions/OPFOR/RHS_AFRF/Character_RHS_AFRF_Base.et" {
+$grp SCR_ChimeraCharacter {
  {
   coords 2199.424 75 1892.359
  }
  {
   coords 1930.996 68.855 2259.575
  }
+}
+SCR_ChimeraCharacter : "{A47EB499090D69B9}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_GL_P.et" {
+ coords 1936.866 76.632 2271.544
 }

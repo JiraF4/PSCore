@@ -50,7 +50,7 @@ class PS_LanguageManager : SCR_BaseGameModeComponent
 	
 	void VMLoop()
 	{
-		float timeBudget = 1;
+		const float timeBudget = 1;
 		float startTime = System.GetTickCount();
 		
 		bool HasNotSleep = true; // If every machine sleep

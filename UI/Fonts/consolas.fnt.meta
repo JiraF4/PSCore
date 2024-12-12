@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{A645E326E8B712B0}UI/Fonts/consolas.fnt"
+ Configurations {
+  FNTResourceClass PC {
+  }
+  FNTResourceClass XBOX_ONE : PC {
+  }
+  FNTResourceClass XBOX_SERIES : PC {
+  }
+  FNTResourceClass PS4 : PC {
+  }
+  FNTResourceClass PS5 : PC {
+  }
+  FNTResourceClass HEADLESS : PC {
+  }
+ }
+}

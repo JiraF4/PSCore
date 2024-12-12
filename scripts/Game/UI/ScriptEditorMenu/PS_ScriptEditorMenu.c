@@ -13,6 +13,9 @@ class PS_ScriptEditorMenu : ChimeraMenuBase
 	protected ButtonWidget m_wExecuteButton;
 	protected SCR_ButtonBaseComponent m_hExecuteButton;
 	
+	protected ButtonWidget m_wExitButton;
+	protected SCR_ButtonBaseComponent m_hExitButton;
+	
 	override void OnMenuInit() 
 	{
 		super.OnMenuInit();
@@ -21,10 +24,13 @@ class PS_ScriptEditorMenu : ChimeraMenuBase
 		m_wScriptRichText = RichTextWidget.Cast(m_wRoot.FindAnyWidget("ScriptRichText"));
 		m_wScriptEditBox = MultilineEditBoxWidget.Cast(m_wRoot.FindAnyWidget("ScriptEditBox"));
 		m_wExecuteButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("ExecuteButton"));
+		m_wExitButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("ExitButton"));
 		
 		m_hExecuteButton = SCR_ButtonBaseComponent.Cast(m_wExecuteButton.FindHandler(SCR_ButtonBaseComponent));
+		m_hExitButton = SCR_ButtonBaseComponent.Cast(m_wExitButton.FindHandler(SCR_ButtonBaseComponent));
 		
 		m_hExecuteButton.m_OnClicked.Insert(ExecuteCodeButton);
+		m_hExitButton.m_OnClicked.Insert(ExitButton);
 	}
 	
 	override void OnMenuOpened()
@@ -94,16 +100,30 @@ class PS_ScriptEditorMenu : ChimeraMenuBase
 			}
 			
 			string fColor = string.Format("<color rgba='%1'>", color);
-			string eColor = "</color>";
+			const string eColor = "</color>";
 			
 			lexerText = string.Format("%1%2%3%4", lexerText, fColor, part, eColor);
 		}
 		
 		m_wScriptRichText.SetText(lexerText);
+		
 	}
 	
 	void ExecuteCodeButton(SCR_ButtonBaseComponent button)
 	{
+		string text = m_wScriptEditBox.GetText();
+		PS_LanguageManager languageManager = PS_LanguageManager.GetInstance();
+		PS_VirtualMachine virtualMachine = languageManager.PrepareVM(text);
 		
+		PS_VariableArray thisArray = new PS_VariableArray();
+		thisArray.Insert(new PS_VariableEntity(GetGame().GetCameraManager().CurrentCamera()));
+		virtualMachine.SetVariable("_this", thisArray);
+		
+		virtualMachine.RunUnscheduled();
+	}
+	
+	void ExitButton()
+	{
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.ScriptEditorMenu);
 	}
 }

@@ -16,6 +16,7 @@ class PS_PolyZoneEffectHandler : ScriptComponent
 	
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
+			return;
 		foreach (PS_PolyZoneTrigger zone, PS_PolyZoneEffect effect : m_mapPolyZoneEffects)
 		{
 			effect.OnFrame(this, owner, timeSlice);

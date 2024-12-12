@@ -20,7 +20,7 @@ class PS_PolyZone : ScriptComponent
 	ResourceName m_mPolygonTextureBorder;
 	[Attribute("1 1 1 1", UIWidgets.ColorPicker, desc: "")]
 	ref Color m_cPolygonBorderColor;
-	[Attribute("0.1", UIWidgets.Slider, desc: "", params: "0.001 4 0.01")]
+	[Attribute("0.1", UIWidgets.Slider, desc: "", params: "0.001 40 0.01")]
 	float m_fPolygonBorderUVScale;
 	[Attribute("15", UIWidgets.Slider, desc: "", params: "1 100 0.1")]
 	float m_fPolygonBorderWidth;
