@@ -33,7 +33,7 @@ class PS_StringMultilineEditorAttributeUIComponent: SCR_BaseEditorAttributeUICom
 		w_hEditBox.SetValue(var.GetString());
 	}
 	
-	override bool OnChange(Widget w, int x, int y, bool finished)
+	override bool OnChange(Widget w, bool finished)
 	{
 		SCR_BaseEditorAttribute attribute = GetAttribute();
 		if (!attribute) return false;
@@ -43,7 +43,7 @@ class PS_StringMultilineEditorAttributeUIComponent: SCR_BaseEditorAttributeUICom
 			return false;
 		var.SetString(w_hEditBox.GetValue());
 		
-		super.OnChange(w, x, y, finished);
+		super.OnChange(w, finished);
 		return false;
 	}	
 	
