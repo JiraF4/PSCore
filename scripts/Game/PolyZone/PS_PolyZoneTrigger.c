@@ -59,7 +59,7 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 				if (aiAgent)
 					aiGroup = SCR_AIGroup.Cast(aiAgent.GetParentGroup());
 				if (aiGroup)
-					aiGroup = aiGroup.GetSlave();
+					aiGroup = aiGroup.m_BotsGroup;
 			}
 			
 			if (m_bAliveOnly)
