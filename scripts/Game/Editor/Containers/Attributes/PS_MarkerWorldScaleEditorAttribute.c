@@ -1,5 +1,5 @@
 [BaseContainerProps()]
-class PS_MarkerWorldScaleEditorAttribute: SCR_BaseEditorAttribute
+class PS_MarkerWorldScaleEditorAttribute : SCR_BaseEditorAttribute
 {
 	override SCR_BaseEditorAttributeVar ReadVariable(Managed item, SCR_AttributesManagerEditorComponent manager)
 	{
@@ -13,12 +13,11 @@ class PS_MarkerWorldScaleEditorAttribute: SCR_BaseEditorAttribute
 		PS_EditableMarkerComponent marker = PS_EditableMarkerComponent.Cast(item);
 		if (!marker)
 			return;
-		
+
 		marker.SetMarkerUseWorldScale(var.GetBool())
 	}
 	override int GetEntries(notnull array<ref SCR_BaseEditorAttributeEntry> outEntries)
 	{
 		return super.GetEntries(outEntries);
 	}
-};
-
+}

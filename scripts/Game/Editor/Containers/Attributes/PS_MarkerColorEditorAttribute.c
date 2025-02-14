@@ -1,5 +1,5 @@
 [BaseContainerProps()]
-class PS_MarkerColorEditorAttribute: SCR_BaseEditorAttribute
+class PS_MarkerColorEditorAttribute : SCR_BaseEditorAttribute
 {
 	override SCR_BaseEditorAttributeVar ReadVariable(Managed item, SCR_AttributesManagerEditorComponent manager)
 	{
@@ -13,17 +13,17 @@ class PS_MarkerColorEditorAttribute: SCR_BaseEditorAttribute
 		PS_EditableMarkerComponent marker = PS_EditableMarkerComponent.Cast(item);
 		if (!marker)
 			return;
-		
+
 		marker.SetMarkerColor(var.GetString())
 	}
 	override int GetEntries(notnull array<ref SCR_BaseEditorAttributeEntry> outEntries)
 	{
 		return super.GetEntries(outEntries);
 	}
-};
+}
 
 [BaseContainerProps()]
-class PS_SQFActionConditionEditorAttribute: SCR_BaseEditorAttribute
+class PS_SQFActionConditionEditorAttribute : SCR_BaseEditorAttribute
 {
 	override SCR_BaseEditorAttributeVar ReadVariable(Managed item, SCR_AttributesManagerEditorComponent manager)
 	{
@@ -37,11 +37,11 @@ class PS_SQFActionConditionEditorAttribute: SCR_BaseEditorAttribute
 		PS_EditableMarkerComponent marker = PS_EditableMarkerComponent.Cast(item);
 		if (!marker)
 			return;
-		
+
 		marker.SetMarkerColor(var.GetString())
 	}
 	override int GetEntries(notnull array<ref SCR_BaseEditorAttributeEntry> outEntries)
 	{
 		return super.GetEntries(outEntries);
 	}
-};
+}

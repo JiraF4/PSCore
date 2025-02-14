@@ -38,6 +38,9 @@ class PS_PolyZoneHUDController: ScriptComponent
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
 	protected void ShowEffects(PS_EffectsContainer effectsContainer)
 	{
+		if (!m_PolyZoneHUD)
+			return;
+		
 		m_PolyZoneHUD.HideAll();
 		foreach (PS_EffectContainer effect : effectsContainer.m_aEffects)
 		{

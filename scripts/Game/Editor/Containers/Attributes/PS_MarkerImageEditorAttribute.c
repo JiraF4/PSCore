@@ -1,5 +1,5 @@
 [BaseContainerProps()]
-class PS_MarkerImageEditorAttribute: SCR_BaseFloatValueHolderEditorAttribute
+class PS_MarkerImageEditorAttribute : SCR_BaseFloatValueHolderEditorAttribute
 {
 	override SCR_BaseEditorAttributeVar ReadVariable(Managed item, SCR_AttributesManagerEditorComponent manager)
 	{
@@ -13,11 +13,11 @@ class PS_MarkerImageEditorAttribute: SCR_BaseFloatValueHolderEditorAttribute
 		PS_EditableMarkerComponent marker = PS_EditableMarkerComponent.Cast(item);
 		if (!marker)
 			return;
-		
+
 		marker.SetMarkerImage(var.GetString())
 	}
 	override int GetEntries(notnull array<ref SCR_BaseEditorAttributeEntry> outEntries)
 	{
 		return super.GetEntries(outEntries);
 	}
-};
+}
