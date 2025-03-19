@@ -8,9 +8,9 @@ class PS_StringMultilineEditorAttributeUISQFComponent: PS_StringMultilineEditorA
 		super.Init(w, attribute);
 	}
 	
-	override bool OnChange(Widget w, int x, int y, bool finished)
+	override bool OnChange(Widget w, bool finished)
 	{
-		bool res = super.OnChange(w, x, y, finished);
+		bool res = super.OnChange(w, finished);
 		
 		string code = w_hEditBox.GetValue();
 		if (code == "") return null;
