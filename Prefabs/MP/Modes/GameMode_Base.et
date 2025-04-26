@@ -1,6 +1,8 @@
 SCR_BaseGameMode {
  ID "56B2B479C6B96951"
  components {
+  PS_CustomTextNotificationComponent "{652ECCBF71F40619}" {
+  }
   PS_LanguageManager "{5EE94125006C04E8}" {
   }
  }
