@@ -11,9 +11,14 @@ modded class SCR_ChimeraCharacter
 		return PS_m_ChimeraAIControlComponent;
 	}
 	protected AIAgent PS_m_AIAgent;
+	protected SCR_AIGroup PS_m_InitialAIGroup;
 	AIAgent PS_GetAIAgent()
 	{
 		return PS_m_AIAgent;
+	}
+	SCR_AIGroup PS_GetInitialAIGroup()
+	{
+		return PS_m_InitialAIGroup;
 	}
 	
 	void SCR_ChimeraCharacter(IEntitySource src, IEntity parent)
@@ -30,5 +35,7 @@ modded class SCR_ChimeraCharacter
 		PS_m_ChimeraAIControlComponent = ChimeraAIControlComponent.Cast(owner.FindComponent(ChimeraAIControlComponent));
 		if (PS_m_ChimeraAIControlComponent)
 			PS_m_AIAgent = PS_m_ChimeraAIControlComponent.GetAIAgent();
+		if (PS_m_AIAgent)
+			PS_m_InitialAIGroup = SCR_AIGroup.Cast(PS_m_AIAgent.GetParentGroup());
 	}
 }

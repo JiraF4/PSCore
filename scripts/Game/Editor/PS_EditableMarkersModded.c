@@ -5,6 +5,7 @@
 // And I really need strings, 12 bytes is 12 characters...
 // Why vanila can't just pack GM attribues to string? I mean every attribue int, float, vector and other, after all that's what json is made for?
 // Well... At least this solution save compatibility with vanila saves.
+/*
 modded class SCR_EditorAttributeStruct: JsonApiStruct
 {
 	// Add string to our struct
@@ -64,6 +65,7 @@ modded class SCR_EditorAttributeStruct: JsonApiStruct
 	}
 };
 
+*/
 // SCR_BaseEditorAttributeVar also can't be inherited, since Rpc use static calls
 // Soo I'm adding string here.
 modded class SCR_BaseEditorAttributeVar

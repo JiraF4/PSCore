@@ -1,7 +1,7 @@
 GameProject {
- ID "PSCoreDev"
- GUID "5EDF4804D92E373B"
- TITLE "PSCoreDev"
+ ID "PSCoreDevelopment"
+ GUID "1337133713371337"
+ TITLE "PSCore"
  Dependencies {
   "58D0FB3206B6F859"
  }
@@ -70,6 +70,18 @@ GameProject {
   GameProjectConfig XBOX_SERIES {
   }
   GameProjectConfig PS4 {
+  }
+  GameProjectConfig PS5 : PC {
+   PlatformHardware PS5
+   DefaultSettings EngineUserSettings "{5702F087A781A9FC}" {
+    VideoUserSettings VideoUserSettings "{B272A67DB18E04F9}" {
+     FsrEnabled 1
+    }
+   }
+   ChimeraGlobalConfig ChimeraGlobalConfig "{6F12664687156A7B}" {
+    "Maximum View Distance" 2000
+    "Minimum View Distance" 2000
+   }
   }
   GameProjectConfig HEADLESS {
   }

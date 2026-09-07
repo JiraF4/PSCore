@@ -20,11 +20,11 @@ class PS_PolyZoneEffectHandler : ScriptComponent
 		{
 			effect.OnFrame(this, owner, timeSlice);
 		}
-	}
+	} 
 	
 	void AddEffect(PS_PolyZoneTrigger zone, PS_PolyZoneEffect effect)
 	{
-		if (!Replication.IsServer()) return;
+		if (!Replication.IsServer()) return; 
 		PS_PolyZoneEffect effectCopy = effect.Copy();
 		effectCopy.OnActivate(this, GetOwner());
 		m_mapPolyZoneEffects.Insert(zone, effectCopy);
