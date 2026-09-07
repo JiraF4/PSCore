@@ -73,8 +73,13 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			PrintDebug(string.Format("Filter: ent=%1 state changed: %2 -> %3%4", ent, oldState, state, details));
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	override void OnInit(IEntity owner)
 	{
+		SetSphereRadius(999999);
+		EnablePeriodicQueries(true);
+		SetUpdateRate(0.3);
+		
 		if (owner)
 		{
 			IEntity parent = owner.GetParent();
@@ -99,6 +104,125 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 		}
 	}
 	
+	//------------------------------------------------------------------------------------------------
+	//! Evaluates whether the entity should currently suffer the zone penalty
+	bool ShouldEntityHaveEffect(IEntity ent)
+	{
+		if (!m_polyZone || !ent)
+			return false;
+		
+		vector worldPos = ent.GetOrigin();
+		IEntity vehicle = CompartmentAccessComponent.GetVehicleIn(ent);
+		if (vehicle)
+			worldPos = vehicle.GetOrigin();
+		else
+		{
+			IEntity parent = ent.GetParent();
+			if (parent && (Vehicle.Cast(parent) || Turret.Cast(parent)))
+				worldPos = parent.GetOrigin();
+		}
+		
+		bool inside = m_polyZone.IsInsidePolygon(worldPos);
+		return (inside != m_bReversed);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	//! Adds the zone penalty effect to a character
+	void AddZoneEffect(SCR_ChimeraCharacter character)
+	{
+		if (!character || !m_polyZoneEffect)
+			return;
+		
+		PS_PolyZoneEffectHandler handler = PS_PolyZoneEffectHandler.Cast(character.FindComponent(PS_PolyZoneEffectHandler));
+		if (!handler)
+			return;
+		
+		if (m_bDebug)
+			PrintDebug(string.Format("AddZoneEffect: Adding effect '%1' to character=%2", m_polyZoneEffect.ClassName(), character));
+		
+		handler.AddEffect(this, m_polyZoneEffect);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	//! Removes the zone penalty effect from a character
+	void RemoveZoneEffect(SCR_ChimeraCharacter character)
+	{
+		if (!character || !m_polyZoneEffect)
+			return;
+		
+		PS_PolyZoneEffectHandler handler = PS_PolyZoneEffectHandler.Cast(character.FindComponent(PS_PolyZoneEffectHandler));
+		if (!handler)
+			return;
+		
+		if (m_bDebug)
+			PrintDebug(string.Format("RemoveZoneEffect: Removing effect '%1' from character=%2", m_polyZoneEffect.ClassName(), character));
+		
+		handler.RemoveEffect(this, m_polyZoneEffect);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	//! Validates whether a specific character matches faction, group, and alive filters
+	bool MatchesCharacterFilter(SCR_ChimeraCharacter character)
+	{
+		if (!character)
+			return false;
+		
+		if (m_bAliveOnly)
+		{
+			SCR_DamageManagerComponent damageManager = character.GetDamageManager();
+			if (!damageManager)
+				damageManager = SCR_DamageManagerComponent.Cast(character.FindComponent(SCR_DamageManagerComponent));
+			if (!damageManager || damageManager.GetState() == EDamageState.DESTROYED)
+				return false;
+		}
+		
+		if (m_sFactionKey != "")
+		{
+			FactionAffiliationComponent factionAffiliation = character.PS_GetFactionAffiliationComponent();
+			if (!factionAffiliation)
+				factionAffiliation = FactionAffiliationComponent.Cast(character.FindComponent(FactionAffiliationComponent));
+			if (!factionAffiliation)
+				return false;
+			Faction defaultFaction = factionAffiliation.GetDefaultAffiliatedFaction();
+			if (!defaultFaction || defaultFaction.GetFactionKey() != m_sFactionKey)
+				return false;
+		}
+		
+		if (m_sGroupKey != "")
+		{
+			SCR_AIGroup aiGroup;
+			AIAgent aiAgent = character.PS_GetAIAgent();
+			if (aiAgent)
+				aiGroup = SCR_AIGroup.Cast(aiAgent.GetParentGroup());
+			if (aiGroup && aiGroup.m_BotsGroup)
+				aiGroup = aiGroup.m_BotsGroup;
+			
+			if (!aiGroup)
+			{
+				PS_PlayableManager playableManager = PS_PlayableManager.GetInstance();
+				if (playableManager)
+				{
+					PS_PlayableComponent playable = PS_PlayableComponent.Cast(character.FindComponent(PS_PlayableComponent));
+					if (playable)
+						aiGroup = playableManager.GetPlayerGroupByPlayable(playable.GetRplId());
+				}
+			}
+			
+			if (!aiGroup)
+				return false;
+			
+			bool groupMatches = aiGroup.GetName().Contains(m_sGroupKey);
+			if (!groupMatches && aiGroup.m_BotsGroup)
+				groupMatches = aiGroup.m_BotsGroup.GetName().Contains(m_sGroupKey);
+			
+			if (!groupMatches)
+				return false;
+		}
+		
+		return true;
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	override bool ScriptedEntityFilterForQuery(IEntity ent)
 	{
 		if (!ent)
@@ -109,97 +233,105 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			LogFilterState(ent, "ALLOWED_NO_POLYZONE", "m_polyZone is null");
 			return true;
 		}
-		if (!m_polyZone.IsInsidePolygon(ent.GetOrigin()))
+		
+		vector checkPos = ent.GetOrigin();
+		IEntity vehicleIn = CompartmentAccessComponent.GetVehicleIn(ent);
+		if (vehicleIn)
+			checkPos = vehicleIn.GetOrigin();
+		else
 		{
-			LogFilterState(ent, "OUTSIDE_POLYGON", string.Format("pos: %1", ent.GetOrigin()));
+			IEntity parent = ent.GetParent();
+			if (parent && (Vehicle.Cast(parent) || Turret.Cast(parent)))
+				checkPos = parent.GetOrigin();
+		}
+		
+		if (!m_polyZone.IsInsidePolygon(checkPos))
+		{
+			LogFilterState(ent, "OUTSIDE_POLYGON", string.Format("pos: %1", checkPos));
 			return false;
 		}
 		
-		if (m_bAliveOnly || m_sFactionKey != "" || m_sGroupKey != "")
+		// 1. Character filter evaluation
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
+		if (character)
 		{
-			SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
-			if (m_sGroupKey != "" && !character)
+			if (m_bAliveOnly || m_sFactionKey != "" || m_sGroupKey != "")
 			{
-				LogFilterState(ent, "REJECTED_NOT_CHARACTER", string.Format("groupKey '%1' requires character", m_sGroupKey));
-				return false;
+				if (!MatchesCharacterFilter(character))
+				{
+					LogFilterState(ent, "REJECTED_CHARACTER_FILTER");
+					return false;
+				}
 			}
 			
-			Vehicle vehicle = Vehicle.Cast(ent);
-			SCR_DamageManagerComponent damageManager;
-			FactionAffiliationComponent factionAffiliation;
-			SCR_AIGroup aiGroup;
-			
-			if (vehicle)
-			{
-				damageManager = vehicle.GetDamageManager();
-				factionAffiliation = vehicle.GetFactionAffiliation();
-			}
-			
-			if (character)
-			{
-				damageManager = character.GetDamageManager();
-				factionAffiliation = character.PS_GetFactionAffiliationComponent();
-				if (!factionAffiliation)
-					factionAffiliation = FactionAffiliationComponent.Cast(character.FindComponent(FactionAffiliationComponent));
-				AIAgent aiAgent = character.PS_GetAIAgent();
-				if (aiAgent)
-					aiGroup = SCR_AIGroup.Cast(aiAgent.GetParentGroup());
-				if (aiGroup)
-					aiGroup = aiGroup.m_BotsGroup;
-			}
-			
+			LogFilterState(ent, "PASSED_CHARACTER");
+			return true;
+		}
+		
+		// 2. Vehicle / Turret filter evaluation
+		SCR_BaseCompartmentManagerComponent compManager = SCR_BaseCompartmentManagerComponent.Cast(ent.FindComponent(SCR_BaseCompartmentManagerComponent));
+		if (compManager)
+		{
 			if (m_bAliveOnly)
 			{
-				if (!damageManager)
-					damageManager = SCR_DamageManagerComponent.Cast(ent.FindComponent(SCR_DamageManagerComponent));
-				
+				SCR_DamageManagerComponent damageManager = SCR_DamageManagerComponent.Cast(ent.FindComponent(SCR_DamageManagerComponent));
 				if (!damageManager || damageManager.GetState() == EDamageState.DESTROYED)
 				{
-					string dmgState = "null";
-					if (damageManager)
-						dmgState = damageManager.GetState().ToString();
-					LogFilterState(ent, "REJECTED_DEAD", string.Format("damageManager=%1, state=%2", damageManager, dmgState));
+					LogFilterState(ent, "REJECTED_VEHICLE_DESTROYED");
 					return false;
 				}
 			}
 			
-			if (m_sFactionKey != "")
+			if (m_sFactionKey != "" || m_sGroupKey != "")
 			{
-				if (!factionAffiliation)
+				array<IEntity> occupants = {};
+				compManager.GetOccupants(occupants);
+				if (occupants.IsEmpty())
 				{
-					LogFilterState(ent, "REJECTED_FACTION", string.Format("no faction affiliation, expected '%1'", m_sFactionKey));
-					return false;
+					if (m_sFactionKey != "")
+					{
+						FactionAffiliationComponent facAff = FactionAffiliationComponent.Cast(ent.FindComponent(FactionAffiliationComponent));
+						if (!facAff || !facAff.GetDefaultAffiliatedFaction() || facAff.GetDefaultAffiliatedFaction().GetFactionKey() != m_sFactionKey)
+						{
+							LogFilterState(ent, "REJECTED_EMPTY_VEHICLE_FACTION");
+							return false;
+						}
+					}
+					else
+					{
+						LogFilterState(ent, "REJECTED_EMPTY_VEHICLE_GROUP");
+						return false;
+					}
 				}
-				Faction defaultFaction = factionAffiliation.GetDefaultAffiliatedFaction();
-				if (!defaultFaction || defaultFaction.GetFactionKey() != m_sFactionKey)
+				else
 				{
-					string currentFactionKey = "none";
-					if (defaultFaction)
-						currentFactionKey = defaultFaction.GetFactionKey();
-					LogFilterState(ent, "REJECTED_FACTION", string.Format("expected '%1', got '%2'", m_sFactionKey, currentFactionKey));
-					return false;
+					bool anyMatches = false;
+					foreach (IEntity occ : occupants)
+					{
+						SCR_ChimeraCharacter occChar = SCR_ChimeraCharacter.Cast(occ);
+						if (occChar && MatchesCharacterFilter(occChar))
+						{
+							anyMatches = true;
+							break;
+						}
+					}
+					if (!anyMatches)
+					{
+						LogFilterState(ent, "REJECTED_VEHICLE_NO_MATCHING_OCCUPANTS");
+						return false;
+					}
 				}
 			}
 			
-			if (m_sGroupKey != "")
-			{
-				if (!aiGroup)
-				{
-					LogFilterState(ent, "REJECTED_GROUP", string.Format("no AI group, expected '%1'", m_sGroupKey));
-					return false;
-				}
-				if (!aiGroup.GetName().Contains(m_sGroupKey))
-				{
-					LogFilterState(ent, "REJECTED_GROUP", string.Format("group '%1' does not contain '%2'", aiGroup.GetName(), m_sGroupKey));
-					return false;
-				}
-			}
+			LogFilterState(ent, "PASSED_VEHICLE");
+			return true;
 		}
 		
 		LogFilterState(ent, "PASSED");
 		return true;
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	override protected void OnActivate(IEntity ent)
 	{
 		if (m_bDebug)
@@ -212,28 +344,38 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			return;
 		}
 		
-		PS_PolyZoneEffectHandler polyZoneEffectHandler = PS_PolyZoneEffectHandler.Cast(ent.FindComponent(PS_PolyZoneEffectHandler));
-		if (!polyZoneEffectHandler)
+		// 1. If infantry character on foot:
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
+		if (character)
 		{
-			if (m_bDebug)
-				PrintDebug(string.Format("OnActivate: ent=%1 ignored (PS_PolyZoneEffectHandler component not found)", ent));
+			if (ShouldEntityHaveEffect(character))
+				AddZoneEffect(character);
+			else
+				RemoveZoneEffect(character);
 			return;
 		}
 		
-		if (m_bReversed)
+		// 2. If vehicle or turret: apply to all matching occupants:
+		SCR_BaseCompartmentManagerComponent compManager = SCR_BaseCompartmentManagerComponent.Cast(ent.FindComponent(SCR_BaseCompartmentManagerComponent));
+		if (compManager)
 		{
-			if (m_bDebug)
-				PrintDebug(string.Format("OnActivate: Removing effect '%1' from ent=%2 (reversed=true)", m_polyZoneEffect.ClassName(), ent));
-			polyZoneEffectHandler.RemoveEffect(this, m_polyZoneEffect);
-		}
-		else
-		{
-			if (m_bDebug)
-				PrintDebug(string.Format("OnActivate: Adding effect '%1' to ent=%2 (reversed=false)", m_polyZoneEffect.ClassName(), ent));
-			polyZoneEffectHandler.AddEffect(this, m_polyZoneEffect);
+			array<IEntity> occupants = {};
+			compManager.GetOccupants(occupants);
+			foreach (IEntity occ : occupants)
+			{
+				SCR_ChimeraCharacter occChar = SCR_ChimeraCharacter.Cast(occ);
+				if (occChar && MatchesCharacterFilter(occChar))
+				{
+					if (ShouldEntityHaveEffect(occChar))
+						AddZoneEffect(occChar);
+					else
+						RemoveZoneEffect(occChar);
+				}
+			}
 		}
 	}
 	
+	//------------------------------------------------------------------------------------------------
 	override protected void OnDeactivate(IEntity ent)
 	{
 		if (m_bDebug)
@@ -250,25 +392,34 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 			return;
 		}
 		
-		PS_PolyZoneEffectHandler polyZoneEffectHandler = PS_PolyZoneEffectHandler.Cast(ent.FindComponent(PS_PolyZoneEffectHandler));
-		if (!polyZoneEffectHandler)
+		// 1. If infantry character:
+		SCR_ChimeraCharacter character = SCR_ChimeraCharacter.Cast(ent);
+		if (character)
 		{
-			if (m_bDebug)
-				PrintDebug(string.Format("OnDeactivate: ent=%1 ignored (PS_PolyZoneEffectHandler component not found)", ent));
+			if (ShouldEntityHaveEffect(character))
+				AddZoneEffect(character);
+			else
+				RemoveZoneEffect(character);
 			return;
 		}
 		
-		if (m_bReversed)
+		// 2. If vehicle or turret: evaluate all occupants:
+		SCR_BaseCompartmentManagerComponent compManager = SCR_BaseCompartmentManagerComponent.Cast(ent.FindComponent(SCR_BaseCompartmentManagerComponent));
+		if (compManager)
 		{
-			if (m_bDebug)
-				PrintDebug(string.Format("OnDeactivate: Adding effect '%1' to ent=%2 (reversed=true)", m_polyZoneEffect.ClassName(), ent));
-			polyZoneEffectHandler.AddEffect(this, m_polyZoneEffect);
-		}
-		else
-		{
-			if (m_bDebug)
-				PrintDebug(string.Format("OnDeactivate: Removing effect '%1' from ent=%2 (reversed=false)", m_polyZoneEffect.ClassName(), ent));
-			polyZoneEffectHandler.RemoveEffect(this, m_polyZoneEffect);
+			array<IEntity> occupants = {};
+			compManager.GetOccupants(occupants);
+			foreach (IEntity occ : occupants)
+			{
+				SCR_ChimeraCharacter occChar = SCR_ChimeraCharacter.Cast(occ);
+				if (occChar && MatchesCharacterFilter(occChar))
+				{
+					if (ShouldEntityHaveEffect(occChar))
+						AddZoneEffect(occChar);
+					else
+						RemoveZoneEffect(occChar);
+				}
+			}
 		}
 	}
 }
