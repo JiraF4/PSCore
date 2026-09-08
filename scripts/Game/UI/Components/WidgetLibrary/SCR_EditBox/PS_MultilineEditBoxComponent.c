@@ -248,7 +248,6 @@ class PS_MultilineEditBoxComponent : SCR_ChangeableComponentBase
 	void OnHandlerFocusLost()
 	{
 		// Call focusLost event on parent class
-		/*
 		super.OnFocusLost(m_wRoot, 0, 0);
 
 		m_bIsTyping = false;
@@ -261,7 +260,6 @@ class PS_MultilineEditBoxComponent : SCR_ChangeableComponentBase
 		m_OnFocusChangedEditBox.Invoke(this, m_wEditBox, false);
 		
 		ClearInteractionState();
-		*/
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -530,5 +528,4 @@ class PS_MultilineEditBoxComponent : SCR_ChangeableComponentBase
 		SetEditBoxText(value);
 		OnConfirm(m_wRoot);
 	}
-	
 };

@@ -20,18 +20,21 @@ sealed class PS_Notify
 	
 	static void NotifyOurFriends()
 	{
+		if (System.IsConsoleApp())
+			return;
+		
 		s_Notify = new PS_Notify();
 		
 		if (!GetGame().GetPlayerController())
 		{
-			GetGame().GetCallqueue().Call(NotifyOurFriends);
+			GetGame().GetCallqueue().CallLater(NotifyOurFriends, 5000, false);
 			return;
 		}
 		
 		string guid = GetGame().GetBackendApi().GetLocalIdentityId();
 		if (guid.Length() <= 0)
 		{
-			GetGame().GetCallqueue().Call(NotifyOurFriends);
+			GetGame().GetCallqueue().CallLater(NotifyOurFriends, 5000, false);
 			return;
 		}
 		

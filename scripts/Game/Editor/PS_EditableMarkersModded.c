@@ -115,7 +115,7 @@ modded class SCR_BaseEditorAttributeVar
 		string s1, s2;
 		lhs.SerializeVector(v1);
 		lhs.SerializeString(s1);
-		rhs.SerializeVector(v1);
+		rhs.SerializeVector(v2);
 		rhs.SerializeString(s2);
 		return v1 == v2 && s1 == s2;
 	}
