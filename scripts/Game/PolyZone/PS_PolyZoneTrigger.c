@@ -135,6 +135,54 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
+	//! Resolves the group associated with the given character (player group, AI group, or cached initial group)
+	SCR_AIGroup GetCharacterGroup(SCR_ChimeraCharacter character)
+	{
+		if (!character)
+			return null;
+		
+		SCR_AIGroup aiGroup;
+		
+		// 1. If character is controlled by a human player, resolve group via SCR_GroupsManagerComponent
+		PlayerManager playerManager = GetGame().GetPlayerManager();
+		int playerId = 0;
+		if (playerManager)
+			playerId = playerManager.GetPlayerIdFromControlledEntity(character);
+		
+		if (playerId <= 0)
+			playerId = SCR_PossessingManagerComponent.GetPlayerIdFromControlledEntity(character);
+		if (playerId <= 0)
+			playerId = SCR_PossessingManagerComponent.GetPlayerIdFromMainEntity(character);
+		
+		if (playerId > 0)
+		{
+			SCR_GroupsManagerComponent groupsManager = SCR_GroupsManagerComponent.GetInstance();
+			if (groupsManager)
+				aiGroup = groupsManager.GetPlayerGroup(playerId);
+		}
+		
+		// 2. If AI or player group not found, resolve via AI agent
+		if (!aiGroup)
+		{
+			AIAgent aiAgent = character.PS_GetAIAgent();
+			if (!aiAgent)
+			{
+				ChimeraAIControlComponent aiControl = ChimeraAIControlComponent.Cast(character.FindComponent(ChimeraAIControlComponent));
+				if (aiControl)
+					aiAgent = aiControl.GetAIAgent();
+			}
+			if (aiAgent)
+				aiGroup = SCR_AIGroup.Cast(aiAgent.GetParentGroup());
+		}
+		
+		// 3. Fallback to cached initial AI group
+		if (!aiGroup)
+			aiGroup = character.PS_GetInitialAIGroup();
+		
+		return aiGroup;
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	//! Validates whether a specific character matches faction, group, and alive filters
 	bool MatchesCharacterFilter(SCR_ChimeraCharacter character)
 	{
@@ -164,30 +212,15 @@ class PS_PolyZoneTrigger : SCR_BaseTriggerEntity
 		
 		if (m_sGroupKey != "")
 		{
-			SCR_AIGroup aiGroup;
-			AIAgent aiAgent = character.PS_GetAIAgent();
-			if (aiAgent)
-				aiGroup = SCR_AIGroup.Cast(aiAgent.GetParentGroup());
-			if (aiGroup && aiGroup.m_BotsGroup)
-				aiGroup = aiGroup.m_BotsGroup;
-			
-			if (!aiGroup)
-			{
-				PS_PlayableManager playableManager = PS_PlayableManager.GetInstance();
-				if (playableManager)
-				{
-					PS_PlayableComponent playable = PS_PlayableComponent.Cast(character.FindComponent(PS_PlayableComponent));
-					if (playable && playable.GetRplId().IsValid())
-						aiGroup = playableManager.GetPlayerGroupByPlayable(playable.GetRplId());
-				}
-			}
-			
+			SCR_AIGroup aiGroup = GetCharacterGroup(character);
 			if (!aiGroup)
 				return false;
 			
 			bool groupMatches = aiGroup.GetName().Contains(m_sGroupKey);
 			if (!groupMatches && aiGroup.m_BotsGroup)
 				groupMatches = aiGroup.m_BotsGroup.GetName().Contains(m_sGroupKey);
+			if (!groupMatches && aiGroup.m_PlayersGroup)
+				groupMatches = aiGroup.m_PlayersGroup.GetName().Contains(m_sGroupKey);
 			
 			if (!groupMatches)
 				return false;
