@@ -21,5 +21,7 @@ MetaFileClass {
    ColorSpace ToSRGB
    GenerateMips 0
   }
+  PNGResourceClass PS5 : PC {
+  }
  }
 }
