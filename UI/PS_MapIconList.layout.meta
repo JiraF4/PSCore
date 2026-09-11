@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{BE6B4B3F68EA340D}UI/layouts/Editor/Attributes/AttributePrefabs/AttributePrefab_IconList.layout"
+ Name "{BE6B4B3F68EA340D}UI/PS_MapIconList.layout"
  Configurations {
   LayoutResourceClass PC {
   }
@@ -10,6 +10,8 @@ MetaFileClass {
   LayoutResourceClass PS4 : PC {
   }
   LayoutResourceClass HEADLESS : PC {
+  }
+  LayoutResourceClass PS5 : PC {
   }
  }
 }

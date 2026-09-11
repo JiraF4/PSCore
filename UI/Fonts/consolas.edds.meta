@@ -9,7 +9,7 @@ MetaFileClass {
   }
   TGAResourceClass PS4 : "{3C102C974458DF07}configs/ResourceTypes/PS4/TextureFonts.conf" {
   }
-  TGAResourceClass PS5 : "{863E314F45203AC4}configs/ResourceTypes/PS5/TextureFonts.conf" {
+  TGAResourceClass PS5 : "{863E314F45203AC4}Configs/System/ResourceTypes/PS5/TextureFonts.conf" {
   }
   TGAResourceClass HEADLESS : "{D20F8633D63483FA}configs/ResourceTypes/HEADLESS/TextureFonts.conf" {
   }
