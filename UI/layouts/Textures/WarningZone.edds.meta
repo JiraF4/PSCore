@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{EE369172FCB6F4B2}UI/layouts/Textures/WarningZone.edds"
+ Name "{EE369172FCB6F4B2}UI/Textures/WarningZone.edds"
  Configurations {
   PNGResourceClass PC : "{DC555BD399D92412}Configs/System/ResourceTypes/PC/TextureUnspecified.conf" {
   }
@@ -10,8 +10,6 @@ MetaFileClass {
   PNGResourceClass PS4 : "{C6CD3D8752652D2A}Configs/System/ResourceTypes/PS4/TextureUnspecified.conf" {
   }
   PNGResourceClass HEADLESS : "{699C82A6807668A7}Configs/System/ResourceTypes/HEADLESS/TextureUnspecified.conf" {
-  }
-  PNGResourceClass PS5 : PC {
   }
  }
 }

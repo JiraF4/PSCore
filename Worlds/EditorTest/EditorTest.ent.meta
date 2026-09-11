@@ -11,7 +11,5 @@ MetaFileClass {
   }
   ENTResourceClass HEADLESS : PC {
   }
-  ENTResourceClass PS5 : PC {
-  }
  }
 }
